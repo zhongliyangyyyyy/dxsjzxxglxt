@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.mapper.JobMapper" >
+	<resultMap id="jobtype" type="com.liyuan.po.JobTypeEntity">
+		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
+		<result column="c_jobtype1" jdbcType="VARCHAR" property="c_type1"/>
+		<result column="c_jobtype2" jdbcType="VARCHAR" property="c_type2"/>
+		<result column="c_jobtype3" jdbcType="VARCHAR" property="c_type3"/>
+		<result column="n_code" jdbcType="INTEGER" property="n_code"/>
+	</resultMap>
+  <select id="selectJobtype" resultMap="jobtype">
+  	select * from db_test.t_jobtype 
+  </select>
+</mapper>
