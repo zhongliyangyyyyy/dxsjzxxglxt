@@ -11,4 +11,12 @@
   <select id="selectJobtype" resultMap="jobtype">
   	select * from db_test.t_jobtype 
   </select>
+  
+  <insert id="insertJobinfi">
+  	insert into db_test.t_jobinfo
+  	 (c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,c_gzdz,c_jsjlyx,dt_fbsj,n_zt,c_fbzid) 
+  	 values 
+  	 (#{c_id},#{n_code},#{c_zwmc},#{n_gzxz},#{n_yx},#{n_gzjy},#{n_xlyq},#{c_zwms},
+  	 #{c_gzdz},#{c_jsjlyx},#{dt_fbsj},#{n_zt},#{c_fbzid})
+  </insert>
 </mapper>

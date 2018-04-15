@@ -1,7 +1,11 @@
 package com.liyuan.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +14,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.liyuan.constant.JobConstant;
 import com.liyuan.mapper.JobMapper;
 import com.liyuan.po.JobTypeEntity;
 import com.liyuan.service.JobService;
@@ -21,6 +26,10 @@ public class JobServiceImpl implements JobService{
 	@Autowired
 	JobMapper jobmapper;
 	
+	
+	/**
+	 * 获取工作种类列表
+	 */
 	@Override
 	public JSONObject getJobtype() {
 		List<JobTypeEntity> jobtypelist=jobmapper.selectJobtype();
@@ -70,6 +79,39 @@ public class JobServiceImpl implements JobService{
 		JSONObject result1=new JSONObject();
 		result1.put("result",resultjsonarray);
 		return GyUtils.returnResult(true, "成功", result1);
+	}
+	
+	/**
+	 *创建工作信息 
+	 */
+	@Override
+	public JSONObject creatJob(JSONObject param,HttpSession session) {
+		int n_code=param.getInt("zwlb");
+		String c_zwmc=param.getString("zwmc");
+		int n_gzxz=param.getInt("gzxz");
+		int n_yx=param.getInt("yx");
+		int n_gzjy=param.getInt("gzjy");
+		int n_xlyq=param.getInt("xlyq");
+		String c_zwms=param.getString("zwms");
+		String c_gzdz=param.getString("gzdz");
+		String c_jsjlyx=param.getString("jsjlyx");
+		String c_id=GyUtils.getUUid();
+		String c_fbzid=(String)session.getAttribute("id");
+		int n_zt=JobConstant.SHZ;
+		Date dt_fbsj=new Date();
+		int flag=jobmapper.insertJobinfi(n_code, c_zwmc, n_gzxz, n_yx, n_gzjy, n_xlyq, c_zwms, c_gzdz, c_jsjlyx, dt_fbsj, n_zt, c_id, c_fbzid);
+		
+		JSONObject result=new JSONObject();
+		
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "发布成功，等待管理员审核！");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "发布失败，请重新尝试！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 	}
 	
 }
