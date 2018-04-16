@@ -3,18 +3,11 @@ package com.liyuan.service.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
-
-
-
 
 import com.liyuan.mapper.LoginMapper;
 import com.liyuan.po.LoginEntity;
@@ -29,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public JSONObject logIN(String email, String password, HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
+		final HttpSession session = request.getSession(true);
 		LoginEntity log=loginMapper.selectUser(email);
 		JSONObject result=new JSONObject();
 		if(log==null){

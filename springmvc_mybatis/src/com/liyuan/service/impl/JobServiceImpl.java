@@ -86,7 +86,9 @@ public class JobServiceImpl implements JobService{
 	 *创建工作信息 
 	 */
 	@Override
-	public JSONObject creatJob(JSONObject param,HttpSession session) {
+	public JSONObject creatJob(JSONObject param, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		System.out.println(session.getAttribute("id"));
 		int n_code=param.getInt("zwlb");
 		String c_zwmc=param.getString("zwmc");
 		int n_gzxz=param.getInt("gzxz");
@@ -118,13 +120,13 @@ public class JobServiceImpl implements JobService{
 	 * 查看job详细信息
 	 */
 	@Override
-	public JSONObject ckJob(JSONObject param, HttpSession session) {
+	public JSONObject ckJob(JSONObject param,  HttpServletRequest request) {
 		//根据职位id获取职位信息
 		String c_id=param.getString("id");
 		JobInfoEntity job=jobmapper.selectJob(c_id);
 		
 		JSONObject result=new JSONObject();
-		if(job==null){
+		if(job!=null){
 			JSONObject data=new JSONObject();
 			data.put("c_id", job.getC_id());
 			data.put("n_code",job.getN_code());
@@ -138,7 +140,7 @@ public class JobServiceImpl implements JobService{
 			data.put("c_jsjlyx", job.getC_jsjlyx());
 			data.put("n_llcs", job.getN_llcs());
 			data.put("n_zt", job.getN_zt());
-			data.put("dt_fbsj", job.getDt_fbsj());
+			data.put("dt_fbsj", GyUtils.dateTostring(job.getDt_fbsj()));
 			data.put("c_fbzid", job.getC_fbzid());
 			result.put("data", data);
 			result.put("success", true);
