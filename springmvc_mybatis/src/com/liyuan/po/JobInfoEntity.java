@@ -58,12 +58,13 @@ public class JobInfoEntity {
 	/**
 	 * 发布者id
 	 */
-	String fbzid;
-	public String getFbzid() {
-		return fbzid;
+	String c_fbzid;
+
+	public String getC_fbzid() {
+		return c_fbzid;
 	}
-	public void setFbzid(String fbzid) {
-		this.fbzid = fbzid;
+	public void setC_fbzid(String c_fbzid) {
+		this.c_fbzid = c_fbzid;
 	}
 	public String getC_id() {
 		return c_id;

@@ -8,6 +8,23 @@
 		<result column="c_jobtype3" jdbcType="VARCHAR" property="c_type3"/>
 		<result column="n_code" jdbcType="INTEGER" property="n_code"/>
 	</resultMap>
+	
+	<resultMap id="jobinfo" type="com.liyuan.po.JobInfoEntity">
+		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
+		<result column="n_code" jdbcType="INTEGER" property="n_code"/>
+		<result column="c_zwmc" jdbcType="VARCHAR" property="c_zwmc"/>
+		<result column="n_gzxz" jdbcType="INTEGER" property="n_gzxz"/>
+		<result column="n_yx" jdbcType="INTEGER" property="n_yx"/>
+		<result column="n_gzjy" jdbcType="INTEGER" property="n_gzjy"/>
+		<result column="n_xlyq" jdbcType="INTEGER" property="n_xlyq"/>
+		<result column="c_zwms" jdbcType="VARCHAR" property="c_zwms"/>
+		<result column="c_gzdz" jdbcType="VARCHAR" property="c_gzdz"/>
+		<result column="c_jsjlyx" jdbcType="VARCHAR" property="c_jsjlyx"/>
+		<result column="n_llcs" jdbcType="INTEGER" property="n_llcs"/>
+		<result column="n_zt" jdbcType="INTEGER" property="n_zt"/>
+		<result column="dt_fbsj" jdbcType="TIMESTAMP" property="dt_fbsj"/>
+		<result column="c_fbzid" jdbcType="VARCHAR" property="c_fbzid"/>
+	</resultMap>
   <select id="selectJobtype" resultMap="jobtype">
   	select * from db_test.t_jobtype 
   </select>
@@ -19,4 +36,10 @@
   	 (#{c_id},#{n_code},#{c_zwmc},#{n_gzxz},#{n_yx},#{n_gzjy},#{n_xlyq},#{c_zwms},
   	 #{c_gzdz},#{c_jsjlyx},#{dt_fbsj},#{n_zt},#{c_fbzid})
   </insert>
+  
+  <select id="selectJob" resultMap="jobinfo">
+  	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,
+  	n_xlyq,c_zwms,c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,c_fbzid
+  	from db_test.t_jobinfo
+  </select>
 </mapper>

@@ -9,4 +9,6 @@ public interface JobService {
 	public JSONObject getJobtype(); 
 	
 	public JSONObject creatJob(JSONObject param,HttpSession session);
+	
+	public JSONObject ckJob(JSONObject param,HttpSession session);
 }

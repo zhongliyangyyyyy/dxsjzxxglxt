@@ -32,4 +32,11 @@ public class JobController {
 		JSONObject  jsonparam=JSONObject.fromObject(param);
 		return jobservice.creatJob(jsonparam,session);
 	}
+	
+	@RequestMapping(value="/ckjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject ckJob(@RequestBody String param, HttpSession session){
+		JSONObject  jsonparam=JSONObject.fromObject(param);
+		return jobservice.ckJob(jsonparam,session);
+	}
 }

@@ -16,6 +16,7 @@ import net.sf.json.JSONObject;
 
 import com.liyuan.constant.JobConstant;
 import com.liyuan.mapper.JobMapper;
+import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
 import com.liyuan.service.JobService;
 import com.liyuan.utils.GyUtils;
@@ -110,6 +111,42 @@ public class JobServiceImpl implements JobService{
 		}else{
 			result.put("success", false);
 			result.put("message", "发布失败，请重新尝试！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+	/**
+	 * 查看job详细信息
+	 */
+	@Override
+	public JSONObject ckJob(JSONObject param, HttpSession session) {
+		//根据职位id获取职位信息
+		String c_id=param.getString("id");
+		JobInfoEntity job=jobmapper.selectJob(c_id);
+		
+		JSONObject result=new JSONObject();
+		if(job==null){
+			JSONObject data=new JSONObject();
+			data.put("c_id", job.getC_id());
+			data.put("n_code",job.getN_code());
+			data.put("c_zwmc", job.getC_zwmc());
+			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_yx", job.getN_yx());
+			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_xlyq", job.getN_xlyq());
+			data.put("c_zwms", job.getC_zwms());
+			data.put("c_gzdz", job.getC_gzdz());
+			data.put("c_jsjlyx", job.getC_jsjlyx());
+			data.put("n_llcs", job.getN_llcs());
+			data.put("n_zt", job.getN_zt());
+			data.put("dt_fbsj", job.getDt_fbsj());
+			data.put("c_fbzid", job.getC_fbzid());
+			result.put("data", data);
+			result.put("success", true);
+			result.put("message", "成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else {
+			result.put("success", false);
+			result.put("message", "失败");
 			return GyUtils.returnResult(true, "成功", result);
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
 
 public interface JobMapper {
@@ -28,5 +29,9 @@ public interface JobMapper {
 			@Param("n_zt")int n_zt,
 			@Param("c_id")String c_id,
 			@Param("c_fbzid")String c_fbzid
+			);
+	
+	JobInfoEntity selectJob(
+			@Param("c_id")String c_id
 			);
 }
