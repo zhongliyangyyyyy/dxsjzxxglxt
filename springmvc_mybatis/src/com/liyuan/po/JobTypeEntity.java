@@ -1,11 +1,31 @@
 package com.liyuan.po;
 
 public class JobTypeEntity {
+	/**
+	 * id
+	 */
 	String c_id;
+	
+	/**
+	 * 大类
+	 */
 	String c_type1;
+	
+	/**
+	 * 中类
+	 */
 	String c_type2;
+	
+	/**
+	 * 名称
+	 */
 	String c_type3;
+	
+	/**
+	 * 单值代码
+	 */
 	int n_code;
+	
 	public String getC_id() {
 		return c_id;
 	}
@@ -36,6 +56,5 @@ public class JobTypeEntity {
 	public void setN_code(int n_code) {
 		this.n_code = n_code;
 	}
-	
 	
 }

@@ -1,9 +1,25 @@
 package com.liyuan.po;
 
 public class LoginEntity {
+	
+	/**
+	 * 邮箱
+	 */
 	String email;
+	
+	/**
+	 * 密码
+	 */
 	String password;
+	
+	/**
+	 * 用户类型
+	 */
 	int type;
+	
+	/**
+	 * 记录id
+	 */
 	String id;
 
 	public String getId() {
