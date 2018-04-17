@@ -23,7 +23,7 @@
 		<result column="n_llcs" jdbcType="INTEGER" property="n_llcs"/>
 		<result column="n_zt" jdbcType="INTEGER" property="n_zt"/>
 		<result column="dt_fbsj" jdbcType="TIMESTAMP" property="dt_fbsj"/>
-		<result column="c_fbzid" jdbcType="VARCHAR" property="c_fbzid"/>
+		<result column="dt_fbsj" jdbcType="VARCHAR" property="c_fbzid"/>
 	</resultMap>
   <select id="selectJobtype" resultMap="jobtype">
   	select * from db_test.t_jobtype
@@ -42,5 +42,19 @@
   	n_xlyq,c_zwms,c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,c_fbzid
   	from db_test.t_jobinfo
   	where c_id=#{c_id}
+  </select>
+  
+  <select id="selectHotJob" resultMap="jobinfo">
+  	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
+  	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  	order by n_llcs desc
+  	limit 0,20
+  </select>
+  
+   <select id="selectNewJob" resultMap="jobinfo">
+  	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
+  	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  	order by dt_fbsj desc
+  	limit 0,20
   </select>
 </mapper>

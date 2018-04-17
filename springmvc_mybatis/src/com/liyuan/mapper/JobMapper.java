@@ -34,4 +34,8 @@ public interface JobMapper {
 	JobInfoEntity selectJob(
 			@Param("c_id")String c_id
 			);
+	
+	List<JobInfoEntity> selectHotJob();
+	
+	List<JobInfoEntity> selectNewJob();
 }
