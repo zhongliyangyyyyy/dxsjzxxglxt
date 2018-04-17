@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 public interface JobMapper {
 	
@@ -38,4 +39,26 @@ public interface JobMapper {
 	List<JobInfoEntity> selectHotJob();
 	
 	List<JobInfoEntity> selectNewJob();
+	
+	List<JobInfoEntity> selectSearchJob(
+			@Param("c_nr")String c_nr,
+			@Param("n_yxstart")int n_yxstart,
+			@Param("n_yxend")int n_yxend,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("n_xlyq")int n_xlyq,
+			@Param("n_gzxz")int n_gzxz,
+			@Param("dt_fbsj")Date dt_fbsj,
+			@Param("pagesize")int pagesize,
+			@Param("offset")Integer offset
+			);
+	
+	long selectSearchJobNumber(
+			@Param("c_nr")String c_nr,
+			@Param("n_yxstart")int n_yxstart,
+			@Param("n_yxend")int n_yxend,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("n_xlyq")int n_xlyq,
+			@Param("n_gzxz")int n_gzxz,
+			@Param("dt_fbsj")Date dt_fbsj
+			);
 }

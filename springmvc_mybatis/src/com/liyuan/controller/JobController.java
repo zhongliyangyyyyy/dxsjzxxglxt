@@ -71,6 +71,11 @@ public class JobController {
 		return jobservice.hotJob( request);
 	}
 	
+	/**
+	 * 获取最新职位列表
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/newjob",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject newJob(HttpServletRequest request){
@@ -78,4 +83,16 @@ public class JobController {
 		return jobservice.newJob(request);
 	}
 	
+	/**
+	 * 搜索职位，跟表头过滤用一个
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/searchjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject searchJob(@RequestBody String param,  HttpServletRequest request){
+		JSONObject  jsonparam=JSONObject.fromObject(param);
+		return jobservice.searchJob(jsonparam,request);
+	}
 }

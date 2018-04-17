@@ -43,4 +43,12 @@ public interface JobService {
 	 * @return
 	 */
 	public JSONObject newJob(HttpServletRequest request);
+	
+	/**
+	 * 搜索-表头过滤
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public  JSONObject searchJob(JSONObject param,HttpServletRequest request); 
 }
