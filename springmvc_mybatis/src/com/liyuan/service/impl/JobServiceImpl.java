@@ -117,7 +117,9 @@ public class JobServiceImpl implements JobService{
 		
 		Date dt_fbsj=new Date();
 		
-		int flag=jobmapper.insertJobinfi(n_code, c_zwmc, n_gzxz, n_yx, n_gzjy, n_xlyq, c_zwms, c_gzdz, c_jsjlyx, dt_fbsj, n_zt, c_id, c_fbzid);
+		int n_yxzt=JobConstant.YX;
+		
+		int flag=jobmapper.insertJobinfi(n_code, c_zwmc, n_gzxz, n_yx, n_gzjy, n_xlyq, c_zwms, c_gzdz, c_jsjlyx, dt_fbsj, n_zt, c_id, c_fbzid,n_yxzt);
 		
 		JSONObject result=new JSONObject();
 		
@@ -357,5 +359,165 @@ public class JobServiceImpl implements JobService{
 		result.put("message", "搜索职位列表成功");
 		return GyUtils.returnResult(true, "成功", result);
 	}
+
+	@Override
+	public JSONObject yxJob(HttpServletRequest request) {
+		HttpSession session=request.getSession(true);
+		String c_fbzid=(String) session.getAttribute("id");
+		
+		List<JobInfoEntity> jobList=jobmapper.selectyxJob(c_fbzid);
+		
+		
+		JSONArray jsonArray=new JSONArray();
+		JSONObject result=new JSONObject();
+		for(JobInfoEntity job:jobList){
+
+			JSONObject data=new JSONObject();
+			
+			data.put("c_id", job.getC_id());
+			
+			data.put("n_code",job.getN_code());
+			
+			data.put("c_zwmc", job.getC_zwmc());
+			
+			data.put("n_gzxz", job.getN_gzxz());
+			
+			data.put("n_yx", job.getN_yx());
+			
+			data.put("n_gzjy", job.getN_gzjy());
+			
+			data.put("n_xlyq", job.getN_xlyq());
+			
+			data.put("c_zwms", job.getC_zwms());
+			
+			data.put("c_gzdz", job.getC_gzdz());
+			
+			data.put("c_jsjlyx", job.getC_jsjlyx());
+			
+			data.put("n_llcs", job.getN_llcs());
+			
+			data.put("n_zt", job.getN_zt());
+			
+			data.put("dt_fbsj", GyUtils.dateTostring(job.getDt_fbsj()));
+			
+			data.put("c_fbzid", job.getC_fbzid());
+			
+			jsonArray.add(data);
+		}
+		result.put("result", jsonArray);
+		result.put("success", true);
+		result.put("message", "有效职位");
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+	@Override
+	public JSONObject wxJob(HttpServletRequest request) {
+		HttpSession session=request.getSession(true);
+		String c_fbzid=(String) session.getAttribute("id");
+		
+		List<JobInfoEntity> jobList=jobmapper.selectwxJob(c_fbzid);
+		
+		
+		JSONArray jsonArray=new JSONArray();
+		JSONObject result=new JSONObject();
+		for(JobInfoEntity job:jobList){
+
+			JSONObject data=new JSONObject();
+			
+			data.put("c_id", job.getC_id());
+			
+			data.put("n_code",job.getN_code());
+			
+			data.put("c_zwmc", job.getC_zwmc());
+			
+			data.put("n_gzxz", job.getN_gzxz());
+			
+			data.put("n_yx", job.getN_yx());
+			
+			data.put("n_gzjy", job.getN_gzjy());
+			
+			data.put("n_xlyq", job.getN_xlyq());
+			
+			data.put("c_zwms", job.getC_zwms());
+			
+			data.put("c_gzdz", job.getC_gzdz());
+			
+			data.put("c_jsjlyx", job.getC_jsjlyx());
+			
+			data.put("n_llcs", job.getN_llcs());
+			
+			data.put("n_zt", job.getN_zt());
+			
+			data.put("dt_fbsj", GyUtils.dateTostring(job.getDt_fbsj()));
+			
+			data.put("c_fbzid", job.getC_fbzid());
+			
+			jsonArray.add(data);
+		}
+		result.put("result", jsonArray);
+		result.put("success", true);
+		result.put("message", "有效职位");
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+	@Override
+	public JSONObject xxJob(String param, HttpServletRequest request) {
+		JSONObject jsonparam=JSONObject.fromObject(param);
+		
+		String c_id=jsonparam.getString("id");
+		
+		int flag=jobmapper.updateXxJob(c_id);
+		
+		JSONObject result=new JSONObject();
+		if (flag==1) {
+			result.put("success", true);
+			result.put("message", "下线成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		} else {
+			result.put("success", false);
+			result.put("message", "下线失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
 	
+	
+	@Override
+	public JSONObject sxJob(String param, HttpServletRequest request) {
+		JSONObject jsonparam=JSONObject.fromObject(param);
+		
+		String c_id=jsonparam.getString("id");
+		
+		int flag=jobmapper.updateSxJob(c_id);
+		
+		JSONObject result=new JSONObject();
+		if (flag==1) {
+			result.put("success", true);
+			result.put("message", "上线成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		} else {
+			result.put("success", false);
+			result.put("message", "上线失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+	
+	@Override
+	public JSONObject scJob(String param, HttpServletRequest request) {
+		JSONObject jsonparam=JSONObject.fromObject(param);
+		
+		String c_id=jsonparam.getString("id");
+		
+		int flag=jobmapper.deleteJob(c_id);
+		
+		JSONObject result=new JSONObject();
+		if (flag==1) {
+			result.put("success", true);
+			result.put("message", "删除成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		} else {
+			result.put("success", false);
+			result.put("message", "删除失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
 }

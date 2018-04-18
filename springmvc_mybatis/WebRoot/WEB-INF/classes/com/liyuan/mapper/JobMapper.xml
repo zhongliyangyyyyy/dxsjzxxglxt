@@ -31,10 +31,10 @@
   
   <insert id="insertJobinfi">
   	insert into db_test.t_jobinfo
-  	 (c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,c_gzdz,c_jsjlyx,dt_fbsj,n_zt,c_fbzid) 
+  	 (c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,c_gzdz,c_jsjlyx,dt_fbsj,n_zt,c_fbzid,n_yxzt) 
   	 values 
   	 (#{c_id},#{n_code},#{c_zwmc},#{n_gzxz},#{n_yx},#{n_gzjy},#{n_xlyq},#{c_zwms},
-  	 #{c_gzdz},#{c_jsjlyx},#{dt_fbsj},#{n_zt},#{c_fbzid})
+  	 #{c_gzdz},#{c_jsjlyx},#{dt_fbsj},#{n_zt},#{c_fbzid},#{n_yxzt})
   </insert>
   
   <select id="selectJob" resultMap="jobinfo">
@@ -47,6 +47,7 @@
   <select id="selectHotJob" resultMap="jobinfo">
   	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  	where n_yxzt=1
   	order by n_llcs desc
   	limit 0,20
   </select>
@@ -54,6 +55,7 @@
    <select id="selectNewJob" resultMap="jobinfo">
   	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  	where n_yxzt=1
   	order by dt_fbsj desc
   	limit 0,20
   </select>
@@ -62,8 +64,9 @@
   	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
   	<where>
+  		n_yxzt=1
   		<if test="c_nr!='' ">
-  			c_zwmc like %${c_nr}%
+  		AND	c_zwmc like %${c_nr}%
   		</if>
   		<if test="n_gzjy!=0">
   			AND	n_gzjy=#{n_gzjy}
@@ -87,4 +90,29 @@
   		limit #{pagesize,jdbcType=INTEGER} 
   		offset #{offset,jdbcType=INTEGER};
   </select>
+  
+  <select id="selectyxJob" resultMap="jobinfo">
+  	 	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
+  		c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  		where c_fbzid=#{c_fbzid} AND n_yxzt=1
+  </select>
+  
+    <select id="selectwxJob" resultMap="jobinfo">
+  	 	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
+  		c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  		where c_fbzid=#{c_fbzid} AND n_yxzt=2
+  </select>
+  
+  <update id="updateXxJob">
+  	update db_test.t_jobinfo set n_yxzt=2 where c_id=#{c_id}
+  </update>
+  
+    <update id="updateSxJob">
+  		update db_test.t_jobinfo set n_yxzt=1 where c_id=#{c_id}
+  	</update>
+  
+  	<delete id="deleteJob">
+  		delete from db_test.t_jobinfo where c_id=#{c_id}
+  	</delete>
+  
 </mapper>

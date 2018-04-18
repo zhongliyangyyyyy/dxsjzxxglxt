@@ -46,7 +46,7 @@ public class JobController {
 	}
 	
 	/**
-	 * 查看职位
+	 * 查看职位,跟编辑用同一个接口
 	 * @param param
 	 * @param request
 	 * @return
@@ -94,5 +94,65 @@ public class JobController {
 	public JSONObject searchJob(@RequestBody String param,  HttpServletRequest request){
 		JSONObject  jsonparam=JSONObject.fromObject(param);
 		return jobservice.searchJob(jsonparam,request);
+	}
+	
+	/**
+	 * 获取有效职位列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/yxjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject yxJob(HttpServletRequest request){
+		return jobservice.yxJob(request);
+	}
+	
+	/**
+	 * 获取无效职位列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/wxjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject wxJob(HttpServletRequest request){
+		return jobservice.wxJob(request);
+	}
+	
+	/**
+	 * 下线职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/xxjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject yxJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.xxJob(param,request);
+	}
+	
+	/**
+	 * 上线职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/sxjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject sxJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.sxJob(param,request);
+	}
+	
+	/**
+	 * 删除职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/sxjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject scJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.scJob(param,request);
 	}
 }

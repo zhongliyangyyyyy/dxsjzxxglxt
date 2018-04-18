@@ -51,4 +51,43 @@ public interface JobService {
 	 * @return
 	 */
 	public  JSONObject searchJob(JSONObject param,HttpServletRequest request); 
+	
+	/**
+	 * 获取有效职位列表
+	 * @param request
+	 * @return
+	 */
+	public JSONObject yxJob(HttpServletRequest request);
+	
+	/**
+	 * 获取有效职位列表
+	 * @param request
+	 * @return
+	 */
+	public JSONObject wxJob(HttpServletRequest request);
+	
+	
+	/**
+	 * 下线职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject xxJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 上线职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject sxJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 删除职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject scJob(String param,HttpServletRequest request);
 }

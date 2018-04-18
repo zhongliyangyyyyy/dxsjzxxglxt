@@ -29,7 +29,8 @@ public interface JobMapper {
 			@Param("dt_fbsj")Date dt_fbsj,
 			@Param("n_zt")int n_zt,
 			@Param("c_id")String c_id,
-			@Param("c_fbzid")String c_fbzid
+			@Param("c_fbzid")String c_fbzid,
+			@Param("n_yxzt")int n_yxzt
 			);
 	
 	JobInfoEntity selectJob(
@@ -60,5 +61,25 @@ public interface JobMapper {
 			@Param("n_xlyq")int n_xlyq,
 			@Param("n_gzxz")int n_gzxz,
 			@Param("dt_fbsj")Date dt_fbsj
+			);
+	
+	List<JobInfoEntity> selectyxJob(
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	List<JobInfoEntity> selectwxJob(
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	int updateXxJob(
+			@Param("c_id")String c_id
+			);
+	
+	int updateSxJob(
+			@Param("c_id")String c_id
+			);
+	
+	int deleteJob(
+			@Param("c_id")String c_id
 			);
 }
