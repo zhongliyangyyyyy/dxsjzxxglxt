@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2018-04-18 23:31:26
+Date: 2018-04-18 23:42:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -157,6 +157,7 @@ CREATE TABLE `t_receivejianliinfo` (
   `c_id` varchar(32) NOT NULL,
   `c_jlid` varchar(32) DEFAULT NULL,
   `c_jobid` varchar(32) DEFAULT NULL,
+  `n_zt` int(11) DEFAULT NULL,
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
