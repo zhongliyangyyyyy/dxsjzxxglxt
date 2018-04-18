@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liyuan.mapper.JianliMapper">
-
+	<resultMap type="com.liyuan.po.JianliEntity" id="jianliinfo">
+		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
+		<result column="c_name" jdbcType="VARCHAR" property="c_name"/>
+		<result column="n_xb" jdbcType="INTEGER" property="n_xb"/>
+		<result column="c_sjhm" jdbcType="VARCHAR" property="c_sjhm"/>
+		<result column="c_yx" jdbcType="VARCHAR" property="c_yx"/>
+		<result column="c_qwgzdz" jdbcType="VARCHAR" property="c_qwgzdz"/>
+		<result column="n_gzxz" jdbcType="INTEGER" property="n_gzxz"/>
+		<result column="c_qwzw" jdbcType="VARCHAR" property="c_qwzw"/>
+		<result column="n_qwyx" jdbcType="INTEGER" property="n_qwyx"/>
+		<result column="c_gsmc" jdbcType="VARCHAR" property="c_gsmc"/>
+		<result column="c_zwmc" jdbcType="VARCHAR" property="c_zwmc"/>
+		<result column="c_xxmc" jdbcType="VARCHAR" property="c_xxmc"/>
+		<result column="n_gzjy" jdbcType="INTEGER" property="n_gzjy"/>
+		<result column="n_xl" jdbcType="INTEGER" property="n_xl"/>
+		<result column="c_zymc" jdbcType="VARCHAR" property="c_zymc"/>
+		<result column="dt_kssj" jdbcType="TIMESTAMP" property="dt_kssj"/>
+		<result column="dt_jssj" jdbcType="TIMESTAMP" property="dt_jssj"/>
+		<result column="c_zwms" jdbcType="VARCHAR" property="c_zwms"/>
+		<result column="c_jlmc" jdbcType="VARCHAR" property="c_jlmc"/>
+		<result column="c_zp" jdbcType="VARCHAR" property="c_zp"/>
+		<result column="c_syzid" jdbcType="VARCHAR" property="c_syzid"/>
+		<result column="n_xxxl" jdbcType="INTEGER" property="n_xxxl"/>
+	</resultMap>
+	
+	<select id="selectPersonJianli">
+		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
+		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid,
+		n_xxxl from db_test.t_jianliinfo where c_syzid=#{c_id}
+	</select>
+	
+	<update id="updateJianli">
+		update db_test.t_jianliinfo set c_name=#{c_name},n_xb=#{n_xb},c_sjhm=#{c_sjhm},
+		c_yx=#{c_yx},c_qwgzdz=#{c_qwgzdz},n_gzxz=#{n_gzxz},c_qwzw=#{c_qwzw},n_qwyx=#{n_qwyx},
+		c_gsmc=#{c_gsmc},c_zwmc=#{c_zwmc},c_xxmc=#{c_xxmc},n_gzjy=#{n_gzjy},n_xl=#{n_xl},
+		c_zymc=#{c_zymc},dt_kssj=#{dt_kssj},dt_jssj=#{dt_jssj},c_zwms=#{c_zwms},c_jlmc=#{c_jlmc},
+		c_zp=#{c_zp},n_xxxl=#{n_xxxl} 
+		where c_id=#{c_id}
+	</update>
+	
+	<insert id="insertJianli">
+		insert into db_test.t_jianliinfo 
+		(c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,n_gzxz,c_qwzw,n_qwyx,c_gsmc,c_zwmc,c_xxmc,n_gzjy,
+		n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid,n_xxxl) 
+		value (#{c_id},#{c_name},#{n_xb},#{c_sjhm},#{c_yx},#{c_qwgzdz},#{n_gzxz},#{c_qwzw},
+		#{n_qwyx},#{c_gsmc},#{c_zwmc},#{c_xxmc},#{n_gzjy},#{n_xl},#{c_zymc},#{dt_kssj},
+		#{dt_jssj},#{c_zwms},#{c_jlmc},#{c_zp},#{c_syzid},#{n_xxxl})
+	</insert>
 </mapper>

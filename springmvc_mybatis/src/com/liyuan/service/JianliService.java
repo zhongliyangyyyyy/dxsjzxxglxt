@@ -7,6 +7,8 @@ import net.sf.json.JSONObject;
 public interface JianliService {
 	
 	
-	public JSONObject personJianli(String param,HttpServletRequest request);
+	public JSONObject personJianli(HttpServletRequest request);
+	
+	public JSONObject bcJianli(String param,HttpServletRequest request);
 	
 }
