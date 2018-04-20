@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2018-04-20 01:39:05
+Date: 2018-04-20 15:53:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -73,7 +73,6 @@ CREATE TABLE `t_jianliinfo` (
   `c_gsmc` varchar(300) DEFAULT NULL,
   `c_zwmc` varchar(300) DEFAULT NULL,
   `c_xxmc` varchar(300) DEFAULT NULL,
-  `n_xxxl` int(11) DEFAULT NULL,
   `c_zymc` varchar(300) DEFAULT NULL,
   `dt_kssj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `dt_jssj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -87,7 +86,8 @@ CREATE TABLE `t_jianliinfo` (
 -- ----------------------------
 -- Records of t_jianliinfo
 -- ----------------------------
-INSERT INTO `t_jianliinfo` VALUES ('sadkgashkdgakdhak', '钟黎阳', '21', '1', '1', '15996248646', '755093231@qq.com', '南京农业大学', '1', 'Java开发工程师', '10000', '北京华宇信息', 'java开发工程师', '南京农业大学', '1', '专业名称', '2018-04-20 01:31:15', '2018-04-20 01:31:15', '自我描述', '钟黎阳的简历', null, '1231231231312313123');
+INSERT INTO `t_jianliinfo` VALUES ('kzbmzndbkjahs', '汤迎辉', '1', '2', '1', '13770826262', '872364@qq.com', '南京农业大学', '1', 'web开发工程师', '10000', '途牛科技', 'web开发工程师', '南京农业大学', '专业名称', '2018-04-20 13:34:39', '2018-04-20 13:34:39', '自我描述', '汤迎辉的简历', '', '23642e5f2cd247428f94c79798853fc7');
+INSERT INTO `t_jianliinfo` VALUES ('sadkgashkdgakdhak', '钟黎阳', '1', '1', '1', '15996248646', '755093231@qq.com', '南京农业大学', '1', 'Java开发工程师', '10000', '北京华宇信息', 'java开发工程师', '南京农业大学', '专业名称', '2018-04-20 13:34:37', '2018-04-20 13:34:37', '自我描述', '钟黎阳的简历', null, '1231231231312313123');
 
 -- ----------------------------
 -- Table structure for t_jobinfo
@@ -159,13 +159,16 @@ CREATE TABLE `t_receivejianliinfo` (
   `c_jlid` varchar(32) DEFAULT NULL,
   `c_jobid` varchar(32) DEFAULT NULL,
   `n_zt` int(11) DEFAULT NULL,
+  `dt_tdsj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `dt_cksj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_receivejianliinfo
 -- ----------------------------
-INSERT INTO `t_receivejianliinfo` VALUES ('123123', 'sadkgashkdgakdhak', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1');
+INSERT INTO `t_receivejianliinfo` VALUES ('123123', 'sadkgashkdgakdhak', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-20 11:08:16', '2018-04-20 11:08:21');
+INSERT INTO `t_receivejianliinfo` VALUES ('ajksgdakhsdnm', 'kzbmzndbkjahs', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-20 11:22:04', '2018-04-20 11:22:04');
 
 -- ----------------------------
 -- Table structure for t_reportinfo

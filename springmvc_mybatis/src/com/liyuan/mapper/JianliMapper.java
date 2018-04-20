@@ -1,10 +1,12 @@
 package com.liyuan.mapper;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.liyuan.po.JianliEntity;
+import com.liyuan.po.ReceJianliEntity;
 
 public interface JianliMapper {
 	
@@ -32,8 +34,7 @@ public interface JianliMapper {
 			@Param("dt_jssj")Date dt_jssj,
 			@Param("c_zwms")String c_zwms,
 			@Param("c_jlmc")String c_jlmc,
-			@Param("c_zp")String c_zp,
-			@Param("n_xxxl")int n_xxxl
+			@Param("c_zp")String c_zp
 			);
 	
 	int insertJianli(
@@ -57,7 +58,45 @@ public interface JianliMapper {
 			@Param("c_zwms")String c_zwms,
 			@Param("c_jlmc")String c_jlmc,
 			@Param("c_zp")String c_zp,
-			@Param("c_syzid")String c_syzid,
-			@Param("n_xxxl")int n_xxxl
+			@Param("c_syzid")String c_syzid
+			);
+	
+	List<ReceJianliEntity> selectDclJianli(
+			@Param("n_zdxl")int n_zdxl,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	List<ReceJianliEntity> selectDdJianli(
+			@Param("n_zdxl")int n_zdxl,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	List<ReceJianliEntity> selectYtzmsJianli(
+			@Param("n_zdxl")int n_zdxl,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	List<ReceJianliEntity> selectBhsJianli(
+			@Param("n_zdxl")int n_zdxl,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	List<ReceJianliEntity> selectTgmsJianli(
+			@Param("n_zdxl")int n_zdxl,
+			@Param("n_gzjy")int n_gzjy,
+			@Param("c_fbzid")String c_fbzid
+			);
+	
+	int updateReceJianli(
+			@Param("c_id")String c_id,
+			@Param("n_zt")int n_zt
+			);
+	
+	int delectReceJianli(
+			@Param("c_id")String c_id
 			);
 }

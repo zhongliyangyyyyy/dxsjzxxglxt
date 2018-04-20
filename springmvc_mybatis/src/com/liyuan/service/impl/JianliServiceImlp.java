@@ -1,18 +1,22 @@
 package com.liyuan.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.liyuan.constant.ReceiveJianliConstant;
 import com.liyuan.mapper.JianliMapper;
 import com.liyuan.po.JianliEntity;
+import com.liyuan.po.ReceJianliEntity;
 import com.liyuan.service.JianliService;
 import com.liyuan.utils.GyUtils;
 
@@ -56,7 +60,6 @@ public class JianliServiceImlp implements JianliService{
 		data.put("c_jlmc", jianliEntity.getC_jlmc());
 		data.put("c_zp", jianliEntity.getC_zp());
 		data.put("c_syzid", jianliEntity.getC_syzid());
-		data.put("n_xxxl", jianliEntity.getN_xxxl());
 		
 		result.put("result", data);
 		result.put("success", true);
@@ -94,7 +97,6 @@ public class JianliServiceImlp implements JianliService{
 		String c_jlmc=jsonObject.optString("jlmc");
 		String c_zp=jsonObject.optString("zp");
 		String c_syzid=jsonObject.optString("syzid");
-		int n_xxxl=jsonObject.optInt("xxxl");
 		
 		int flag=0;
 		
@@ -103,11 +105,11 @@ public class JianliServiceImlp implements JianliService{
 			c_syzid=(String)session.getAttribute("id");
 			flag=jianliMapper.insertJianli(c_id, c_name, n_xb, c_sjhm, c_yx,
 					c_qwgzdz, n_gzxz, c_qwzw, n_qwyx, c_gsmc, c_zwmc, c_xxmc,
-					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp, c_syzid, n_xxxl);
+					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp, c_syzid);
 		}else{
 			flag=jianliMapper.updateJianli(c_id, c_name, n_xb, c_sjhm, c_yx, 
 					c_qwgzdz, n_gzxz, c_qwzw, n_qwyx, c_gsmc, c_zwmc, c_xxmc,
-					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp, n_xxxl);
+					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp);
 		}
 		
 		JSONObject resultJsonObject=new JSONObject();
@@ -121,6 +123,251 @@ public class JianliServiceImlp implements JianliService{
 		}
 		
 		return GyUtils.returnResult(true, "成功", resultJsonObject);
+	}
+
+
+	@Override
+	public JSONObject dclJianli(String param,HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject bt=params.getJSONObject("bt");
+		int n_gzjy=bt.getInt("gzjy");
+		int n_zdxl=bt.getInt("zdxl");
+		String c_fbzid=(String)session.getAttribute("id");
+		List<ReceJianliEntity> receJianliEntities=jianliMapper.selectDclJianli(n_zdxl, n_gzjy, c_fbzid);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:receJianliEntities){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "待处理简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject ddJianli(String param, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject bt=params.getJSONObject("bt");
+		int n_gzjy=bt.getInt("gzjy");
+		int n_zdxl=bt.getInt("zdxl");
+		String c_fbzid=(String)session.getAttribute("id");
+		List<ReceJianliEntity> receJianliEntities=jianliMapper.selectDdJianli(n_zdxl, n_gzjy, c_fbzid);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:receJianliEntities){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "待定简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject ytzmsJianli(String param, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject bt=params.getJSONObject("bt");
+		int n_gzjy=bt.getInt("gzjy");
+		int n_zdxl=bt.getInt("zdxl");
+		String c_fbzid=(String)session.getAttribute("id");
+		List<ReceJianliEntity> receJianliEntities=jianliMapper.selectYtzmsJianli(n_zdxl, n_gzjy, c_fbzid);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:receJianliEntities){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "已通知面试简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject bhsJianli(String param, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject bt=params.getJSONObject("bt");
+		int n_gzjy=bt.getInt("gzjy");
+		int n_zdxl=bt.getInt("zdxl");
+		String c_fbzid=(String)session.getAttribute("id");
+		List<ReceJianliEntity> receJianliEntities=jianliMapper.selectBhsJianli(n_zdxl, n_gzjy, c_fbzid);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:receJianliEntities){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "不合适简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject tgmsJianli(String param, HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject bt=params.getJSONObject("bt");
+		int n_gzjy=bt.getInt("gzjy");
+		int n_zdxl=bt.getInt("zdxl");
+		String c_fbzid=(String)session.getAttribute("id");
+		List<ReceJianliEntity> receJianliEntities=jianliMapper.selectTgmsJianli(n_zdxl, n_gzjy, c_fbzid);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:receJianliEntities){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "通过面试简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject setBhs(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_id=params.getString("id");
+		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.BHSJL);
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "设置为不合适成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+
+	@Override
+	public JSONObject setDd(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_id=params.getString("id");
+		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.DDJL);
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "设置为待定成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+
+	@Override
+	public JSONObject deletJl(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_id=params.getString("id");
+		int flag=jianliMapper.delectReceJianli(c_id);
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "删除成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+
+	@Override
+	public JSONObject setTzms(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_id=params.getString("id");
+		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.YTZMSJL);
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "设置为通知成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+
+	@Override
+	public JSONObject setTgms(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_id=params.getString("id");
+		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.TGMSJL);
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "设置为通过面试成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 	}
 
 }

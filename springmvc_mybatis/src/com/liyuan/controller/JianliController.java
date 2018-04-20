@@ -42,4 +42,58 @@ public class JianliController {
 		return jianliService.bcJianli(param, request);
 	}
 	
+	/**
+	 * 待处理简历
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/dclJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject dclJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.dclJianli(param, request);
+	}
+	
+	/**
+	 * 待定简历
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/ddJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject ddJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.ddJianli(param, request);
+	}
+	
+	/**
+	 * 已通知面试简历
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/ytzmsJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject ytzmsJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.ytzmsJianli(param, request);
+	}
+	
+	/**
+	 * 不合适简历
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/bhsJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject bhsJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.bhsJianli(param, request);
+	}
+	
+	/**
+	 * 通过面试简历
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tgmsJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tgmsJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.tgmsJianli(param, request);
+	}
 }	 

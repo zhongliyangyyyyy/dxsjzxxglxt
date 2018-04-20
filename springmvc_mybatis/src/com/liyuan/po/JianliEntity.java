@@ -111,10 +111,6 @@ public class JianliEntity {
 	 */
 	String c_syzid;
 	
-	/**
-	 * 基本信息学历
-	 */
-	int n_xxxl;
 
 	public String getC_id() {
 		return c_id;
@@ -284,12 +280,4 @@ public class JianliEntity {
 		this.c_syzid = c_syzid;
 	}
 
-	public int getN_xxxl() {
-		return n_xxxl;
-	}
-
-	public void setN_xxxl(int n_xxxl) {
-		this.n_xxxl = n_xxxl;
-	}
-	
 }
