@@ -138,6 +138,7 @@ public class JobServiceImpl implements JobService{
 			return GyUtils.returnResult(true, "成功", result);
 		}
 	}
+	
 	/**
 	 * 查看job详细信息
 	 */

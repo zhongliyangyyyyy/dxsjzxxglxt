@@ -170,7 +170,7 @@ public class JobController {
 	}
 	
 	/**
-	 * 收藏职位
+	 * 收藏职位按钮
 	 * @param param
 	 * @param request
 	 * @return
@@ -191,5 +191,17 @@ public class JobController {
 	@ResponseBody
 	public JSONObject qxscJob(@RequestBody String param,HttpServletRequest request){
 		return jobservice.qxscJob(param, request);
+	}
+	
+	/**
+	 * 投个简历按钮
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tgjl",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tgjl(@RequestBody String param,HttpServletRequest request){
+		return jobservice.tgjl(param, request);
 	}
 }

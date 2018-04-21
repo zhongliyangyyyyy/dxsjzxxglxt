@@ -370,4 +370,66 @@ public class JianliServiceImlp implements JianliService{
 		}
 	}
 
+	/**
+	 * 已投递简历列表
+	 */
+	@Override
+	public JSONObject ytdJianli(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		String c_userid=(String)session.getAttribute("id");
+		int n_zt=params.getInt("n_zt");
+		
+		JianliEntity personJianli=jianliMapper.selectPersonJianli(c_userid);
+		String c_jlid=personJianli.getC_id();
+		
+		List<ReceJianliEntity> jianliEntity=jianliMapper.selectYtdJianli(c_jlid,n_zt);
+		JSONObject result=new JSONObject();
+		JSONArray jsonArray=new JSONArray();
+		for(ReceJianliEntity jianli:jianliEntity){
+			JSONObject data=new JSONObject();
+			data.put("id",jianli.getC_id());
+			data.put("name", jianli.getC_name());
+			data.put("jlmc", jianli.getC_jlmc());
+			data.put("xb", jianli.getN_xb());
+			data.put("xl", jianli.getN_xl());
+			data.put("byxx", jianli.getC_byxx());
+			data.put("zy", jianli.getC_zy());
+			data.put("ypzw", jianli.getC_ypzw());
+			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			jsonArray.add(data);
+		}
+		result.put("success", true);
+		result.put("message", "我投递的简历！");
+		result.put("result", result);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+	/**
+	 * 投递简历
+	 */
+	@Override
+	public JSONObject tdJianli(String param, HttpServletRequest request) {
+		
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		String c_userid=(String)session.getAttribute("id");
+		String c_uuid=GyUtils.getUUid();
+		String c_jobid=params.getString("id");
+		JianliEntity personJianli=jianliMapper.selectPersonJianli(c_userid);
+		String c_jlid=personJianli.getC_id();
+		int n_zt=ReceiveJianliConstant.DCLJL;
+		int flag=jianliMapper.insertReceJianli(c_uuid, c_jlid, c_jobid, n_zt, new Date());
+		JSONObject result=new JSONObject();
+		if(flag==1){
+			result.put("success", true);
+			result.put("message", "投递简历成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "投递简历失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
 }

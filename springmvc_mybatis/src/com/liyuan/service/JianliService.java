@@ -6,19 +6,59 @@ import net.sf.json.JSONObject;
 
 public interface JianliService {
 	
-	
+	/**
+	 * 获取简历信息
+	 * @param request
+	 * @return
+	 */
 	public JSONObject personJianli(HttpServletRequest request);
 	
+	/**
+	 * 保存简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject bcJianli(String param,HttpServletRequest request);
 	
+	/**
+	 * 待处理简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject dclJianli(String param,HttpServletRequest request);
 	
+	/**
+	 * 待定简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject ddJianli(String param,HttpServletRequest request);
 	
+	/**
+	 * 已通知面试简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject ytzmsJianli(String param,HttpServletRequest request);
 	
+	/**
+	 * 不合适简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject bhsJianli(String param,HttpServletRequest request);
 	
+	/**
+	 * 通过面试简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
 	public JSONObject tgmsJianli(String param,HttpServletRequest request);
 	
 	/**
@@ -60,4 +100,21 @@ public interface JianliService {
 	 * @return
 	 */
 	public JSONObject setTgms(String param,HttpServletRequest request);
+	
+	
+	/**
+	 * 获取已投递简历列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject ytdJianli(String param,HttpServletRequest request);
+	
+	/**
+	 * 投递简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject tdJianli(String param,HttpServletRequest request);
 }

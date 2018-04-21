@@ -107,4 +107,9 @@ public interface JianliMapper {
 			@Param("n_zt")int n_zt,
 			@Param("dt_tdsj")Date dt_tdsj
 			);
+	
+	List<ReceJianliEntity> selectYtdJianli(
+			@Param("c_jlid")String c_jlid,
+			@Param("n_zt")int n_zt
+			);
 }

@@ -96,4 +96,28 @@ public class JianliController {
 	public JSONObject tgmsJianli(@RequestBody String param,HttpServletRequest request){
 		return jianliService.tgmsJianli(param, request);
 	}
+	
+	/**
+	 * 已投递简历列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/ytdJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject ytdJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.ytdJianli(param, request);
+	}
+	
+	/**
+	 * 投递简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tdJianli",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tdJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.tdJianli(param, request);
+	}
 }	 

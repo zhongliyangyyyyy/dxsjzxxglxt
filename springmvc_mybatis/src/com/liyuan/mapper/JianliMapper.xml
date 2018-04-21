@@ -61,7 +61,7 @@
 		#{dt_jssj},#{c_zwms},#{c_jlmc},#{c_zp},#{c_syzid})
 	</insert>
 	
-	<select id="selectDclJianli">
+	<select id="selectDclJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
 		from 
@@ -79,7 +79,7 @@
 		</where>
 	</select>
 	
-	<select id="selectDdJianli">
+	<select id="selectDdJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
 		from 
@@ -97,7 +97,7 @@
 		</where>
 	</select>
 	
-	<select id="selectYtzmsJianli">
+	<select id="selectYtzmsJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
 		from 
@@ -115,7 +115,7 @@
 		</where>
 	</select>
 	
-	<select id="selectBhsJianli">
+	<select id="selectBhsJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
 		from 
@@ -133,7 +133,7 @@
 		</where>
 	</select>
 	
-	<select id="selectTgmsJianli">
+	<select id="selectTgmsJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
 		from 
@@ -165,4 +165,21 @@
 		insert into db_test.t_receivejianliinfo (c_id,c_jlid,c_jobid,n_zt,dt_tdsj) 
 		values (#{c_uuid},#{c_jlid},#{c_jobid},#{n_zt},#{dt_tdsj})
 	</insert>
+	
+	<select id="selectYtdJianli" resultMap="receJianli">
+		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+				rece.c_jlid=#{c_jlid}
+			<if test="n_zt!=0">
+				and job.n_zt=#{n_zt}
+			</if>
+			<if test="n_zt==2">
+				and rece.dt_cksj is not null
+			</if>
+		</where>
+	</select>
 </mapper>
