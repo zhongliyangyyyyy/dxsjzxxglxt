@@ -114,4 +114,12 @@ public interface JobService {
 	 * @return
 	 */
 	public JSONObject qxscJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 投个简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject tgjl(String param,HttpServletRequest request);
 }

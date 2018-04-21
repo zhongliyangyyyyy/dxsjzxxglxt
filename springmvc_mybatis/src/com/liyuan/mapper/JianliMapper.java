@@ -99,4 +99,12 @@ public interface JianliMapper {
 	int delectReceJianli(
 			@Param("c_id")String c_id
 			);
+	
+	int insertReceJianli(
+			@Param("c_uuid")String c_uuid,
+			@Param("c_jiid")String c_jlid,
+			@Param("c_jobid")String c_jobid,
+			@Param("n_zt")int n_zt,
+			@Param("dt_tdsj")Date dt_tdsj
+			);
 }

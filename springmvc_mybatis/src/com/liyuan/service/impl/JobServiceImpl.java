@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liyuan.constant.JobConstant;
+import com.liyuan.constant.ReceiveJianliConstant;
+import com.liyuan.mapper.JianliMapper;
 import com.liyuan.mapper.JobMapper;
+import com.liyuan.po.JianliEntity;
 import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
 import com.liyuan.service.JobService;
@@ -26,6 +29,9 @@ public class JobServiceImpl implements JobService{
 
 	@Autowired
 	JobMapper jobmapper;
+	
+	@Autowired
+	JianliMapper jianliMapper;
 	
 	
 	/**
@@ -651,6 +657,35 @@ public class JobServiceImpl implements JobService{
 		} else {
 			result.put("success", false);
 			result.put("message", "删除收藏职位失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	/**
+	 * 投个简历，并从收藏简历列表删除
+	 */
+	@Override
+	public JSONObject tgjl(String param, HttpServletRequest request) {
+		
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		
+		String c_userid=(String)session.getAttribute("id");
+		
+		String c_jobid=params.getString("id");
+		int flag=jobmapper.deleteWscJob(c_userid, c_jobid);//从收藏职位列表删除
+		String c_id=GyUtils.getUUid();
+		JianliEntity jianliEntity=jianliMapper.selectPersonJianli(c_userid);
+		String c_jlid=jianliEntity.getC_id();
+		int flag1=jianliMapper.insertReceJianli(c_id, c_jlid, c_jobid, ReceiveJianliConstant.DCLJL, new Date());
+		JSONObject result=new JSONObject();
+		if(flag==1&&flag1==1){
+			result.put("success", true);
+			result.put("message", "投递简历成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", false);
+			result.put("message", "投递简历失败！");
 			return GyUtils.returnResult(true, "成功", result);
 		}
 	}

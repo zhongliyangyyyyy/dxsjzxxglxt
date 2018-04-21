@@ -160,4 +160,9 @@
 		delete from db_test.t_receivejianliinfo 
 		where c_id=#{c_id}
 	</delete>
+	
+	<insert id="insertReceJianli">
+		insert into db_test.t_receivejianliinfo (c_id,c_jlid,c_jobid,n_zt,dt_tdsj) 
+		values (#{c_uuid},#{c_jlid},#{c_jobid},#{n_zt},#{dt_tdsj})
+	</insert>
 </mapper>
