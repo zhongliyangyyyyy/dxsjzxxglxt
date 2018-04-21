@@ -150,9 +150,46 @@ public class JobController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/sxjob",method=RequestMethod.POST)
+	@RequestMapping(value="/deletejob",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject scJob(@RequestBody String param,HttpServletRequest request){
 		return jobservice.scJob(param,request);
+	}
+	
+	
+	/**
+	 * 我收藏的职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/wscjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject wscJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.wscJob(param, request);
+	}
+	
+	/**
+	 * 收藏职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/wyscjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject wyscJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.wyscJob(param, request);
+	}
+	
+	/**
+	 * 删除收藏职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/qxscjob",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject qxscJob(@RequestBody String param,HttpServletRequest request){
+		return jobservice.qxscJob(param, request);
 	}
 }

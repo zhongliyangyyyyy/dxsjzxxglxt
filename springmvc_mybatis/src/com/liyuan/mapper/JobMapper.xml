@@ -115,4 +115,18 @@
   		delete from db_test.t_jobinfo where c_id=#{c_id}
   	</delete>
   
+  	<select id="selectWscJob",resultMap="jobinfo">
+  		select job.c_id,job.n_code,job.c_zwmc,job.n_gzxz,job.n_yx,job.n_gzjy,job.n_xlyq,job.c_zwms,
+  		job.c_gzdz,job.c_jsjlyx,job.n_llcs,job.n_zt,job.dt_fbsj,job.dt_fbsj 
+  		from db_test.t_jobinfo job join db_test.t_wscjob wsc on job.c_id=wsc.c_jobid
+  		where wsc.c_userid=#{c_userid}
+  	</select>
+  	
+  	<insert id="insertWscJob">	
+  		insert into db_test.t_wscjob (c_id,c_userid,c_jobid) values (#{c_id},#{c_userid},#{c_jobid})
+  	</insert>
+  	
+  	<delete id="deleteWscJob">
+  		delete from db_test.t_wscjob where c_userid=#{c_userid} and c_jobid=#{c_jobid}
+  	</delete>
 </mapper>

@@ -8,12 +8,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.liyuan.constant.JobConstant;
 import com.liyuan.mapper.JobMapper;
@@ -185,6 +184,9 @@ public class JobServiceImpl implements JobService{
 		}
 	}
 
+	/**
+	 * 热门职位列表
+	 */
 	@Override
 	public JSONObject hotJob(HttpServletRequest request) {
 		List<JobInfoEntity> jobList=jobmapper.selectHotJob();
@@ -230,6 +232,9 @@ public class JobServiceImpl implements JobService{
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
+	/**
+	 * 最新职位列表
+	 */
 	@Override
 	public JSONObject newJob(HttpServletRequest request) {
 		List<JobInfoEntity> jobList=jobmapper.selectNewJob();
@@ -275,6 +280,9 @@ public class JobServiceImpl implements JobService{
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
+	/**
+	 * 搜索职位，和职位列表
+	 */
 	@Override
 	public JSONObject searchJob(JSONObject param, HttpServletRequest request) {
 		
@@ -360,6 +368,9 @@ public class JobServiceImpl implements JobService{
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
+	/**
+	 * 有效职位
+	 */
 	@Override
 	public JSONObject yxJob(HttpServletRequest request) {
 		HttpSession session=request.getSession(true);
@@ -410,6 +421,9 @@ public class JobServiceImpl implements JobService{
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
+	/**
+	 * 无效职位
+	 */
 	@Override
 	public JSONObject wxJob(HttpServletRequest request) {
 		HttpSession session=request.getSession(true);
@@ -460,6 +474,9 @@ public class JobServiceImpl implements JobService{
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
+	/**
+	 * 下线职位
+	 */
 	@Override
 	public JSONObject xxJob(String param, HttpServletRequest request) {
 		JSONObject jsonparam=JSONObject.fromObject(param);
@@ -481,6 +498,9 @@ public class JobServiceImpl implements JobService{
 	}
 	
 	
+	/**
+	 * 上线职位
+	 */
 	@Override
 	public JSONObject sxJob(String param, HttpServletRequest request) {
 		JSONObject jsonparam=JSONObject.fromObject(param);
@@ -501,6 +521,9 @@ public class JobServiceImpl implements JobService{
 		}
 	}
 	
+	/**
+	 * 删除职位
+	 */
 	@Override
 	public JSONObject scJob(String param, HttpServletRequest request) {
 		JSONObject jsonparam=JSONObject.fromObject(param);
@@ -517,6 +540,117 @@ public class JobServiceImpl implements JobService{
 		} else {
 			result.put("success", false);
 			result.put("message", "删除失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	/**
+	 * 我收藏职位列表
+	 */
+	@Override
+	public JSONObject wscJob(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		
+		String c_userid=(String)session.getAttribute("id");
+		
+		List<JobInfoEntity> jobInfoEntities=jobmapper.selectWscJob(c_userid);
+		
+
+		JSONArray jsonArray=new JSONArray();
+		JSONObject result=new JSONObject();
+		for(JobInfoEntity job:jobInfoEntities){
+
+			JSONObject data=new JSONObject();
+			
+			data.put("c_id", job.getC_id());
+			
+			data.put("n_code",job.getN_code());
+			
+			data.put("c_zwmc", job.getC_zwmc());
+			
+			data.put("n_gzxz", job.getN_gzxz());
+			
+			data.put("n_yx", job.getN_yx());
+			
+			data.put("n_gzjy", job.getN_gzjy());
+			
+			data.put("n_xlyq", job.getN_xlyq());
+			
+			data.put("c_zwms", job.getC_zwms());
+			
+			data.put("c_gzdz", job.getC_gzdz());
+			
+			data.put("c_jsjlyx", job.getC_jsjlyx());
+			
+			data.put("n_llcs", job.getN_llcs());
+			
+			data.put("n_zt", job.getN_zt());
+			
+			data.put("dt_fbsj", GyUtils.dateTostring(job.getDt_fbsj()));
+			
+			data.put("c_fbzid", job.getC_fbzid());
+			
+			jsonArray.add(data);
+		}
+		result.put("result", jsonArray);
+		result.put("message", "获取我收藏职位列表成功");
+		result.put("success", true);
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+	/**
+	 * 收藏职位按钮
+	 */
+	@Override
+	public JSONObject wyscJob(String param, HttpServletRequest request) {
+		
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		
+		String c_userid=(String)session.getAttribute("id");
+		
+		String c_jobid=params.getString("id");
+		
+		String c_id=GyUtils.getUUid();
+		
+		int flag=jobmapper.insertWscJob(c_id, c_userid, c_jobid);
+		
+		JSONObject result=new JSONObject();
+		if (flag==1) {
+			result.put("success", true);
+			result.put("message", "收藏职位成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		} else {
+			result.put("success", false);
+			result.put("message", "收藏职位失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	/**
+	 * 取消收藏按钮
+	 */
+	@Override
+	public JSONObject qxscJob(String param, HttpServletRequest request) {
+		
+		JSONObject params=JSONObject.fromObject(param);
+		HttpSession session=request.getSession(true);
+		
+		String c_userid=(String)session.getAttribute("id");
+		
+		String c_jobid=params.getString("id");
+		
+		int flag=jobmapper.deleteWscJob(c_userid, c_jobid);
+		
+		JSONObject result=new JSONObject();
+		if (flag==1) {
+			result.put("success", true);
+			result.put("message", "删除收藏职位成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		} else {
+			result.put("success", false);
+			result.put("message", "删除收藏职位失败！");
 			return GyUtils.returnResult(true, "成功", result);
 		}
 	}

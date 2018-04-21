@@ -90,4 +90,28 @@ public interface JobService {
 	 * @return
 	 */
 	public JSONObject scJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 我收藏的职位
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject wscJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 收藏职位按钮
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject wyscJob(String param,HttpServletRequest request);
+	
+	/**
+	 * 取消收藏按钮
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject qxscJob(String param,HttpServletRequest request);
 }
