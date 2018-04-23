@@ -74,8 +74,8 @@ CREATE TABLE `t_jianliinfo` (
   `c_zwmc` varchar(300) DEFAULT NULL,
   `c_xxmc` varchar(300) DEFAULT NULL,
   `c_zymc` varchar(300) DEFAULT NULL,
-  `dt_kssj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `dt_jssj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `dt_kssj` timestamp ,
+  `dt_jssj` timestamp ,
   `c_zwms` varchar(300) DEFAULT NULL,
   `c_jlmc` varchar(300) DEFAULT NULL,
   `c_zp` varchar(300) DEFAULT NULL,
@@ -159,8 +159,8 @@ CREATE TABLE `t_receivejianliinfo` (
   `c_jlid` varchar(32) DEFAULT NULL,
   `c_jobid` varchar(32) DEFAULT NULL,
   `n_zt` int(11) DEFAULT NULL,
-  `dt_tdsj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `dt_cksj` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `dt_tdsj` timestamp ,
+  `dt_cksj` timestamp ,
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
