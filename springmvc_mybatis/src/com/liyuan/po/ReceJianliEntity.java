@@ -48,6 +48,19 @@ public class ReceJianliEntity {
 	 * 投递时间
 	 */
 	Date dt_tdsj;
+	
+	/**
+	 * 简历id
+	 */
+	String c_jlid;
+
+	public String getC_jlid() {
+		return c_jlid;
+	}
+
+	public void setC_jlid(String c_jlid) {
+		this.c_jlid = c_jlid;
+	}
 
 	public String getC_jlmc() {
 		return c_jlmc;

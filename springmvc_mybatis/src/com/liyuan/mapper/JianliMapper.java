@@ -10,7 +10,21 @@ import com.liyuan.po.ReceJianliEntity;
 
 public interface JianliMapper {
 	
+	/**
+	 * 通过syzid查询简历信息
+	 * @param c_id
+	 * @return
+	 */
 	JianliEntity selectPersonJianli(
+			@Param("c_id")String c_id
+			);
+	
+	/**
+	 * 通过jlid查询简历信息
+	 * @param c_id
+	 * @return
+	 */
+	JianliEntity selectPersonJianliByid(
 			@Param("c_id")String c_id
 			);
 	

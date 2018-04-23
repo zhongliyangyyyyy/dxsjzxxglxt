@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2018-04-22 00:59:17
+Date: 2018-04-23 10:53:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -224,13 +224,21 @@ CREATE TABLE `t_userinfo` (
   `c_id` varchar(32) NOT NULL,
   `c_bh` varchar(300) DEFAULT NULL,
   `c_xm` varchar(300) DEFAULT NULL,
+  `c_sjhm` varchar(300) DEFAULT NULL,
+  `c_txzp` varchar(300) DEFAULT NULL,
+  `n_type` int(11) DEFAULT NULL,
+  `c_xxmc` varchar(300) DEFAULT NULL,
+  `c_zymc` varchar(300) DEFAULT NULL,
+  `c_sfzhm` varchar(300) DEFAULT NULL,
+  `c_tplj` varchar(300) DEFAULT NULL,
+  `n_zt` int(11) DEFAULT NULL,
   PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_userinfo
 -- ----------------------------
-INSERT INTO `t_userinfo` VALUES ('', null, null);
+INSERT INTO `t_userinfo` VALUES ('asdasdakdjlhajksd', '1231231231312313123', '钟黎阳', '15996248646', '头像照片', '1', '南京农业大学', '计算机科学与技术', '15996248646', '图片路径', '1');
 
 -- ----------------------------
 -- Table structure for t_wscjob

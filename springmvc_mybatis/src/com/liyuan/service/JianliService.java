@@ -117,4 +117,12 @@ public interface JianliService {
 	 * @return
 	 */
 	public JSONObject tdJianli(String param,HttpServletRequest request);
+	
+	/**
+	 * 查看简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject ckJianli(String param,HttpServletRequest request);
 }

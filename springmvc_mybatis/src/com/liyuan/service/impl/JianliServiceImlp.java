@@ -26,7 +26,7 @@ public class JianliServiceImlp implements JianliService{
 	@Autowired JianliMapper jianliMapper;
 
 	/**
-	 * 编辑、保存简历
+	 * 编辑
 	 */
 	@Override
 	public JSONObject personJianli(HttpServletRequest request) {
@@ -69,6 +69,9 @@ public class JianliServiceImlp implements JianliService{
 	}
 
 
+	/**
+	 *保存简历
+	 */
 	@Override
 	public JSONObject bcJianli(String param, HttpServletRequest request) {
 		
@@ -139,6 +142,7 @@ public class JianliServiceImlp implements JianliService{
 		JSONArray jsonArray=new JSONArray();
 		for(ReceJianliEntity jianli:receJianliEntities){
 			JSONObject data=new JSONObject();
+			data.put("jlid", jianli.getC_jlid());
 			data.put("id",jianli.getC_id());
 			data.put("name", jianli.getC_name());
 			data.put("jlmc", jianli.getC_jlmc());
@@ -170,6 +174,7 @@ public class JianliServiceImlp implements JianliService{
 		JSONArray jsonArray=new JSONArray();
 		for(ReceJianliEntity jianli:receJianliEntities){
 			JSONObject data=new JSONObject();
+			data.put("jlid", jianli.getC_jlid());
 			data.put("id",jianli.getC_id());
 			data.put("name", jianli.getC_name());
 			data.put("jlmc", jianli.getC_jlmc());
@@ -201,6 +206,7 @@ public class JianliServiceImlp implements JianliService{
 		JSONArray jsonArray=new JSONArray();
 		for(ReceJianliEntity jianli:receJianliEntities){
 			JSONObject data=new JSONObject();
+			data.put("jlid", jianli.getC_jlid());
 			data.put("id",jianli.getC_id());
 			data.put("name", jianli.getC_name());
 			data.put("jlmc", jianli.getC_jlmc());
@@ -232,6 +238,7 @@ public class JianliServiceImlp implements JianliService{
 		JSONArray jsonArray=new JSONArray();
 		for(ReceJianliEntity jianli:receJianliEntities){
 			JSONObject data=new JSONObject();
+			data.put("jlid", jianli.getC_jlid());
 			data.put("id",jianli.getC_id());
 			data.put("name", jianli.getC_name());
 			data.put("jlmc", jianli.getC_jlmc());
@@ -263,6 +270,7 @@ public class JianliServiceImlp implements JianliService{
 		JSONArray jsonArray=new JSONArray();
 		for(ReceJianliEntity jianli:receJianliEntities){
 			JSONObject data=new JSONObject();
+			data.put("jlid", jianli.getC_jlid());
 			data.put("id",jianli.getC_id());
 			data.put("name", jianli.getC_name());
 			data.put("jlmc", jianli.getC_jlmc());
@@ -430,6 +438,48 @@ public class JianliServiceImlp implements JianliService{
 			result.put("message", "投递简历失败");
 			return GyUtils.returnResult(true, "成功", result);
 		}
+	}
+
+
+	/**
+	 * 查看简历
+	 */
+	@Override
+	public JSONObject ckJianli(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String c_jlid=params.getString("jlid");
+
+		JianliEntity jianliEntity=jianliMapper.selectPersonJianliByid(c_jlid);
+		
+		JSONObject data=new JSONObject();
+		JSONObject result=new JSONObject();
+		data.put("id",jianliEntity.getC_id());
+		data.put("c_name", jianliEntity.getC_name());
+		data.put("n_xb", jianliEntity.getN_xb());
+		data.put("c_sjhm", jianliEntity.getC_sjhm());
+		data.put("c_yx", jianliEntity.getC_yx());
+		data.put("c_qwgzdz", jianliEntity.getC_qwgzdz());
+		data.put("n_gzxz", jianliEntity.getN_gzxz());
+		data.put("c_qwzw", jianliEntity.getC_qwzw());
+		data.put("n_qwyx", jianliEntity.getN_qwyx());
+		data.put("c_gsmc", jianliEntity.getC_gsmc());
+		data.put("c_zwmc", jianliEntity.getC_zwmc());
+		data.put("c_xxmc", jianliEntity.getC_xxmc());
+		data.put("n_gzjy", jianliEntity.getN_gzjy());
+		data.put("n_xl", jianliEntity.getN_xl());
+		data.put("c_zymc", jianliEntity.getC_zymc());
+		data.put("dt_kssj", jianliEntity.getDt_kssj());
+		data.put("dt_jssj", jianliEntity.getDt_jssj());
+		data.put("c_zwms",jianliEntity.getC_zwms());
+		data.put("c_jlmc", jianliEntity.getC_jlmc());
+		data.put("c_zp", jianliEntity.getC_zp());
+		data.put("c_syzid", jianliEntity.getC_syzid());
+		
+		result.put("result", data);
+		result.put("success", true);
+		result.put("message", "成功");
+		
+		return GyUtils.returnResult(true, "成功", result);
 	}
 
 }

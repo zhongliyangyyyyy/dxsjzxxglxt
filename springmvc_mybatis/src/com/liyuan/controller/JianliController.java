@@ -120,4 +120,43 @@ public class JianliController {
 	public JSONObject tdJianli(@RequestBody String param,HttpServletRequest request){
 		return jianliService.tdJianli(param, request);
 	}
+	
+	/**
+	 * 设置按钮
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/setbutton",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject setBhs(@RequestBody String param,HttpServletRequest request){
+		JSONObject params=JSONObject.fromObject(param);
+		int n_type=params.getInt("type");
+		if(n_type==1){
+			return jianliService.setBhs(param, request);
+		}else if(n_type==2){
+			return jianliService.setDd(param, request);
+		}else if(n_type==3){
+			return jianliService.setTzms(param, request);
+		}else if(n_type==4){
+			return jianliService.setTgms(param, request);
+		}else if(n_type==5){
+			return jianliService.deletJl(param, request);
+		}else{
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 查看简历
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/ckjianlibyid",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject ckJianli(@RequestBody String param,HttpServletRequest request){
+		return jianliService.ckJianli(param,request);
+	}
 }	 

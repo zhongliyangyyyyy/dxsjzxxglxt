@@ -60,7 +60,7 @@
   	limit 0,20
   </select>
   
-  <select id="selectSearchJob">
+  <select id="selectSearchJob" >
   	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
   	<where>
@@ -97,15 +97,15 @@
   		where c_fbzid=#{c_fbzid} AND n_yxzt=1
   </select>
   
-    <select id="selectwxJob" resultMap="jobinfo">
+   <select id="selectwxJob" resultMap="jobinfo">
   	 	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   		c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
   		where c_fbzid=#{c_fbzid} AND n_yxzt=2
   </select>
   
-  <update id="updateXxJob">
-  	update db_test.t_jobinfo set n_yxzt=2 where c_id=#{c_id}
-  </update>
+	  <update id="updateXxJob">
+	  	update db_test.t_jobinfo set n_yxzt=2 where c_id=#{c_id}
+	  </update>
   
     <update id="updateSxJob">
   		update db_test.t_jobinfo set n_yxzt=1 where c_id=#{c_id}
@@ -115,7 +115,7 @@
   		delete from db_test.t_jobinfo where c_id=#{c_id}
   	</delete>
   
-  	<select id="selectWscJob",resultMap="jobinfo">
+  	<select id="selectWscJob" resultMap="jobinfo">
   		select job.c_id,job.n_code,job.c_zwmc,job.n_gzxz,job.n_yx,job.n_gzjy,job.n_xlyq,job.c_zwms,
   		job.c_gzdz,job.c_jsjlyx,job.n_llcs,job.n_zt,job.dt_fbsj,job.dt_fbsj 
   		from db_test.t_jobinfo job join db_test.t_wscjob wsc on job.c_id=wsc.c_jobid
