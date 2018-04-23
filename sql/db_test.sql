@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2018-04-23 10:53:31
+Date: 2018-04-23 11:00:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -167,9 +167,9 @@ CREATE TABLE `t_receivejianliinfo` (
 -- ----------------------------
 -- Records of t_receivejianliinfo
 -- ----------------------------
-INSERT INTO `t_receivejianliinfo` VALUES ('123123', 'sadkgashkdgakdhak', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-22 00:40:03', null);
-INSERT INTO `t_receivejianliinfo` VALUES ('ajksgdakhsdnm', 'kzbmzndbkjahs', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-22 00:40:03', null);
-INSERT INTO `t_receivejianliinfo` VALUES ('skljfhajkdhflkajshd', 'sadkgashkdgakdhak', '123123123', '1', '2018-04-22 00:40:26', null);
+INSERT INTO `t_receivejianliinfo` VALUES ('123123', 'sadkgashkdgakdhak', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-23 11:00:06', '2018-04-11 10:58:36');
+INSERT INTO `t_receivejianliinfo` VALUES ('ajksgdakhsdnm', 'kzbmzndbkjahs', 'c3ab7f76151d483b93dfdfe84f1f3a67', '1', '2018-04-23 11:00:03', '2018-04-20 10:58:32');
+INSERT INTO `t_receivejianliinfo` VALUES ('skljfhajkdhflkajshd', 'sadkgashkdgakdhak', '123123123', '1', '2018-04-12 00:40:26', '2018-04-10 10:59:58');
 
 -- ----------------------------
 -- Table structure for t_reportinfo
