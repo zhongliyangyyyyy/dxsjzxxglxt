@@ -21,7 +21,19 @@ public class LoginEntity {
 	 * 记录id
 	 */
 	String id;
+	
+	/**
+	 * 姓名
+	 * @return
+	 */
+	String name;
 
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getId() {
 		return id;
 	}

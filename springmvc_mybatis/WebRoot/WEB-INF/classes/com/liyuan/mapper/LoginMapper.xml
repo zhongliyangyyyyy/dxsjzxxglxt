@@ -7,9 +7,12 @@
 		<result column="c_password" jdbcType="VARCHAR" property="password"/>
 		<result column="n_type" jdbcType="INTEGER" property="type"/>
 		<result column="c_id" jdbcType="VARCHAR" property="id"/>
+		<result column="c_xm" jdbcType="VARCHAR" property="name"/>
 	</resultMap>
   <select id="selectUser" resultMap="user">
-  	select c_email,c_password,n_type,c_id from db_test.t_user where c_email=#{email}
+  	select user.c_email,user.c_password,user.n_type,user.c_id,info.c_xm
+  	from db_test.t_user user join db_test.t_userinfo info on user.c_id=info.c_bh 
+  	where c_email=#{email}
   </select>
   <insert id="insertUser">
   	insert into db_test.t_user (c_email,c_password,c_id) value (#{email},#{password},#{uuid})

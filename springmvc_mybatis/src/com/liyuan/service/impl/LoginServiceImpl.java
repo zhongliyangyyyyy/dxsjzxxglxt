@@ -35,6 +35,7 @@ public class LoginServiceImpl implements LoginService {
 			result.put("message", "登入成功");
 			result.put("email", log.getEmail());
 			result.put("type", log.getType());
+			result.put("user", log.getName());
 			result.put("id", log.getId());
 			if(loginMapper.selectUserInfo(log.getId())!=0){
 				result.put("url", "index.html");
