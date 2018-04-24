@@ -51,6 +51,19 @@ public class UserInfoEntity {
 	 * 专业名称
 	 */
 	String zymc;
+	
+	/**
+	 * 所有者id
+	 */
+	String bh;
+
+	public String getBh() {
+		return bh;
+	}
+
+	public void setBh(String bh) {
+		this.bh = bh;
+	}
 
 	public String getId() {
 		return id;

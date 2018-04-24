@@ -21,6 +21,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public JSONObject bcGrxx(String param, HttpServletRequest request) {
+		HttpSession session=request.getSession(true);
+		
+		String bh=(String)session.getAttribute("id");
+		
 		JSONObject params=JSONObject.fromObject(param);
 		String id=StringUtils.isBlank(params.optString("id"))?GyUtils.getUUid():params.optString("id");
 		String sfzhm=params.getString("sfzhm");
@@ -35,7 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		int flag=0;
 		
 		if(StringUtils.isBlank(params.optString("id"))){
-			flag=userInfoMapper.insertUserinfo(id, sfzhm, sjhm, tplj, txzp, type, xm, xxmc, zymc);
+			flag=userInfoMapper.insertUserinfo(id, sfzhm, sjhm, tplj, txzp, type, xm, xxmc, zymc,bh);
 		}else{
 			flag=userInfoMapper.updateUserinfo(id, sfzhm, sjhm, tplj, txzp, type, xm, xxmc, zymc);
 		}
@@ -64,7 +68,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 		data.put("sfzhm", user.getSfzhm());
 		data.put("tplj", user.getTplj());
 		data.put("txzp", user.getTxzp());
-		return null;
+		data.put("type", user.getType());
+		data.put("xm", user.getXm());
+		data.put("xxmc", user.getXxmc());
+		data.put("zt", user.getZt());
+		data.put("zymc", user.getZymc());
+		JSONObject result=new JSONObject();
+		result.put("data", data);
+		result.put("message","成功");
+		result.put("success", true);
+		
+		return GyUtils.returnResult(true, "成功", result);
 	}
 
 }

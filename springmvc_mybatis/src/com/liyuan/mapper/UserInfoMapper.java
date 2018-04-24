@@ -14,7 +14,8 @@ public interface UserInfoMapper {
 			@Param("type")int type,
 			@Param("xm")String xm,
 			@Param("xxmc")String xxmc,
-			@Param("zymc")String zymc
+			@Param("zymc")String zymc,
+			@Param("bh")String bh
 			);
 	
 	int updateUserinfo(
