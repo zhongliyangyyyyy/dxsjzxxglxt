@@ -11,10 +11,10 @@ $(function(){
 				var html = '';
 				for(var i in collectData) {
 					html += '<li data-id="'+collectData[i].c_id+'">';
-					html += '<a target="_blank" href="h/c/6636.html">';
-					html += '<img alt="携程旅行网" src="style/images/ff808081441c19bf01441f9a47190b3a.png">';
-					html += '</a>';
-					html += '<div class="co_item">';
+//					html += '<a target="_blank" href="h/c/6636.html">';
+//					html += '<img alt="携程旅行网" src="style/images/ff808081441c19bf01441f9a47190b3a.png">';
+//					html += '</a>';
+					html += '<div class="co_item" style="margin-left: 0">';
 					html += '<h2 title="'+collectData[i].c_zwmc+'">';
 					html += '<a target="_blank" href="h/jobs/133340.html">';
 					html += '<em>'+collectData[i].c_zwmc+'</em> ';
@@ -38,8 +38,9 @@ $(function(){
 					} else if (collectData[i].n_xlyq == 5) {
 						xlyq = '博士';
 					}
-					html += '<div class="co_cate"> 搜狗  / '+collectData[i].c_gzdz+' / '+gzjy+'年 / 本科</div>';
+					html += '<div class="co_cate"> '+collectData[i].c_gzdz+' / '+gzjy+' / '+xlyq+'</div>';
 					html += '<span class="co_youhuo c7">'+collectData[i].c_zwms+'</span>';
+					html += '<a class="collection_link" target="_blank" href="h/jobs/148886.html">投个简历</a><i></i>';
 					html += '<a class="collectionCancel collection_link collected" href="javascript:;">取消收藏<span>已取消收藏</span></a>';
 					html += '</div></li>';
 				}

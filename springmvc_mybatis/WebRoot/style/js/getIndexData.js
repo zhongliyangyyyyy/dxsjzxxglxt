@@ -1,4 +1,9 @@
 $(function(){
+	$("#search_button").click(function(){
+		var searchInput = $("#search_input").val();
+		console.log(searchInput);
+		window.location.href = getServerUrl('/list.html?nr='+searchInput);
+	});
 	$.ajax({
 		url: getServerUrl('/jobtype'),
 		type: "post",
@@ -48,9 +53,9 @@ $(function(){
 				for(var i in hotJobData) {
 					console.log((parseInt (i) + 1) % 2 == 0);
 					if(((parseInt (i) + 1) % 2 == 0) == true) {
-						html += '<li class="odd clearfix">';
+						html += '<li class="clearfix" style="float: right;padding: 13px 0;">';
 					} else {
-						html += '<li class="clearfix">';
+						html += '<li class="clearfix" style="float: left;padding: 13px 0;">';
 					}
 					
 					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html" target="_blank">'+hotJobData[i].c_zwmc+'</a>&nbsp;';
@@ -77,7 +82,11 @@ $(function(){
 				var newJobData = data.result.result;
 				var html = '';
 				for(var i in newJobData) {
-					html += '<li class="clearfix">';
+					if(((parseInt (i) + 1) % 2 == 0) == true) {
+						html += '<li class="clearfix" style="float: right;padding: 13px 0;">';
+					} else {
+						html += '<li class="clearfix" style="float: left;padding: 13px 0;">';
+					}
 					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html" target="_blank">'+newJobData[i].c_zwmc+'</a>&nbsp;';
 					html += '</div><span><em class="c7">月薪： </em>'+newJobData[i].n_yx+'/小时</span><br />';
 					html += '<span><em class="c7">经验：</em> '+newJobData[i].n_gzjy+'</span><br />';

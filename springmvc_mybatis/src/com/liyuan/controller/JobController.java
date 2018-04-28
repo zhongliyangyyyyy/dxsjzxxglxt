@@ -7,6 +7,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
 import org.apache.catalina.ssi.SSICommand;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -166,6 +167,9 @@ public class JobController {
 	@RequestMapping(value="/wscjob",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject wscJob(@RequestBody String param,HttpServletRequest request){
+		if(StringUtils.isBlank(param)) {
+			param = "{}";
+		}
 		return jobservice.wscJob(param, request);
 	}
 	

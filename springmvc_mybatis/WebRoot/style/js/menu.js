@@ -10,7 +10,7 @@ $(function(){
 			$('#js-user-span').html(user.user + '&nbsp;');
 			html += '<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>';
 			html += '<li ><a href="collections.html" rel="nofollow">我收藏的职位</a></li>';
-			html += '<li ><a href="myResume.html" rel="nofollow">我投递的简历</a></li>';
+			html += '<li ><a href="delivery.html" rel="nofollow">我投递的简历</a></li>';
 		} else {
 			html += '<li ><a href="create.html" rel="nofollow">发布职位</a></li>';
 			html += '<li ><a href="getResume.html" rel="nofollow">我收到的简历</a></li>';
