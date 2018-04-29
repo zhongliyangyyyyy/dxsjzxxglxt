@@ -2042,3 +2042,5 @@ ul.my_collections li i{float:right;width:1px;height:24px;background: url(img/arr
 #tip_didi_img{width:273px;height:118px;background:url(img/tip_didi.png) no-repeat;position:absolute;z-index:100;margin:-20px 0 0 140px;*margin:-20px 0 0 70px;}
 #tip_didi_img a{display:block;width:86px;height:28px;margin:75px 0 0 97px;}
 /*end*/
+
+.none {display: none}
