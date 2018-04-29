@@ -41,7 +41,7 @@ public class AdminController {
 	@RequestMapping(value="/yshlb",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject yshlbController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.yshlbService(param, request);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class AdminController {
 	@RequestMapping(value="/shtg",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject shtgController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.shtgService(param, request);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class AdminController {
 	@RequestMapping(value="/shbtg",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject shbtgController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.shbtgService(param, request);
 	}
 	
 	/**

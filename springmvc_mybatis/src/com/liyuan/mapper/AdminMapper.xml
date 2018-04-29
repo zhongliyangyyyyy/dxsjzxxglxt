@@ -12,6 +12,16 @@
 	</resultMap>
 	
 	<select id="selectDsh" resultMap="shenhe">
-		select * from db_test.t_shenhelist
+		select * from db_test.t_shenhelist where n_zt=1
 	</select>
+	
+	<select id="selectYsh" resultMap="shenhe">
+		select * from db_test.t_shenhelist where n_zt in (2,3)
+	</select>
+	
+	<update id="updataTgsh">
+		update db_test.t_shenhelist set 
+		n_zt=#{zt},dt_shsj=#{shsj}
+		where c_id=#{id}
+	</update>
 </mapper>
