@@ -2,7 +2,6 @@ package com.liyuan.po;
 
 import java.util.Date;
 
-import sun.print.resources.serviceui;
 
 public class JianliEntity {
 	

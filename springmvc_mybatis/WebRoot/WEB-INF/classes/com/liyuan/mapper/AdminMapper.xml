@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.mapper.AdminMapper" >
+	<resultMap type="com.liyuan.po.ShenheEntity" id="shenhe">
+		<result column="c_id" jdbcType="VARCHAR" property="id"/>
+		<result column="n_shlx" jdbcType="INTEGER" property="shlx"/>
+		<result column="dt_shsj" jdbcType="TIMESTAMP" property="shsj"/>
+		<result column="dt_fqsj" jdbcType="TIMESTAMP" property="fqsj"/>
+		<result column="n_zt" jdbcType="INTEGER" property="zt"/>
+		<result column="c_jlid" jdbcType="VARCHAR" property="jlid"/>
+		<result column="c_shrxm" jdbcType="VARCHAR" property="shrxm"/>
+	</resultMap>
+	
+	<select id="selectDsh" resultMap="shenhe">
+		select * from db_test.t_shenhelist
+	</select>
+</mapper>

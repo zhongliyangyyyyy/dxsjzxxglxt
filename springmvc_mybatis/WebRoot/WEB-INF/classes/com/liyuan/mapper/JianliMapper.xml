@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyuan.mapper.JianliMapper">
+	<resultMap type="com.liyuan.po.JianliEntity" id="jianliinfo">
+		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
+		<result column="c_name" jdbcType="VARCHAR" property="c_name"/>
+		<result column="n_xb" jdbcType="INTEGER" property="n_xb"/>
+		<result column="c_sjhm" jdbcType="VARCHAR" property="c_sjhm"/>
+		<result column="c_yx" jdbcType="VARCHAR" property="c_yx"/>
+		<result column="c_qwgzdz" jdbcType="VARCHAR" property="c_qwgzdz"/>
+		<result column="n_gzxz" jdbcType="INTEGER" property="n_gzxz"/>
+		<result column="c_qwzw" jdbcType="VARCHAR" property="c_qwzw"/>
+		<result column="n_qwyx" jdbcType="INTEGER" property="n_qwyx"/>
+		<result column="c_gsmc" jdbcType="VARCHAR" property="c_gsmc"/>
+		<result column="c_zwmc" jdbcType="VARCHAR" property="c_zwmc"/>
+		<result column="c_xxmc" jdbcType="VARCHAR" property="c_xxmc"/>
+		<result column="n_gzjy" jdbcType="INTEGER" property="n_gzjy"/>
+		<result column="n_xl" jdbcType="INTEGER" property="n_xl"/>
+		<result column="c_zymc" jdbcType="VARCHAR" property="c_zymc"/>
+		<result column="dt_kssj" jdbcType="TIMESTAMP" property="dt_kssj"/>
+		<result column="dt_jssj" jdbcType="TIMESTAMP" property="dt_jssj"/>
+		<result column="c_zwms" jdbcType="VARCHAR" property="c_zwms"/>
+		<result column="c_jlmc" jdbcType="VARCHAR" property="c_jlmc"/>
+		<result column="c_zp" jdbcType="VARCHAR" property="c_zp"/>
+		<result column="c_syzid" jdbcType="VARCHAR" property="c_syzid"/>
+	</resultMap>
+	
+	<resultMap type="com.liyuan.po.ReceJianliEntity" id="receJianli">
+		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
+		<result column="c_jlmc" jdbcType="VARCHAR" property="c_jlmc"/>
+		<result column="c_name" jdbcType="VARCHAR" property="c_name"/>
+		<result column="n_xb" jdbcType="INTEGER" property="n_xb"/>
+		<result column="n_xl" jdbcType="INTEGER" property="n_xl"/>
+		<result column="c_xxmc" jdbcType="VARCHAR" property="c_byxx"/>
+		<result column="c_zymc" jdbcType="VARCHAR" property="c_zy"/>
+		<result column="c_zwmc" jdbcType="VARCHAR" property="c_ypzw"/>
+		<result column="dt_tdsj" jdbcType="TIMESTAMP" property="dt_tdsj"/>
+		<result column="c_jlid" jdbcType="VARCHAR" property="c_jlid"/>
+	</resultMap>
+	
+	<select id="selectPersonJianli" resultMap="jianliinfo">
+		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
+		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid
+		from db_test.t_jianliinfo where c_syzid=#{c_id}
+	</select>
+	
+	<select id="selectPersonJianliByid" resultMap="jianliinfo">
+		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
+		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid
+		from db_test.t_jianliinfo where c_id=#{c_id}
+	</select>
+	
+	<update id="updateJianli">
+		update db_test.t_jianliinfo set c_name=#{c_name},n_xb=#{n_xb},c_sjhm=#{c_sjhm},
+		c_yx=#{c_yx},c_qwgzdz=#{c_qwgzdz},n_gzxz=#{n_gzxz},c_qwzw=#{c_qwzw},n_qwyx=#{n_qwyx},
+		c_gsmc=#{c_gsmc},c_zwmc=#{c_zwmc},c_xxmc=#{c_xxmc},n_gzjy=#{n_gzjy},n_xl=#{n_xl},
+		c_zymc=#{c_zymc},dt_kssj=#{dt_kssj},dt_jssj=#{dt_jssj},c_zwms=#{c_zwms},c_jlmc=#{c_jlmc},
+		c_zp=#{c_zp}
+		where c_id=#{c_id}
+	</update>
+	
+	<insert id="insertJianli">
+		insert into db_test.t_jianliinfo 
+		(c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,n_gzxz,c_qwzw,n_qwyx,c_gsmc,c_zwmc,c_xxmc,n_gzjy,
+		n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid) 
+		value (#{c_id},#{c_name},#{n_xb},#{c_sjhm},#{c_yx},#{c_qwgzdz},#{n_gzxz},#{c_qwzw},
+		#{n_qwyx},#{c_gsmc},#{c_zwmc},#{c_xxmc},#{n_gzjy},#{n_xl},#{c_zymc},#{dt_kssj},
+		#{dt_jssj},#{c_zwms},#{c_jlmc},#{c_zp},#{c_syzid})
+	</insert>
+	
+	<select id="selectDclJianli" resultMap="receJianli">
+		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+		job.n_zt=1
+		and job.c_fbzid=#{c_fbzid}
+		<if test="n_zdxl!=0">
+			and jianli.n_xl &gt; #{n_zdxl}
+		</if>
+		<if test="n_gzjy!=0">
+			and jianli.n_gzjy=#{n_gzjy}
+		</if>
+		</where>
+	</select>
+	
+	<select id="selectDdJianli" resultMap="receJianli">
+		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+		job.n_zt=2
+		and job.c_fbzid=#{c_fbzid}
+		<if test="n_zdxl!=0">
+			and jianli.n_xl &gt; #{n_zdxl}
+		</if>
+		<if test="n_gzjy!=0">
+			and jianli.n_gzjy=#{n_gzjy}
+		</if>
+		</where>
+	</select>
+	
+	<select id="selectYtzmsJianli" resultMap="receJianli">
+		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+		job.n_zt=3
+		and job.c_fbzid=#{c_fbzid}
+		<if test="n_zdxl!=0">
+			and jianli.n_xl &gt; #{n_zdxl}
+		</if>
+		<if test="n_gzjy!=0">
+			and jianli.n_gzjy=#{n_gzjy}
+		</if>
+		</where>
+	</select>
+	
+	<select id="selectBhsJianli" resultMap="receJianli">
+		select rece.c_id,rece.c_jlid,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+		job.n_zt=4
+		and job.c_fbzid=#{c_fbzid}
+		<if test="n_zdxl!=0">
+			and jianli.n_xl &gt; #{n_zdxl}
+		</if>
+		<if test="n_gzjy!=0">
+			and jianli.n_gzjy=#{n_gzjy}
+		</if>
+		</where>
+	</select>
+	
+	<select id="selectTgmsJianli" resultMap="receJianli">
+		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+		job.n_zt=5
+		and job.c_fbzid=#{c_fbzid}
+		<if test="n_zdxl!=0">
+			and jianli.n_xl &gt; #{n_zdxl}
+		</if>
+		<if test="n_gzjy!=0">
+			and jianli.n_gzjy=#{n_gzjy}
+		</if>
+		</where>
+	</select>
+	
+	<update id="updateReceJianli">
+		update db_test.t_receivejianliinfo set n_zt=#{n_zt}
+		where c_id=#{c_id}
+	</update>
+	
+	<delete id="delectReceJianli">
+		delete from db_test.t_receivejianliinfo 
+		where c_id=#{c_id}
+	</delete>
+	
+	<insert id="insertReceJianli">
+		insert into db_test.t_receivejianliinfo (c_id,c_jlid,c_jobid,n_zt,dt_tdsj) 
+		values (#{c_uuid},#{c_jlid},#{c_jobid},#{n_zt},#{dt_tdsj})
+	</insert>
+	
+	<select id="selectYtdJianli" resultMap="receJianli">
+		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		from 
+		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
+		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
+		<where>
+				rece.c_jlid=#{c_jlid}
+			<if test="n_zt!=0">
+				and job.n_zt=#{n_zt}
+			</if>
+			<if test="n_zt==2">
+				and rece.dt_cksj is not null
+			</if>
+		</where>
+	</select>
+</mapper>
