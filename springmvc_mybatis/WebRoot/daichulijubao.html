@@ -37,8 +37,8 @@ $(document).ready(function(){
 	<div class="place">
     <span>位置：</span>
     <ul class="placeul">
-    <li><a href="#">审核功能</a></li>
-    <li><a href="#">待审核列表</a></li>
+    <li><a href="#">举报信息列表</a></li>
+    <li><a href="#">待处理举报</a></li>
     </ul>
     </div>
     
@@ -49,28 +49,26 @@ $(document).ready(function(){
     	<thead >
     	<tr>
         <th>编号<i class="sort"><img src="images/px.gif" /></i></th>
-        <th>审核类型</th>
-        <th>账户</th>
-        <th>发起时间</th>
-        <th>审核时间</th>
-        <th>状态</th>
+        <th>举报类型</th>
+        <th>举报内容</th>
+        <th>被举报人姓名</th>
+        <th>举报人姓名</th>
+        <th>举报时间</th>
         <th>操作</th>
         </tr>
         </thead>
-        <tbody id="biaodan" v-for="(item,index) in shenhelist">
+        <tbody id="biaodan" v-for="(item,index) in jubaolist">
         <tr>
         <td>{{index+1}}</td>
-        <td>{{item.shlx | formatShlx}}</td>
-        <td>{{item.zh}}</td>
-        <td>{{item.fqsj}}</td>
-        <td>{{item.shsj}}</td>
-        <td>{{item.zt | formatZt}}</td>
+        <td>{{item.jblx | formatJblx}}</td>
+        <td>{{item.jbnr}}</td>
+        <td>{{item.bjbrxm}}</td>
+        <td>{{item.jbrxm}}</td>
+        <td>{{item.jbsj}}</td>
         <td>
-        	<a href="#" class="tablelink">查看</a>  
+        	<a  class="tablelink" v-on:click="laHei(item)">拉黑</a>  
         	&nbsp;   
-        	<a href="#" class="tablelink" v-on:click="tongGuo(item)">通过</a>
-        	&nbsp; 
-        	<a href="#" class="tablelink" v-on:click="buTongGuo(item)">不通过</a>
+        	<a  class="tablelink" v-on:click="bysl(item)">不予受理</a>
         </td>
         </tr> 
 
@@ -121,39 +119,31 @@ $(document).ready(function(){
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				shenhelist:[]
+				jubaolist:[]
 			},
 			filters:{
-				formatShlx:function(value){
-					return value==1?"个人信息审核":"职位信息审核";
-				},
-				formatZt:function(value){
+				formatJblx:function(value){
 					if(value==1){
-						return "审核中";
+						return "发布虚假信息";
 					}else if(value==2){
-						return "审核通过";
-					}else{
-						return "审核不通过";
+						return "收取费用";
+					}else if(value==3){
+						return "不发放工资";
+					}else {
+						return "其他";
 					}
 				}
 			},
 			mounted:function(){
-				/*this.$http.post("http://localhost:8081/springmvc_mybatis/admin/dshlb").then(
-					function(res){
-						console.log('success');
-					},
-					function(res){
-						console.log('error');
-					}
-				);*/
+				
 				var _this=this;
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/dshlb',
+					url:'http://localhost:8080/springmvc_mybatis/admin/dcljblist',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
 					data:{},
 					success:function(result){
-						_this.shenhelist=result.result.data;
+						_this.jubaolist=result.result.data;
 					},
 					error:function(result){
 					console.log('error');
@@ -161,9 +151,9 @@ $(document).ready(function(){
 				})
 			},
 			methods:{
-				tongGuo:function(item){
+				laHei:function(item){
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/shtg',
+					url:'http://localhost:8080/springmvc_mybatis/admin/lh',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
 					data:JSON.stringify(item),
@@ -178,26 +168,25 @@ $(document).ready(function(){
 					}
 				})
 				},
-				buTongGuo:function(item){
-					$.ajax({
-						url:'http://localhost:8080/springmvc_mybatis/admin/shbtg',
-						type:'post',
-						contentType:'application/json;charset=UTF-8',
-						data:JSON.stringify(item),
-						dataType:'json',
-						success:function(result){
-							if(result.result.success){
-								location.reload();
-							}
-						},
-						error:function(result){
-							console.log('error');
+				bysl:function(item){
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/admin/bysl',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify(item),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
 						}
-					})
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
 				}
 				
-			}
-		});
+		}});
 	</script>
 </body>
 

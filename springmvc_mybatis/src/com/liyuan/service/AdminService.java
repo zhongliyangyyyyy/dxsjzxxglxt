@@ -38,4 +38,43 @@ public interface AdminService {
 	 */
 	public JSONObject shbtgService(String param,HttpServletRequest request);
 	
+	/**
+	 * 删除审核信息
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject scshxxService(String param,HttpServletRequest request);
+	
+	/**
+	 * 待处理举报
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject dcljbService(String param,HttpServletRequest request);
+	
+	/**
+	 * 已处理举报
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject ycljbService(String param,HttpServletRequest request);
+	
+	/**
+	 * 拉黑
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject lhService(String param,HttpServletRequest request);
+	
+	/**
+	 * 不予受理
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject byslService(String param,HttpServletRequest request);
 }

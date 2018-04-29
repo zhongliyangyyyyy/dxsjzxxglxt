@@ -16,7 +16,7 @@ public class ShenheEntity {
 	
 	String jlid;
 	
-	String shrxm;
+	String zh;
 	
 
 	public String getId() {
@@ -67,13 +67,14 @@ public class ShenheEntity {
 		this.jlid = jlid;
 	}
 
-	public String getShrxm() {
-		return shrxm;
+	public String getZh() {
+		return zh;
 	}
 
-	public void setShrxm(String shrxm) {
-		this.shrxm = shrxm;
+	public void setZh(String zh) {
+		this.zh = zh;
 	}
+
 
 	
 }

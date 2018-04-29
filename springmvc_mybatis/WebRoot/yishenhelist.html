@@ -61,16 +61,14 @@ $(document).ready(function(){
         <tr>
         <td>{{index+1}}</td>
         <td>{{item.shlx | formatShlx}}</td>
-        <td>{{item.fqsj}}</td>
+        <td>{{item.zh}}</td>
         <td>{{item.fqsj}}</td>
         <td>{{item.shsj}}</td>
         <td>{{item.zt | formatZt}}</td>
         <td>
         	<a href="#" class="tablelink">查看</a>  
         	&nbsp;   
-        	<a href="#" class="tablelink" v-on:click="tongGuo(item)">通过</a>
-        	&nbsp; 
-        	<a href="#" class="tablelink" v-on:click="buTongGuo(item)">不通过</a>
+        	<a href="#" class="tablelink" v-on:click="shanchu(item)">删除</a>
         </td>
         </tr> 
 
@@ -194,8 +192,24 @@ $(document).ready(function(){
 							console.log('error');
 						}
 					})
+				},
+				shanchu:function(item){
+					$.ajax({
+						url:'http://localhost:8080/springmvc_mybatis/admin/scshxx',
+						type:'post',
+						contentType:'application/json;charset=UTF-8',
+						data:JSON.stringify(item),
+						dataType:'json',
+						success:function(result){
+							if(result.result.success){
+								location.reload();
+							}
+						},
+						error:function(result){
+							console.log('error');
+						}
+					})
 				}
-				
 			}
 		});
 	</script>

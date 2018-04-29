@@ -8,7 +8,19 @@
 		<result column="dt_fqsj" jdbcType="TIMESTAMP" property="fqsj"/>
 		<result column="n_zt" jdbcType="INTEGER" property="zt"/>
 		<result column="c_jlid" jdbcType="VARCHAR" property="jlid"/>
-		<result column="c_shrxm" jdbcType="VARCHAR" property="shrxm"/>
+		<result column="c_zh" jdbcType="VARCHAR" property="zh"/>
+	</resultMap>
+	<resultMap type="com.liyuan.po.JubaoEntity" id="jubao">
+		<result column="c_id" jdbcType="VARCHAR" property="id"/>
+		<result column="n_jblx" jdbcType="INTEGER" property="jblx"/>
+		<result column="c_jbrid" jdbcType="VARCHAR" property="jbrid"/>
+		<result column="c_bjbrid" jdbcType="VARCHAR" property="bjbrid"/>
+		<result column="c_jbrxm" jdbcType="VARCHAR" property="jbrxm"/>
+		<result column="c_bjbrxm" jdbcType="VARCHAR" property="bjbrxm"/>
+		<result column="dt_jbsj" jdbcType="TIMESTAMP" property="jbsj"/>
+		<result column="dt_clsj" jdbcType="TIMESTAMP" property="clsj"/>
+		<result column="n_cljg" jdbcType="INTEGER" property="cljg"/>
+		<result column="c_jbnr" jdbcType="VARCHAR" property="jbnr"/>
 	</resultMap>
 	
 	<select id="selectDsh" resultMap="shenhe">
@@ -19,9 +31,21 @@
 		select * from db_test.t_shenhelist where n_zt in (2,3)
 	</select>
 	
-	<update id="updataTgsh">
+	<update id="updataTgsh" >
 		update db_test.t_shenhelist set 
 		n_zt=#{zt},dt_shsj=#{shsj}
 		where c_id=#{id}
 	</update>
+	
+	<delete id="deleteShxx" >
+		delete from db_test.t_shenhelist where c_id=#{id}
+	</delete>
+	
+	<select id="selectDcl" resultMap="jubao">
+		select * from db_test.t_reportinfo where n_cljg=1
+	</select>
+	
+	<select id="selectYcl" resultMap="jubao">
+		select * from db_test.t_reportinfo where n_cljg in (2,3)
+	</select>
 </mapper>

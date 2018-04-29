@@ -53,7 +53,7 @@ public class AdminController {
 	@RequestMapping(value="/dcljblist",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject dcljbController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.dcljbService(param, request);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class AdminController {
 	@RequestMapping(value="/dcljb",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject ycljbController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.ycljbService(param, request);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class AdminController {
 	@RequestMapping(value="/scshxx",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject scshxxController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.scshxxService(param, request);
 	}
 	
 	/**
