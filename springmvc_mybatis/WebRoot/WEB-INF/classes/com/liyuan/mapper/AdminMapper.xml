@@ -10,6 +10,7 @@
 		<result column="c_jlid" jdbcType="VARCHAR" property="jlid"/>
 		<result column="c_zh" jdbcType="VARCHAR" property="zh"/>
 	</resultMap>
+	
 	<resultMap type="com.liyuan.po.JubaoEntity" id="jubao">
 		<result column="c_id" jdbcType="VARCHAR" property="id"/>
 		<result column="n_jblx" jdbcType="INTEGER" property="jblx"/>
@@ -21,6 +22,15 @@
 		<result column="dt_clsj" jdbcType="TIMESTAMP" property="clsj"/>
 		<result column="n_cljg" jdbcType="INTEGER" property="cljg"/>
 		<result column="c_jbnr" jdbcType="VARCHAR" property="jbnr"/>
+	</resultMap>
+	
+	<resultMap type="com.liyuan.po.BlackListEntity" id="blacklist">
+		<result column="c_id" jdbcType="VARCHAR" property="id"/>
+		<result column="c_yhid" jdbcType="VARCHAR" property="yhid"/>
+		<result column="dt_lhsj" jdbcType="TIMESTAMP" property="lhsj"/>
+		<result column="c_reportid" jdbcType="VARCHAR" property="repoid"/>
+		<result column="n_lhyy" jdbcType="INTEGER" property="lhyy"/>
+		<result column="c_xm" jdbcType="VARCHAR" property="username"/>
 	</resultMap>
 	
 	<select id="selectDsh" resultMap="shenhe">
@@ -47,5 +57,35 @@
 	
 	<select id="selectYcl" resultMap="jubao">
 		select * from db_test.t_reportinfo where n_cljg in (2,3)
+	</select>
+	
+	<update id="updateLh">
+		update db_test.t_reportinfo set n_cljg=#{zt} where c_id=#{id}
+	</update>
+	
+	<update id="updateBysl">
+		update db_test.t_reportinfo set n_cljg=#{zt} where c_id=#{id}
+	</update>
+	
+	<insert id="insertBlackList">
+		insert into db_test.t_blacklist 
+		(c_id,c_yhid,dt_lhsj,c_reportid,n_lhyy) 
+		values 
+		(#{uuid},#{yhid},#{lhsj},#{repoid},#{lhyy})
+	</insert>
+	
+	<delete id="deleteJbxx">
+		delete from db_test.t_reportinfo where c_id=#{id}
+	</delete>
+	
+	<delete id="delectBlacklist">
+		delete from db_test.t_blacklist where c_id=#{id}
+	</delete>
+	
+	<select id="selectBlacklist" resultMap="blacklist">
+		select black.c_id,black.c_yhid,black.dt_lhsj,black.c_reportid,black.n_lhyy,
+		user.c_xm 
+		from db_test.t_blacklist black join db_test.t_userinfo user
+		on black.c_yhid=user.c_bh
 	</select>
 </mapper>

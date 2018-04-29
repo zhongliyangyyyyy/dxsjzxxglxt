@@ -62,7 +62,7 @@ public class AdminController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/dcljb",method=RequestMethod.POST)
+	@RequestMapping(value="/ycljb",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject ycljbController(@RequestBody String param,HttpServletRequest request){
 		return adminService.ycljbService(param, request);
@@ -77,7 +77,7 @@ public class AdminController {
 	@RequestMapping(value="/blacklist",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject blackListController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.blackListService(param, request);
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class AdminController {
 	@RequestMapping(value="/lh",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject lhController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.lhService(param, request);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class AdminController {
 	@RequestMapping(value="/bysl",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject byslController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.byslService(param, request);
 	}
 	
 	/**
@@ -149,7 +149,7 @@ public class AdminController {
 	@RequestMapping(value="/scjbxx",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject scjbxxController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.scjbxxService(param, request);
 	}
 	
 	/**
@@ -161,6 +161,6 @@ public class AdminController {
 	@RequestMapping(value="/hfyh",method=RequestMethod.POST)
 	@ResponseBody
 	public JSONObject hfyhController(@RequestBody String param,HttpServletRequest request){
-		return null;
+		return adminService.hfyhService(param, request);
 	}
 }

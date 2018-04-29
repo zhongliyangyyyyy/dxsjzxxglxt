@@ -38,7 +38,7 @@ $(document).ready(function(){
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">举报信息列表</a></li>
-    <li><a href="#">待处理举报</a></li>
+    <li><a href="#">已处理举报</a></li>
     </ul>
     </div>
     
@@ -49,26 +49,20 @@ $(document).ready(function(){
     	<thead >
     	<tr>
         <th>编号<i class="sort"><img src="images/px.gif" /></i></th>
-        <th>举报类型</th>
-        <th>举报内容</th>
-        <th>被举报人姓名</th>
-        <th>举报人姓名</th>
-        <th>举报时间</th>
+        <th>用户名</th>
+        <th>拉黑原因</th>
+        <th>拉黑时间</th>
         <th>操作</th>
         </tr>
         </thead>
-        <tbody id="biaodan" v-for="(item,index) in jubaolist">
+        <tbody id="biaodan" v-for="(item,index) in blacklist">
         <tr>
         <td>{{index+1}}</td>
-        <td>{{item.jblx | formatJblx}}</td>
-        <td>{{item.jbnr}}</td>
-        <td>{{item.bjbrxm}}</td>
-        <td>{{item.jbrxm}}</td>
-        <td>{{item.jbsj}}</td>
+        <td>{{item.username}}</td>
+        <td>{{item.lhyy | formatJblx}}</td>
+        <td>{{item.lhsj}}</td>
         <td>
-        	<a href="#" class="tablelink" v-on:click="laHei(item)">拉黑</a>  
-        	&nbsp;   
-        	<a href="#" class="tablelink" v-on:click="bysl(item)">不予受理</a>
+        	<a href="#" class="tablelink" v-on:click="shanchu(item)">删除</a>  
         </td>
         </tr> 
 
@@ -119,7 +113,7 @@ $(document).ready(function(){
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				jubaolist:[]
+				blacklist:[]
 			},
 			filters:{
 				formatJblx:function(value){
@@ -138,12 +132,12 @@ $(document).ready(function(){
 				
 				var _this=this;
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/dcljblist',
+					url:'http://localhost:8080/springmvc_mybatis/admin/blacklist',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
 					data:{},
 					success:function(result){
-						_this.jubaolist=result.result.data;
+						_this.blacklist=result.result.data;
 					},
 					error:function(result){
 					console.log('error');
@@ -151,9 +145,9 @@ $(document).ready(function(){
 				})
 			},
 			methods:{
-				laHei:function(item){
+				shanchu:function(item){
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/lh',
+					url:'http://localhost:8080/springmvc_mybatis/admin/hfyh',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
 					data:JSON.stringify(item),
@@ -167,25 +161,7 @@ $(document).ready(function(){
 						console.log('error');
 					}
 				})
-				},
-				bysl:function(item){
-				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/bysl',
-					type:'post',
-					contentType:'application/json;charset=UTF-8',
-					data:JSON.stringify(item),
-					dataType:'json',
-					success:function(result){
-						if(result.result.success){
-							location.reload();
-						}
-					},
-					error:function(result){
-						console.log('error');
-					}
-				})
-				}
-				
+			}
 		}});
 	</script>
 </body>

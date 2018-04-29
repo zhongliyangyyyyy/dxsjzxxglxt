@@ -77,4 +77,28 @@ public interface AdminService {
 	 * @return
 	 */
 	public JSONObject byslService(String param,HttpServletRequest request);
+	
+	/**
+	 * 删除举报信息
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject scjbxxService(String param,HttpServletRequest request);
+	
+	/**
+	 * 获取黑名单列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject blackListService(String param,HttpServletRequest request);
+	
+	/**
+	 * 恢复用户
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject hfyhService(String param,HttpServletRequest request);
 }

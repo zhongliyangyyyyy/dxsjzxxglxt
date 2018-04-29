@@ -4,15 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.liyuan.mapper.AdminMapper;
+import com.liyuan.po.BlackListEntity;
 import com.liyuan.po.JubaoEntity;
 import com.liyuan.po.ShenheEntity;
 import com.liyuan.service.AdminService;
@@ -163,10 +164,10 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject ycljbService(String param, HttpServletRequest request) {
-		List<JubaoEntity> dclList=adminMapper.selectYcl();
+		List<JubaoEntity> yclList=adminMapper.selectYcl();
 		
 		JSONArray jsonArray=new JSONArray();
-		for(JubaoEntity dcl:dclList){
+		for(JubaoEntity dcl:yclList){
 			JSONObject data=new JSONObject();
 			data.put("id", dcl.getId());
 			data.put("jblx", dcl.getJblx());
@@ -191,19 +192,131 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject lhService(String param, HttpServletRequest request) {
-		JSONObject params=new JSONObject();
+		JSONObject params=JSONObject.fromObject(param);
 		String id=params.getString("id");
 		String bjbrid=params.getString("bjbrid");
 		String uuid=GyUtils.getUUid();
+		int lhyy=params.getInt("jblx");
 		Date lhsj=new Date();
-		
-		return null;
+		int zt=2;
+		int flag=adminMapper.updateLh(id, zt);
+		JSONObject result=new JSONObject();
+		if(flag!=1){
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			int flag2=adminMapper.insertBlackList(uuid, bjbrid, lhsj, id , lhyy);
+			if(flag2!=1){
+				result.put("success", false);
+				result.put("message", "失败");
+				return GyUtils.returnResult(true, "成功", result);
+			}else{
+				result.put("success", true);
+				result.put("message", "成功");
+				return GyUtils.returnResult(true, "成功", result);
+			}
+		}
 	}
 
 	@Override
 	public JSONObject byslService(String param, HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		JSONObject params=JSONObject.fromObject(param);
+		String id=params.getString("id");
+		int zt=3;
+		int flag=adminMapper.updateBysl(id, zt);
+		
+		JSONObject result=new JSONObject();
+		if(flag!=1){
+			result.put("success", false);
+			result.put("message", "失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", true);
+			result.put("message", "成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	@Override
+	public JSONObject scjbxxService(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String id=params.getString("id");
+		int flag=adminMapper.deleteJbxx(id);
+		JSONObject result=new JSONObject();
+		if(flag!=1){
+			result.put("success", false);
+			result.put("message", "删除失败");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", true);
+			result.put("message", "删除成功");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	@Override
+	public JSONObject blackListService(String param, HttpServletRequest request) {
+		List<BlackListEntity> blacklist=adminMapper.selectBlacklist();
+		
+		JSONArray jsonArray=new JSONArray();
+		for(BlackListEntity black:blacklist){
+			JSONObject data=new JSONObject();
+			
+			data.put("id", black.getId());
+			data.put("yhid", black.getYhid());
+			data.put("lhsj", GyUtils.dateTostring(black.getLhsj()));
+			data.put("repoid", black.getRepoid());
+			data.put("username", black.getUsername());
+			data.put("lhyy", black.getLhyy());
+			
+			jsonArray.add(data);
+		}
+		
+		JSONObject result=new JSONObject();
+		result.put("data", jsonArray);
+		result.put("success", true);
+		result.put("message", "获取黑名单成功");
+		
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+	@Override
+	public JSONObject hfyhService(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String id=params.getString("id");
+		String reportid=params.optString("repoid");
+		JSONObject result=new JSONObject();
+		if(!StringUtils.isBlank(reportid)){
+			int flag1=adminMapper.delectBlacklist(id);
+			if(flag1!=1){
+				result.put("success", false);
+				result.put("message", "删除失败");
+				return GyUtils.returnResult(true, "成功", result);
+			}else{
+				int flag=adminMapper.deleteJbxx(reportid);
+				if(flag!=1){
+					result.put("success", false);
+					result.put("message", "删除失败");
+					return GyUtils.returnResult(true, "成功", result);
+				}else{
+					result.put("success", true);
+					result.put("message", "删除成功");
+					return GyUtils.returnResult(true, "成功", result);
+				}
+			}
+		}else{
+			int flag1=adminMapper.delectBlacklist(id);
+			if(flag1!=1){
+				result.put("success", false);
+				result.put("message", "删除失败");
+				return GyUtils.returnResult(true, "成功", result);
+			}else{
+				result.put("success", true);
+				result.put("message", "删除成功");
+				return GyUtils.returnResult(true, "成功", result);
+			}
+		}
 	}
 
 }
