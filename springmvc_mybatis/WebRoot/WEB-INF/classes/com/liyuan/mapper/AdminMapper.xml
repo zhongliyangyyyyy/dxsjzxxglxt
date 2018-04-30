@@ -35,10 +35,21 @@
 	
 	<select id="selectDsh" resultMap="shenhe">
 		select * from db_test.t_shenhelist where n_zt=1
+		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER}
+	</select>
+	<select id="selectDshNumber" resultType="long">
+		select count(*) from db_test.t_shenhelist where n_zt=1
 	</select>
 	
 	<select id="selectYsh" resultMap="shenhe">
 		select * from db_test.t_shenhelist where n_zt in (2,3)
+		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectYshNumber" resultType="long">
+		select count(*) from db_test.t_shenhelist where n_zt in (2,3)
 	</select>
 	
 	<update id="updataTgsh" >
@@ -53,10 +64,22 @@
 	
 	<select id="selectDcl" resultMap="jubao">
 		select * from db_test.t_reportinfo where n_cljg=1
+		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectDclNumber" resultType="long">
+		select count(*) from db_test.t_reportinfo where n_cljg=1
 	</select>
 	
 	<select id="selectYcl" resultMap="jubao">
 		select * from db_test.t_reportinfo where n_cljg in (2,3)
+		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectYclNumber" resultType="long">
+		select count(*) from db_test.t_reportinfo where n_cljg in (2,3)
 	</select>
 	
 	<update id="updateLh">
@@ -85,6 +108,14 @@
 	<select id="selectBlacklist" resultMap="blacklist">
 		select black.c_id,black.c_yhid,black.dt_lhsj,black.c_reportid,black.n_lhyy,
 		user.c_xm 
+		from db_test.t_blacklist black join db_test.t_userinfo user
+		on black.c_yhid=user.c_bh
+		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectBlacklistNumber" resultType="long">
+		select count(*) 
 		from db_test.t_blacklist black join db_test.t_userinfo user
 		on black.c_yhid=user.c_bh
 	</select>

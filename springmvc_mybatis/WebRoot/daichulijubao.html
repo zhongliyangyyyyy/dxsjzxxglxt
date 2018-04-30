@@ -42,10 +42,10 @@ $(document).ready(function(){
     </ul>
     </div>
     
-    <div class="rightinfo">
+    <div class="rightinfo" id="app">
     
     
-    <table class="tablelist" id="app">
+    <table class="tablelist" >
     	<thead >
     	<tr>
         <th>编号<i class="sort"><img src="images/px.gif" /></i></th>
@@ -59,7 +59,7 @@ $(document).ready(function(){
         </thead>
         <tbody id="biaodan" v-for="(item,index) in jubaolist">
         <tr>
-        <td>{{index+1}}</td>
+        <td>{{(currentpage-1)*pagesize+index+1}}</td>
         <td>{{item.jblx | formatJblx}}</td>
         <td>{{item.jbnr}}</td>
         <td>{{item.bjbrxm}}</td>
@@ -76,17 +76,13 @@ $(document).ready(function(){
     </table>
     
    
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+    <div class="pagin" >
+    	<div class="message">共<i class="blue">{{sum}}</i>条记录，当前显示第&nbsp;<i class="blue">{{currentpage}}&nbsp;</i>页</div>
         <ul class="paginList">
         <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li v-bind:class=" {'paginItem current':item===currentpage,'paginItem':isFalse}" 
+			v-for="(item,index) in totalpage"
+			v-on:click="fenye(pagesize,item)"><a href="javascript:;">{{item}}</a></li>
         <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
         </ul>
     </div>
@@ -119,7 +115,13 @@ $(document).ready(function(){
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				jubaolist:[]
+				jubaolist:[],
+				sum:0,
+				totalpage:5,
+				currentpage:1,
+				isTrue:false,
+				isFalse:true,
+				pagesize:10
 			},
 			filters:{
 				formatJblx:function(value){
@@ -141,9 +143,12 @@ $(document).ready(function(){
 					url:'http://localhost:8080/springmvc_mybatis/admin/dcljblist',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
-					data:{},
+					data:JSON.stringify({"pagesize":_this.pagesize,"page":1}),
 					success:function(result){
 						_this.jubaolist=result.result.data;
+						_this.sum=result.result.sum;
+						_this.totalpage=result.result.totalpage;
+						_this.currentpage=1;
 					},
 					error:function(result){
 					console.log('error');
@@ -184,7 +189,25 @@ $(document).ready(function(){
 						console.log('error');
 					}
 				})
-				}
+				},
+				fenye:function(pagesize,item){
+				var _this=this;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/admin/dcljblist',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"pagesize":pagesize,"page":item}),
+					success:function(result){
+						_this.jubaolist=result.result.data;
+						_this.sum=result.result.sum;
+						_this.totalpage=result.result.totalpage;
+						_this.currentpage=item;
+					},
+					error:function(result){
+					console.log('error');
+					}
+				})
+			}
 				
 		}});
 	</script>

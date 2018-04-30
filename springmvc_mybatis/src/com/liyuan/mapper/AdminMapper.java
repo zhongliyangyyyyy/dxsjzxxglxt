@@ -12,9 +12,17 @@ import com.liyuan.po.ShenheEntity;
 
 public interface AdminMapper {
 	
-	List<ShenheEntity> selectDsh();
+	List<ShenheEntity> selectDsh(
+			@Param("pagesize")Integer pagesize,
+			@Param("offset")Integer offset
+			);
+	long selectDshNumber();
 	
-	List<ShenheEntity> selectYsh();
+	List<ShenheEntity> selectYsh(
+			@Param("pagesize")Integer pagesize,
+			@Param("offset")Integer offset
+			);
+	long selectYshNumber();
 	
 	int updataTgsh(
 			@Param("id")String id,
@@ -26,9 +34,19 @@ public interface AdminMapper {
 			@Param("id")String id
 			);
 	
-	List<JubaoEntity> selectDcl();
+	List<JubaoEntity> selectDcl(
+			@Param("pagesize")Integer pagesize,
+			@Param("offset")Integer offset
+			);
 	
-	List<JubaoEntity> selectYcl();
+	long selectDclNumber();
+	
+	List<JubaoEntity> selectYcl(
+			@Param("pagesize")Integer pagesize,
+			@Param("offset")Integer offset
+			);
+	
+	long selectYclNumber();
 	
 	int updateLh(
 			@Param("id")String id,
@@ -52,7 +70,13 @@ public interface AdminMapper {
 			@Param("id")String id
 			);
 	
-	List<BlackListEntity> selectBlacklist();
+	List<BlackListEntity> selectBlacklist(
+			@Param("pagesize")Integer pagesize,
+			@Param("offset")Integer offset
+			);
+	
+	long selectBlacklistNumber(
+			);
 	
 	int delectBlacklist(
 			@Param("id")String id

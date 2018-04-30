@@ -27,8 +27,14 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject dshlbService(String param, HttpServletRequest request) {
-		List<ShenheEntity> dshlist=adminMapper.selectDsh();
-		
+		JSONObject params=JSONObject.fromObject(param);
+		//页面大小
+		int pagesize=params.getInt("pagesize");
+		//页面
+		int page=params.getInt("page");
+		Integer offset=(page-1)*pagesize;
+		List<ShenheEntity> dshlist=adminMapper.selectDsh(pagesize,offset);
+		long number=adminMapper.selectDshNumber();
 		JSONArray jsonArray=new JSONArray();
 		JSONObject result=new JSONObject();
 		for(ShenheEntity dsh:dshlist){
@@ -45,7 +51,9 @@ public class AdminServiceImpl implements AdminService{
 		result.put("data", jsonArray);
 		result.put("success", true);
 		result.put("message", "获取待审核列表成功");
-		
+		Integer totalPageNumber=(int)Math.ceil((double)number/pagesize);
+		result.put("sum", number);
+		result.put("totalpage", totalPageNumber);
  		return GyUtils.returnResult(true, "成功", result);
 	}
 
@@ -92,8 +100,14 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject yshlbService(String param, HttpServletRequest request) {
-		List<ShenheEntity> dshlist=adminMapper.selectYsh();
-		
+		JSONObject params=JSONObject.fromObject(param);
+		//页面大小
+		int pagesize=params.getInt("pagesize");
+		//页面
+		int page=params.getInt("page");
+		Integer offset=(page-1)*pagesize;
+		List<ShenheEntity> dshlist=adminMapper.selectYsh(pagesize,offset);
+		long number=adminMapper.selectYshNumber();
 		JSONArray jsonArray=new JSONArray();
 		JSONObject result=new JSONObject();
 		for(ShenheEntity dsh:dshlist){
@@ -110,7 +124,9 @@ public class AdminServiceImpl implements AdminService{
 		result.put("data", jsonArray);
 		result.put("success", true);
 		result.put("message", "获取已审核列表成功");
-		
+		Integer totalPageNumber=(int)Math.ceil((double)number/pagesize);
+		result.put("sum", number);
+		result.put("totalpage", totalPageNumber);
  		return GyUtils.returnResult(true, "成功", result);
 	}
 
@@ -136,8 +152,14 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject dcljbService(String param, HttpServletRequest request) {
-		List<JubaoEntity> dclList=adminMapper.selectDcl();
-		
+		JSONObject params=JSONObject.fromObject(param);
+		//页面大小
+		int pagesize=params.getInt("pagesize");
+		//页面
+		int page=params.getInt("page");
+		Integer offset=(page-1)*pagesize;
+		List<JubaoEntity> dclList=adminMapper.selectDcl(pagesize,offset);
+		long number=adminMapper.selectDclNumber();
 		JSONArray jsonArray=new JSONArray();
 		for(JubaoEntity dcl:dclList){
 			JSONObject data=new JSONObject();
@@ -158,14 +180,22 @@ public class AdminServiceImpl implements AdminService{
 		result.put("data", jsonArray);
 		result.put("success", true);
 		result.put("message", "获取待处理举报列表成功");
-		
+		Integer totalPageNumber=(int)Math.ceil((double)number/pagesize);
+		result.put("sum", number);
+		result.put("totalpage", totalPageNumber);
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
 	@Override
 	public JSONObject ycljbService(String param, HttpServletRequest request) {
-		List<JubaoEntity> yclList=adminMapper.selectYcl();
-		
+		JSONObject params=JSONObject.fromObject(param);
+		//页面大小
+		int pagesize=params.getInt("pagesize");
+		//页面
+		int page=params.getInt("page");
+		Integer offset=(page-1)*pagesize;
+		List<JubaoEntity> yclList=adminMapper.selectYcl(pagesize,offset);
+		long number=adminMapper.selectYclNumber();
 		JSONArray jsonArray=new JSONArray();
 		for(JubaoEntity dcl:yclList){
 			JSONObject data=new JSONObject();
@@ -186,7 +216,9 @@ public class AdminServiceImpl implements AdminService{
 		result.put("data", jsonArray);
 		result.put("success", true);
 		result.put("message", "获取已处理举报列表成功");
-		
+		Integer totalPageNumber=(int)Math.ceil((double)number/pagesize);
+		result.put("sum", number);
+		result.put("totalpage", totalPageNumber);
 		return GyUtils.returnResult(true, "成功", result);
 	}
 
@@ -257,9 +289,15 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public JSONObject blackListService(String param, HttpServletRequest request) {
-		List<BlackListEntity> blacklist=adminMapper.selectBlacklist();
+		JSONObject params=JSONObject.fromObject(param);
+		//页面大小
+		int pagesize=params.getInt("pagesize");
+		//页面
+		int page=params.getInt("page");
+		Integer offset=(page-1)*pagesize;
 		
-		int number=0;
+		List<BlackListEntity> blacklist=adminMapper.selectBlacklist(pagesize, offset);
+		long number=adminMapper.selectBlacklistNumber();
 		
 		JSONArray jsonArray=new JSONArray();
 		for(BlackListEntity black:blacklist){
@@ -271,14 +309,15 @@ public class AdminServiceImpl implements AdminService{
 			data.put("repoid", black.getRepoid());
 			data.put("username", black.getUsername());
 			data.put("lhyy", black.getLhyy());
-			number++;
 			jsonArray.add(data);
 		}
 		
 		JSONObject result=new JSONObject();
-		result.put("sum", number);
 		result.put("data", jsonArray);
 		result.put("success", true);
+		Integer totalPageNumber=(int)Math.ceil((double)number/pagesize);
+		result.put("sum", number);
+		result.put("totalpage", totalPageNumber);
 		result.put("message", "获取黑名单成功");
 		
 		return GyUtils.returnResult(true, "成功", result);
