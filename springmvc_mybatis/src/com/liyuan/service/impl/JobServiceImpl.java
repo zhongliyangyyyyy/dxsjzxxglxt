@@ -326,10 +326,10 @@ public class JobServiceImpl implements JobService{
 		
 		Integer offset=(page-1)*pagesize;
 		List<JobInfoEntity> joblist=jobmapper.
-				selectSearchJob(c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj, pagesize, offset);
+				selectSearchJob(fbsj,c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj, pagesize, offset);
 		
 		Integer totalPageNumber=(int)Math.ceil((double)jobmapper.
-				selectSearchJobNumber(c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj)/pagesize);
+				selectSearchJobNumber(fbsj,c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj)/pagesize);
 		
 		JSONArray jsonArray=new JSONArray();
 		JSONObject result=new JSONObject();
@@ -373,6 +373,7 @@ public class JobServiceImpl implements JobService{
 		result.put("result", jsonArray);
 		result.put("success", true);
 		result.put("message", "搜索职位列表成功");
+		result.put("total", jobmapper.selectSearchJobNumber(fbsj,c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj));
 		return GyUtils.returnResult(true, "成功", result);
 	}
 

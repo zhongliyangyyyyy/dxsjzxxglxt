@@ -60,13 +60,16 @@
   	limit 0,20
   </select>
   
-  <select id="selectSearchJob" >
+  <select id="selectSearchJob" resultMap="jobinfo">
   	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
   	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
   	<where>
   		n_yxzt=1
+  		<if test="fbsj!=0">
+  		AND dt_fbsj &gt; #{dt_fbsj}
+  		</if>
   		<if test="c_nr!='' ">
-  		AND	c_zwmc like %${c_nr}%
+  			AND	c_zwmc like %${c_nr}%
   		</if>
   		<if test="n_gzjy!=0">
   			AND	n_gzjy=#{n_gzjy}
@@ -77,18 +80,43 @@
   		<if test="n_gzxz!=0">
   			AND n_gzxz=#{n_gzxz}
   		</if>
-  		<if test="dt_fbsj!=''">
-			dt_fbsj &gt; #{dt_fbsj}
+  		<if test="n_yxstart!=0">
+  			AND n_yx &gt; #{n_yxstart}
+  		</if>
+  		<if test="n_yxend!=0">
+  			AND n_yx &lt; #{n_yxend}
+  		</if>
+  	</where>
+  		limit #{pagesize,jdbcType=INTEGER} 
+  		offset #{offset,jdbcType=INTEGER};
+  </select>
+  
+   <select id="selectSearchJobNumber" resultType="long">
+  	select count(*) from db_test.t_jobinfo 
+  	<where>
+  		n_yxzt=1
+  		<if test="fbsj!=0">
+  			AND dt_fbsj &gt; #{dt_fbsj}
+  		</if>
+  		<if test="c_nr!='' ">
+  			AND	c_zwmc like %${c_nr}%
+  		</if>
+  		<if test="n_gzjy!=0">
+  			AND	n_gzjy=#{n_gzjy}
+  		</if>
+  		<if test="n_xlyq!=0">
+  			AND n_xlyq=#{n_xlyq}
+  		</if>
+  		<if test="n_gzxz!=0">
+  			AND n_gzxz=#{n_gzxz}
   		</if>
   		<if test="n_yxstart!=0">
   			AND n_yx &gt; #{n_yxstart}
   		</if>
   		<if test="n_yxend!=0">
-  			AND n_yx&lt;#{n_yxend}
+  			AND n_yx &lt; #{n_yxend}
   		</if>
   	</where>
-  		limit #{pagesize,jdbcType=INTEGER} 
-  		offset #{offset,jdbcType=INTEGER};
   </select>
   
   <select id="selectyxJob" resultMap="jobinfo">

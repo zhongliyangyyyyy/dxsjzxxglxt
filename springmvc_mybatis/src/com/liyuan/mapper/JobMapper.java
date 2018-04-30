@@ -67,6 +67,7 @@ public interface JobMapper {
 	 * @return
 	 */
 	List<JobInfoEntity> selectSearchJob(
+			@Param("fbsj")int fbsj,
 			@Param("c_nr")String c_nr,
 			@Param("n_yxstart")int n_yxstart,
 			@Param("n_yxend")int n_yxend,
@@ -90,6 +91,7 @@ public interface JobMapper {
 	 * @return
 	 */
 	long selectSearchJobNumber(
+			@Param("fbsj")int fbsj,
 			@Param("c_nr")String c_nr,
 			@Param("n_yxstart")int n_yxstart,
 			@Param("n_yxend")int n_yxend,
