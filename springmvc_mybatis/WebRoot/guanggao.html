@@ -4,7 +4,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="css/style2.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="/css/layui.css" media="all">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="./js/lib/vue.min.js"></script>
 <script src="./js/lib/vue-resource.min.js"></script>
@@ -28,7 +27,8 @@ $(document).ready(function(){
 
 });
 </script>
-	
+
+
 </head>
 
 
@@ -37,51 +37,11 @@ $(document).ready(function(){
 	<div class="place">
     <span>位置：</span>
     <ul class="placeul">
-    <li><a href="#">举报信息列表</a></li>
-    <li><a href="#">已处理举报</a></li>
+    <li><a href="#">广告位设置</a></li>
+    <li><a href="#">设置广告位</a></li>
     </ul>
     </div>
-    
-    <div class="rightinfo" id="app">
-    
-    
-    <table class="tablelist" >
-    	<thead >
-    	<tr>
-        <th>编号<i class="sort"><img src="images/px.gif" /></i></th>
-        <th>用户名</th>
-        <th>拉黑原因</th>
-        <th>拉黑时间</th>
-        <th>操作</th>
-        </tr>
-        </thead>
-        <tbody id="biaodan" v-for="(item,index) in blacklist">
-        <tr>
-        <td>{{index+1}}</td>
-        <td>{{item.username}}</td>
-        <td>{{item.lhyy | formatJblx}}</td>
-        <td>{{item.lhsj}}</td>
-        <td>
-        	<a href="#" class="tablelink" v-on:click="shanchu(item)">删除</a>  
-        </td>
-        </tr> 
 
-        </tbody>
-    </table>
-    
-   
-    <div class="pagin" >
-    	<div class="message">共<i class="blue">{{sum}}</i>条记录，当前显示第&nbsp;<i class="blue">{{currentpage}}&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem current" v-for="(item,index) in totalpage"><a href="javascript:;">{{item}}</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
-	
-    
-    </div>
-    
     <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 	</script>
@@ -89,10 +49,7 @@ $(document).ready(function(){
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				blacklist:[],
-				sum:10,
-				totalpage:10,
-				currentpage:1
+				blacklist:[]
 			},
 			filters:{
 				formatJblx:function(value){
@@ -114,11 +71,9 @@ $(document).ready(function(){
 					url:'http://localhost:8080/springmvc_mybatis/admin/blacklist',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
-					data:JSON.stringify({"pagesize":10,"page":1}),
+					data:{},
 					success:function(result){
 						_this.blacklist=result.result.data;
-						_this.sum=result.result.sum;
-						_this.totalpage=result.result.totalpage
 					},
 					error:function(result){
 					console.log('error');
@@ -145,7 +100,6 @@ $(document).ready(function(){
 			}
 		}});
 	</script>
-	
 </body>
 
 </html>

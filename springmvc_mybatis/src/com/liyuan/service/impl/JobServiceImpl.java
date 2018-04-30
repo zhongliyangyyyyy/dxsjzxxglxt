@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -297,17 +298,17 @@ public class JobServiceImpl implements JobService{
 		//搜索内容
 		String c_nr=bt.getString("nr");
 		//月薪开始
-		int n_yxstart=bt.getInt("yxstart");
+		int n_yxstart=StringUtils.isBlank(bt.getString("yxstart"))?0:bt.getInt("yxstart");
 		//月薪结束
-		int n_yxend=bt.getInt("yxend");
+		int n_yxend=StringUtils.isBlank(bt.getString("yxend"))?0:bt.getInt("yxend");
 		//工作经验
-		int n_gzjy=bt.getInt("gzjy");
+		int n_gzjy=StringUtils.isBlank(bt.getString("gzjy"))?0:bt.getInt("gzjy");
 		//最低学历
-		int n_xlyq=bt.getInt("zdxl");
+		int n_xlyq=StringUtils.isBlank(bt.getString("zdxl"))?0:bt.getInt("zdxl");
 		//工作性质
-		int n_gzxz=bt.getInt("gzxz");
+		int n_gzxz=StringUtils.isBlank(bt.getString("gzxz"))?0:bt.getInt("gzxz");
 		//发布时间
-		int fbsj=bt.getInt("fbsj");
+		int fbsj=StringUtils.isBlank(bt.getString("fbsj"))?0:bt.getInt("fbsj");
 		//页面大小
 		int pagesize=param.getInt("pagesize");
 		//页面

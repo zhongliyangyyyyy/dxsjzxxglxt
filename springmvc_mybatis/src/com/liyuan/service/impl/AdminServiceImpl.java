@@ -259,6 +259,8 @@ public class AdminServiceImpl implements AdminService{
 	public JSONObject blackListService(String param, HttpServletRequest request) {
 		List<BlackListEntity> blacklist=adminMapper.selectBlacklist();
 		
+		int number=0;
+		
 		JSONArray jsonArray=new JSONArray();
 		for(BlackListEntity black:blacklist){
 			JSONObject data=new JSONObject();
@@ -269,11 +271,12 @@ public class AdminServiceImpl implements AdminService{
 			data.put("repoid", black.getRepoid());
 			data.put("username", black.getUsername());
 			data.put("lhyy", black.getLhyy());
-			
+			number++;
 			jsonArray.add(data);
 		}
 		
 		JSONObject result=new JSONObject();
+		result.put("sum", number);
 		result.put("data", jsonArray);
 		result.put("success", true);
 		result.put("message", "获取黑名单成功");
