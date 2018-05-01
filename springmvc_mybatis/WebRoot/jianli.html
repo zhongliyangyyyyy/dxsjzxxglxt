@@ -66,17 +66,17 @@ var youdao_conv_id = 271546;
             	</dl>
 			</div>
 		</div><!-- end #header -->
-    <div id="container">
+    <div id="container" id="app">
         
-  		<div class="clearfix">
+  		<div class="clearfix" id="app">
             <div class="content_l">
             	<div class="fl" id="resume_name">
 	            	<div class="nameShow fl">
-	            		<h1 title="jason的简历">jason的简历</h1>
+	            		<h1 title="">{{jianli.c_jlmc}}</h1>
 	            		<span class="rename">重命名</span> | <a target="_blank" href="preview.html">预览</a>
             		</div>
-            		<form class="fl dn" id="resumeNameForm">
-            			<input type="text" value="jason的简历" name="resumeName" class="nameEdit c9">	
+            		<form class="fl dn" id="resumeNameForm" @submit.prevent="submit">
+            			<input type="text" placeholder="姓名" name="resumeName" class="nameEdit c9">	
             			<input type="submit" value="保存"> | <a target="_blank" href="preview.html">预览</a>
             		</form>
             	</div><!--end #resume_name-->
@@ -92,8 +92,8 @@ var youdao_conv_id = 271546;
             		<h2>基本信息</h2>
             		<span class="c_edit"></span>
             		<div class="basicShow">
-            			            			<span>jason |  男 |    大专 |  3年工作经验<br>
-            			            			18644444444 | jason@qq.com<br>
+            			            			<span>{{jianli.c_name}} |  {{jianli.n_xb}} |    {{jianli.n_xl}} |  {{jianli.n_gzjy}}<br>
+            			            			{{jianli.c_sjhm}} | {{jianli.c_yx}}<br>
             			</span>
             			<div class="m_portrait">
 	                    	<div></div>
@@ -109,7 +109,7 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td>
-						        <input type="text" placeholder="姓名" value="jason" name="name" id="name">
+						        <input type="text" placeholder="姓名"  name="name" id="name">
 						      </td>
 						      <td valign="top"></td> 
 						      <td>
@@ -149,7 +149,7 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td colspan="3">
-						          <input type="text" placeholder="手机号码" value="18644444444" name="tel" id="tel">
+						          <input type="text" placeholder="手机号码"  name="tel" id="tel">
 						      </td>
 						   	</tr>
 						   	<tr>
@@ -157,7 +157,7 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td colspan="3">
-						          <input type="text" placeholder="接收面试通知的邮箱" value="jason@qq.com" name="email" id="email">
+						          <input type="text" placeholder="接收面试通知的邮箱"  name="email" id="email">
 						      </td>
 						    </tr>
 						    <tr>
@@ -190,13 +190,13 @@ var youdao_conv_id = 271546;
 						  	<span style="display:none;" id="headPic_error" class="error"></span>
 						</div><!--end .new_portrait-->
             		</div><!--end .basicEdit-->
-            		<input type="hidden" id="nameVal" value="jason">
-            		<input type="hidden" id="genderVal" value="男">
-            		<input type="hidden" id="topDegreeVal" value="大专">
-            		<input type="hidden" id="workyearVal" value="3年">
+            		<input type="hidden" id="nameVal" value="">
+            		<input type="hidden" id="genderVal" value="">
+            		<input type="hidden" id="topDegreeVal" value="">
+            		<input type="hidden" id="workyearVal" value="">
             		<input type="hidden" id="currentStateVal" value="">
-            		<input type="hidden" id="emailVal" value="jason@qq.com">
-            		<input type="hidden" id="telVal" value="18644444444">
+            		<input type="hidden" id="emailVal" value="">
+            		<input type="hidden" id="telVal" value="">
             		<input type="hidden" id="pageType" value="1"> 
             	</div><!--end #basicInfo-->
 
@@ -212,7 +212,7 @@ var youdao_conv_id = 271546;
 	            				<tbody><tr>
 	            					<td>
 	            						<input type="hidden" id="expectCity" value="" name="expectCity">
-	            													        	<input type="text" placeholder="期望城市，如：北京" >
+	            													        	<input type="text" placeholder="期望工作地址" >
 				
 	            					</td>
 	            					<td>
@@ -230,7 +230,7 @@ var youdao_conv_id = 271546;
 	            				</tr>
 	            				<tr>
 	            					<td>
-							        	<input type="text" placeholder="期望职位，如：产品经理" value="" name="expectPosition" id="expectPosition">
+							        	<input type="text" placeholder="期望职位" value="" name="expectPosition" id="expectPosition">
 									</td>
 	            					<td>
 	            						<input type="hidden" id="expectSalary" value="" name="expectSalary">
@@ -276,7 +276,7 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							          	<input type="text" placeholder="职位名称，如：产品经理" name="positionName" class="positionName">
+							          	<input type="text" placeholder="" name="positionName" class="positionName">
 							      	</td>
 							    </tr>
 	            					<td></td>
@@ -306,7 +306,7 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							          	<input type="text" placeholder="职位名称，如：产品经理" name="positionName" class="positionName">
+							          	<input type="text" placeholder="职位名称" name="positionName" class="positionName">
 							      	</td>
 							    </tr>
 	            				
@@ -566,6 +566,7 @@ var youdao_conv_id = 271546;
             	</div><!--end #myInfo-->
             </div><!--end .content_r-->
         </div>
+	</div>
         
       <input type="hidden" id="userid" name="userid" value="314873">
 
@@ -662,17 +663,12 @@ var CallCenter = {
 };
 CallCenter.init(url);
 </script>
-	<script>
+<script>
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				blacklist:[],
-				sum:0,
-				totalpage:5,
-				currentpage:1,
-				isTrue:false,
-				isFalse:true,
-				pagesize:10
+				jianli:{},
+				 inputtext:{}  
 			},
 			filters:{
 				formatJblx:function(value){
@@ -688,18 +684,15 @@ CallCenter.init(url);
 				}
 			},
 			mounted:function(){
-				
 				var _this=this;
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/blacklist',
+					url:'http://localhost:8080/springmvc_mybatis/ckjianli',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
 					data:JSON.stringify({"pagesize":_this.pagesize,"page":1}),
 					success:function(result){
-						_this.blacklist=result.result.data;
-						_this.sum=result.result.sum;
-						_this.totalpage=result.result.totalpage;
-						_this.currentpage=1;
+						_this.jianli=result.result.result;
+						console.log(_this.jianli);
 					},
 					error:function(result){
 					console.log('error');
@@ -707,8 +700,7 @@ CallCenter.init(url);
 				})
 			},
 			methods:{
-				
-				shanchu:function(item){
+				submit:function(item){
 				$.ajax({
 					url:'http://localhost:8080/springmvc_mybatis/admin/hfyh',
 					type:'post',
@@ -722,24 +714,6 @@ CallCenter.init(url);
 					},
 					error:function(result){
 						console.log('error');
-					}
-				})
-			},
-			fenye:function(pagesize,item){
-				var _this=this;
-				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/blacklist',
-					type:'post',
-					contentType:'application/json;charset=UTF-8',
-					data:JSON.stringify({"pagesize":pagesize,"page":item}),
-					success:function(result){
-						_this.blacklist=result.result.data;
-						_this.sum=result.result.sum;
-						_this.totalpage=result.result.totalpage;
-						_this.currentpage=item;
-					},
-					error:function(result){
-					console.log('error');
 					}
 				})
 			}
