@@ -20,4 +20,10 @@
   <select id="selectUserInfo" resultType="int">
   	select count(*) from db_test.t_userinfo where c_bh=#{bh}
   </select>
+  
+   <select id="selectUser1" resultMap="user">
+  	select c_email,c_password,n_type,c_id
+  	from db_test.t_user 
+  	where c_email=#{email}
+  </select>
 </mapper>

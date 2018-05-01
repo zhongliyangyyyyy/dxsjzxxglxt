@@ -17,4 +17,8 @@ public interface LoginMapper {
 	public int selectUserInfo(
 			@Param("bh")String bh
 			);
+	
+	public LoginEntity selectUser1(
+			@Param("email")String email
+			);
 }

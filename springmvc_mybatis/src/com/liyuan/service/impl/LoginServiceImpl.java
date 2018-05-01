@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public JSONObject logIN(String email, String password, HttpServletRequest request) {
 		final HttpSession session = request.getSession(true);
-		LoginEntity log=loginMapper.selectUser(email);
+		LoginEntity log=loginMapper.selectUser1(email);
 		JSONObject result=new JSONObject();
 		if(log==null){
 			result.put("success", false);
