@@ -13,7 +13,7 @@ $(function(){
 			html += '<li ><a href="delivery.html" rel="nofollow">我投递的简历</a></li>';
 		} else {
 			html += '<li ><a href="create.html" rel="nofollow">发布职位</a></li>';
-			html += '<li ><a href="getResume.html" rel="nofollow">我收到的简历</a></li>';
+			html += '<li ><a href="daichulijianli.html" rel="nofollow">我收到的简历</a></li>';
 		}
 		$("#navheader").html(html);
 		$("#js-loginAndReg").hide();
