@@ -74,7 +74,7 @@
     </servlet-mapping>
     <servlet-mapping>   
         <servlet-name>default</servlet-name>   
-        <url-pattern>*.gif</url-pattern>   
+        <url-pattern>*.gi f</url-pattern>   
     </servlet-mapping>
   <!-- 配置springmvc前端控制器:rest配置 -->
   <servlet>
