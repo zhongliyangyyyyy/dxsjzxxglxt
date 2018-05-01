@@ -23,9 +23,10 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public JSONObject logIN(String email, String password, HttpServletRequest request) {
 		final HttpSession session = request.getSession(true);
-		LoginEntity log=loginMapper.selectUser1(email);
+		LoginEntity log=loginMapper.selectUser(email);
+		LoginEntity log1=loginMapper.selectUser1(email);
 		JSONObject result=new JSONObject();
-		if(log==null){
+		if(log1==null){
 			result.put("success", false);
 			result.put("message", "用户名不存在");
 			return GyUtils.returnResult(true, "成功", result);
