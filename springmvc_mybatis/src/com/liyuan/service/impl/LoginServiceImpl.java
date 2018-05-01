@@ -23,10 +23,10 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public JSONObject logIN(String email, String password, HttpServletRequest request) {
 		final HttpSession session = request.getSession(true);
-		LoginEntity log=loginMapper.selectUser(email);
-		LoginEntity log1=loginMapper.selectUser1(email);
+
+		LoginEntity log=loginMapper.selectUser1(email);
 		JSONObject result=new JSONObject();
-		if(log1==null){
+		if(log==null){
 			result.put("success", false);
 			result.put("message", "用户名不存在");
 			return GyUtils.returnResult(true, "成功", result);
@@ -36,12 +36,14 @@ public class LoginServiceImpl implements LoginService {
 			result.put("message", "登入成功");
 			result.put("email", log.getEmail());
 			result.put("type", log.getType());
-			result.put("user", log.getName());
 			result.put("id", log.getId());
 			if(loginMapper.selectUserInfo(log.getId())!=0){
+				LoginEntity log1=loginMapper.selectUser(email);
 				result.put("url", "index.html");
+				result.put("user", log1.getName());
 			}else{
 				result.put("url", "gerenxinxi.html");
+				result.put("user","");
 			}
 			session.setAttribute("email", log.getEmail());
 			session.setAttribute("logined", true);
