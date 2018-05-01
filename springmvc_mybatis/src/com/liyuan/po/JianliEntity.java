@@ -76,7 +76,7 @@ public class JianliEntity {
 	int n_xl;
 	
 	/**
-	 * 职业名称
+	 * 专业名称
 	 */
 	String c_zymc;
 	
@@ -93,7 +93,7 @@ public class JianliEntity {
 	/**
 	 * 职位描述
 	 */
-	Date c_zwms;
+	String c_zwms;
 	
 	/**
 	 * 简历名称
@@ -247,11 +247,13 @@ public class JianliEntity {
 		this.dt_jssj = dt_jssj;
 	}
 
-	public Date getC_zwms() {
+
+
+	public String getC_zwms() {
 		return c_zwms;
 	}
 
-	public void setC_zwms(Date c_zwms) {
+	public void setC_zwms(String c_zwms) {
 		this.c_zwms = c_zwms;
 	}
 

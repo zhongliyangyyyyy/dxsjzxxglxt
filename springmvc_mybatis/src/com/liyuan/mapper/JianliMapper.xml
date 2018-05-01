@@ -36,16 +36,17 @@
 		<result column="c_zwmc" jdbcType="VARCHAR" property="c_ypzw"/>
 		<result column="dt_tdsj" jdbcType="TIMESTAMP" property="dt_tdsj"/>
 		<result column="c_jlid" jdbcType="VARCHAR" property="c_jlid"/>
+		<result column="c_jobid" jdbcType="VARCHAR" property="jobid"/>
 	</resultMap>
 	
 	<select id="selectPersonJianli" resultMap="jianliinfo">
-		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
+		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
 		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid
 		from db_test.t_jianliinfo where c_syzid=#{c_id}
 	</select>
 	
 	<select id="selectPersonJianliByid" resultMap="jianliinfo">
-		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
+		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
 		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid
 		from db_test.t_jianliinfo where c_id=#{c_id}
 	</select>
@@ -175,7 +176,7 @@
 	
 	<select id="selectYtdJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,rece.c_jobid
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id

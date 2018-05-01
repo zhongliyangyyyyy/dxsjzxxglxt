@@ -24,6 +24,7 @@
 <script src="style/js/jquery.lib.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="style/js/ajaxfileupload.js"></script>
 <script src="style/js/additional-methods.js" type="text/javascript"></script>
+<script type="text/javascript" src="style/js/menu.js"></script>
 <!--[if lte IE 8]>
     <script type="text/javascript" src="style/js/excanvas.js"></script>
 <![endif]-->
@@ -37,7 +38,7 @@
 		<div id="header">
 			<div class="wrapper">
 				<a class="logo" href="index.html">
-					<img width="229" height="43" alt="logo" src="style/images/.png">
+					<img src="style/images/schoolLogo.png" width="229" height="43" alt="此处放logo" />
 				</a>
 				<ul id="navheader" class="reset">
 					<li><a href="index.html">首页</a></li>
@@ -47,19 +48,15 @@
 					</li>
 					<li class="current"><a rel="nofollow" href="create.html">发布职位</a></li>
 				</ul>
-				<dl class="collapsible_menu">
-					<dt>
-						<span>jason&nbsp;</span> 
-						<span class="red dn" id="noticeDot-1"></span>
-						<i></i>
-					</dt>
-					<dd style="display: none;"><a href="positions.html">我发布的职位</a></dd>
-					<dd style="display: none;"><a href="positions.html">我收到的简历</a></dd>
-					<dd class="btm" style="display: none;"><a href="myhome.html">我的公司主页</a></dd>
-					<dd style="display: none;"><a href="jianli.html">我要找工作</a></dd>
-					<dd style="display: none;"><a href="accountBind.html">帐号设置</a></dd>
-					<dd class="logout" style="display: none;"><a rel="nofollow" href="login.html">退出</a></dd>
-				</dl>
+				<dl class="collapsible_menu none" id="js-userDl">
+	            	<dt style='min-width: auto'>
+	           			<span id='js-user-span'>jason&nbsp;</span> 
+	            		<span class="red dn" id="noticeDot-1"></span>
+	            		<i></i>
+	            	</dt>
+                    <dd><a href="accountBind.html">帐号设置</a></dd>
+                    <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+            	</dl>
 			</div>
 		</div><!-- end #header -->
 		<div id="container">

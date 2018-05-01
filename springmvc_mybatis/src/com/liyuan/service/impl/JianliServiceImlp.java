@@ -404,12 +404,13 @@ public class JianliServiceImlp implements JianliService{
 			data.put("byxx", jianli.getC_byxx());
 			data.put("zy", jianli.getC_zy());
 			data.put("ypzw", jianli.getC_ypzw());
+			data.put("jobid", jianli.getJobid());
 			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
 			jsonArray.add(data);
 		}
 		result.put("success", true);
 		result.put("message", "我投递的简历！");
-		result.put("result", result);
+		result.put("result", jsonArray);
 		return GyUtils.returnResult(true, "成功", result);
 	}
 

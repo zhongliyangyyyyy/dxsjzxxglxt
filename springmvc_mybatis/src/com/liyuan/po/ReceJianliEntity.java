@@ -53,6 +53,16 @@ public class ReceJianliEntity {
 	 * 简历id
 	 */
 	String c_jlid;
+	
+	String jobid;
+		
+	public String getJobid() {
+		return jobid;
+	}
+
+	public void setJobid(String jobid) {
+		this.jobid = jobid;
+	}
 
 	public String getC_jlid() {
 		return c_jlid;

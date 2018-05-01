@@ -57,8 +57,8 @@ $(function(){
 					} else {
 						html += '<li class="clearfix" style="float: left;padding: 13px 0;">';
 					}
-					
-					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html" target="_blank">'+hotJobData[i].c_zwmc+'</a>&nbsp;';
+					var id=hotJobData[i].c_id;
+					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html?id='+id+'" target="_blank">'+hotJobData[i].c_zwmc+'</a>&nbsp;';
 					html += '</div><span><em class="c7">月薪： </em>'+hotJobData[i].n_yx+'/小时</span><br />';
 					html += '<span><em class="c7">经验：</em> '+hotJobData[i].n_gzjy+'</span><br />';
 					html += '<span><em class="c7">最低学历： </em>'+hotJobData[i].n_xlyq+'</span><br />';
@@ -87,7 +87,8 @@ $(function(){
 					} else {
 						html += '<li class="clearfix" style="float: left;padding: 13px 0;">';
 					}
-					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html" target="_blank">'+newJobData[i].c_zwmc+'</a>&nbsp;';
+					var id=newJobData[i].c_id;
+					html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html?id='+id+'" target="_blank">'+newJobData[i].c_zwmc+'</a>&nbsp;';
 					html += '</div><span><em class="c7">月薪： </em>'+newJobData[i].n_yx+'/小时</span><br />';
 					html += '<span><em class="c7">经验：</em> '+newJobData[i].n_gzjy+'</span><br />';
 					html += '<span><em class="c7">最低学历： </em>'+newJobData[i].n_xlyq+'</span><br />';

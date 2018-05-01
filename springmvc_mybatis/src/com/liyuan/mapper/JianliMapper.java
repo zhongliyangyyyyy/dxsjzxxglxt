@@ -116,7 +116,7 @@ public interface JianliMapper {
 	
 	int insertReceJianli(
 			@Param("c_uuid")String c_uuid,
-			@Param("c_jiid")String c_jlid,
+			@Param("c_jlid")String c_jlid,
 			@Param("c_jobid")String c_jobid,
 			@Param("n_zt")int n_zt,
 			@Param("dt_tdsj")Date dt_tdsj

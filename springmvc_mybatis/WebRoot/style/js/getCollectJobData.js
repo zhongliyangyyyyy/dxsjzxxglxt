@@ -10,13 +10,14 @@ $(function(){
 				var collectData = data.result.result;
 				var html = '';
 				for(var i in collectData) {
+					var id=collectData[i].c_id;
 					html += '<li data-id="'+collectData[i].c_id+'">';
 //					html += '<a target="_blank" href="h/c/6636.html">';
 //					html += '<img alt="携程旅行网" src="style/images/ff808081441c19bf01441f9a47190b3a.png">';
 //					html += '</a>';
 					html += '<div class="co_item" style="margin-left: 0">';
 					html += '<h2 title="'+collectData[i].c_zwmc+'">';
-					html += '<a target="_blank" href="h/jobs/133340.html">';
+					html += '<a target="_blank" href="jobdetail.html?id='+id+'">';
 					html += '<em>'+collectData[i].c_zwmc+'</em> ';
 					html += '<span>'+collectData[i].n_yx+'</span></a></h2>';
 					html += '<span class="co_time">发布时间：'+collectData[i].dt_fbsj+'</span>';
@@ -40,8 +41,8 @@ $(function(){
 					}
 					html += '<div class="co_cate"> '+collectData[i].c_gzdz+' / '+gzjy+' / '+xlyq+'</div>';
 					html += '<span class="co_youhuo c7">'+collectData[i].c_zwms+'</span>';
-					html += '<a class="collection_link" target="_blank" href="h/jobs/148886.html">投个简历</a><i></i>';
-					html += '<a class="collectionCancel collection_link collected" href="javascript:;">取消收藏<span>已取消收藏</span></a>';
+					html += '<a class="collection_link" target="_blank"  href="">投个简历</a><i></i>';
+					html += '<a class="collectionCancel collection_link collected" href="#" v-on:click="shanchu('+id+')">取消收藏<span>已取消收藏</span></a>';
 					html += '</div></li>';
 				}
 				console.log(html);
