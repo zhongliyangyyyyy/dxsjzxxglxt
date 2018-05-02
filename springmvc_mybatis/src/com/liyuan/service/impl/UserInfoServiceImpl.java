@@ -29,8 +29,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		String id=StringUtils.isBlank(params.optString("id"))?GyUtils.getUUid():params.optString("id");
 		String sfzhm=params.getString("sfzhm");
 		String sjhm=params.getString("sjhm");
-		String tplj=new String();
-		String txzp=new String();
+		String tplj=params.optString("tplj");
+		String txzp=params.getString("txzp");
 		int type=params.getInt("type");
 		String xm=params.getString("xm");
 		String xxmc=params.getString("xxmc");
@@ -63,6 +63,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		String bh=(String)session.getAttribute("id");
 		UserInfoEntity user=userInfoMapper.selectUserinfo(bh);
 		JSONObject data=new JSONObject();
+		JSONObject result=new JSONObject();
+		if(user==null){
+			result.put("data", "");
+			result.put("message","无个人信息");
+			result.put("success", false);
+			return GyUtils.returnResult(true, "成功", result);
+		}
 		data.put("id", user.getId());
 		data.put("sjhm",user.getSjhm());
 		data.put("sfzhm", user.getSfzhm());
@@ -73,7 +80,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		data.put("xxmc", user.getXxmc());
 		data.put("zt", user.getZt());
 		data.put("zymc", user.getZymc());
-		JSONObject result=new JSONObject();
+
 		result.put("data", data);
 		result.put("message","成功");
 		result.put("success", true);

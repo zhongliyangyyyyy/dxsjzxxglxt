@@ -210,13 +210,14 @@ public class JobServiceImpl implements JobService{
 			
 			data.put("c_zwmc", job.getC_zwmc());
 			
-			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_gzxz", job.getN_gzxz()==1?"兼职":"全职");
 			
 			data.put("n_yx", job.getN_yx());
 			
-			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_gzjy", job.getN_gzjy()==1?"无限制":(job.getN_gzjy()==2?"有经验":"无经验"));
 			
-			data.put("n_xlyq", job.getN_xlyq());
+			data.put("n_xlyq", job.getN_xlyq()==1?"无要求":(job.getN_xlyq()==2?"大专":
+				(job.getN_xlyq()==3?"本科":(job.getN_xlyq()==4?"硕士":"博士"))));
 			
 			data.put("c_zwms", job.getC_zwms());
 			
@@ -258,13 +259,14 @@ public class JobServiceImpl implements JobService{
 			
 			data.put("c_zwmc", job.getC_zwmc());
 			
-			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_gzxz", job.getN_gzxz()==1?"兼职":"全职");
 			
 			data.put("n_yx", job.getN_yx());
 			
-			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_gzjy", job.getN_gzjy()==1?"无限制":(job.getN_gzjy()==2?"有经验":"无经验"));
 			
-			data.put("n_xlyq", job.getN_xlyq());
+			data.put("n_xlyq", job.getN_xlyq()==1?"无要求":(job.getN_xlyq()==2?"大专":
+				(job.getN_xlyq()==3?"本科":(job.getN_xlyq()==4?"硕士":"博士"))));
 			
 			data.put("c_zwms", job.getC_zwms());
 			
@@ -344,13 +346,14 @@ public class JobServiceImpl implements JobService{
 			
 			data.put("c_zwmc", job.getC_zwmc());
 			
-			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_gzxz",   job.getN_gzxz()==1?"兼职":"全职");
 			
 			data.put("n_yx", job.getN_yx());
 			
-			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_gzjy", job.getN_gzjy()==1?"无限制":(job.getN_gzjy()==2?"有经验":"无经验"));
 			
-			data.put("n_xlyq", job.getN_xlyq());
+			data.put("n_xlyq", job.getN_xlyq()==1?"无要求":(job.getN_xlyq()==2?"大专":
+				(job.getN_xlyq()==3?"本科":(job.getN_xlyq()==4?"硕士":"博士"))));
 			
 			data.put("c_zwms", job.getC_zwms());
 			

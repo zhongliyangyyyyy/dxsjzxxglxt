@@ -12,24 +12,27 @@
 		<result column="c_tplj" jdbcType="VARCHAR" property="tplj" />
 		<result column="n_zt" jdbcType="INTEGER" property="zt" />
 		<result column="c_bh" jdbcType="VARCHAR" property="bh" />
+		<result column="n_type" jdbcType="INTEGER" property="type" />
+		
 	</resultMap>
 	
 	<select id="selectUserinfo" resultMap="userinfo">
-		select c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,n_zt 
+		select c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,n_zt,n_type
 		from db_test.t_userinfo 
 		where c_bh=#{bh}
 	</select>
 	
 	<update id="updateUserinfo">
 		update db_test.t_userinfo set c_xm=#{xm},c_sjhm=#{sjhm},c_txzp=#{txzp},
-		c_xxmc=#{xxmc},c_zymc=#{zymc},c_sfzhm=#{sfzhm},c_tplj=#{tplj},n_zt=#{zt}
+		c_xxmc=#{xxmc},c_zymc=#{zymc},c_sfzhm=#{sfzhm},c_tplj=#{tplj},
+		n_type=#{type}
 		where c_id=#{id}
 	</update>
 	
 	<insert id="insertUserinfo">
 		insert into db_test.t_userinfo 
-		(c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,n_zt,c_bh) 
+		(c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,c_bh,n_type) 
 		values 
-		(id,xm,sjhm,txzp,xxmc,zymc,c_sfzhm,tplj,zt,bh)
+		(c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,c_bh,n_type)
 	</insert>
 </mapper>

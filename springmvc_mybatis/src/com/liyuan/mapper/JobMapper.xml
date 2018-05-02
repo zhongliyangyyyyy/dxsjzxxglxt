@@ -71,11 +71,11 @@
   		<if test="c_nr!='' ">
   			AND	c_zwmc like '%${c_nr}%'
   		</if>
-  		<if test="n_gzjy!=0">
+  		<if test="n_gzjy!=1">
   			AND	n_gzjy=#{n_gzjy}
   		</if>
   		<if test="n_xlyq!=0">
-  			AND n_xlyq=#{n_xlyq}
+  			AND n_xlyq &gt;=#{n_xlyq}
   		</if>
   		<if test="n_gzxz!=0">
   			AND n_gzxz=#{n_gzxz}

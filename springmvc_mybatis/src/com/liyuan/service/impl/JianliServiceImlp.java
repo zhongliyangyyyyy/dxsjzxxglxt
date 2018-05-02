@@ -1,5 +1,7 @@
 package com.liyuan.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
@@ -41,24 +43,27 @@ public class JianliServiceImlp implements JianliService{
 		JSONObject result=new JSONObject();
 		data.put("id",jianliEntity.getC_id());
 		data.put("c_name", jianliEntity.getC_name());
-		data.put("n_xb", jianliEntity.getN_xb());
+		data.put("n_xb", jianliEntity.getN_xb()==1?"男":"女");
 		data.put("c_sjhm", jianliEntity.getC_sjhm());
 		data.put("c_yx", jianliEntity.getC_yx());
 		data.put("c_qwgzdz", jianliEntity.getC_qwgzdz());
-		data.put("n_gzxz", jianliEntity.getN_gzxz());
+		data.put("n_gzxz",jianliEntity.getN_gzxz()==1?"兼职":"全职" );
 		data.put("c_qwzw", jianliEntity.getC_qwzw());
 		data.put("n_qwyx", jianliEntity.getN_qwyx());
 		data.put("c_gsmc", jianliEntity.getC_gsmc());
 		data.put("c_zwmc", jianliEntity.getC_zwmc());
 		data.put("c_xxmc", jianliEntity.getC_xxmc());
-		data.put("n_gzjy", jianliEntity.getN_gzjy());
-		data.put("n_xl", jianliEntity.getN_xl());
+		data.put("n_gzjy",jianliEntity.getN_gzjy()==1?"无工作经验":(jianliEntity.getN_gzjy()==2?"有工作经验":"无工作经验") );
+		data.put("n_xl", jianliEntity.getN_xl()==1?"无要求":(jianliEntity.getN_xl()==2?"大专":
+			(jianliEntity.getN_xl()==3?"本科":(jianliEntity.getN_xl()==4?"硕士":"博士"))));
 		data.put("c_zymc", jianliEntity.getC_zymc());
 		data.put("dt_kssj", jianliEntity.getDt_kssj());
 		data.put("dt_jssj", jianliEntity.getDt_jssj());
 		data.put("c_zwms",jianliEntity.getC_zwms());
 		data.put("c_jlmc", jianliEntity.getC_jlmc());
-		data.put("c_zp", jianliEntity.getC_zp());
+	
+			data.put("c_zp",jianliEntity.getC_zp());
+
 		data.put("c_syzid", jianliEntity.getC_syzid());
 		
 		result.put("result", data);

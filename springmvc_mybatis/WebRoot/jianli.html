@@ -97,7 +97,7 @@ var youdao_conv_id = 271546;
             			</span>
             			<div class="m_portrait">
 	                    	<div></div>
-	                    	<img width="120" height="120" alt="jason" src="style/images/default_headpic.png">
+	                    	<img width="120" height="120" alt="头像" :src="zp">
 	                    </div>
             		</div><!--end .basicShow-->
 
@@ -181,7 +181,7 @@ var youdao_conv_id = 271546;
 						    <img width="120" height="120" src="">
 						    <span>更换头像</span>
 						  </div>
-						  <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="img_check(this,'h/resume/uploadPhoto.json','headPic');" name="headPic" id="headPic" class="myfiles">
+						  <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="img_check(this,'h/resume/uploadPhoto.json','jianli.c_zp');" name="headPic" id="headPic" class="myfiles">
 							<!-- <input type="hidden" id="headPicHidden" /> -->
 						  	<em>
 						                  尺寸：120*120px <br>   
@@ -668,7 +668,8 @@ CallCenter.init(url);
 			el:"#app",
 			data:{
 				jianli:{},
-				 inputtext:{}  
+				 inputtext:{},
+				 zp:""
 			},
 			filters:{
 				formatJblx:function(value){
@@ -692,6 +693,7 @@ CallCenter.init(url);
 					data:JSON.stringify({"pagesize":_this.pagesize,"page":1}),
 					success:function(result){
 						_this.jianli=result.result.result;
+						_this.zp=decodeURIComponent(result.result.result.c_zp);
 						console.log(_this.jianli);
 					},
 					error:function(result){
