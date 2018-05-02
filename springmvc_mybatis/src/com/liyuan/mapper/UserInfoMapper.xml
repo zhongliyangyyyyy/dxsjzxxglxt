@@ -32,7 +32,7 @@
 	<insert id="insertUserinfo">
 		insert into db_test.t_userinfo 
 		(c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,c_bh,n_type) 
-		values 
-		(c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,c_bh,n_type)
+		value 
+		(#{id},#{xm},#{sjhm},#{txzp},#{xxmc},#{zymc},#{sfzhm},#{tplj},#{bh},#{type})
 	</insert>
 </mapper>

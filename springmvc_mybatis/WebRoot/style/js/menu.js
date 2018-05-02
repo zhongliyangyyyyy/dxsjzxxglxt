@@ -4,7 +4,7 @@ $(function(){
 	//console.log('type:' + user.type);
 	var html = '';
 	html += '<li class="current"><a href="index.html">首页</a></li>';
-	html += '<li ><a href="myhome.html" >个人信息</a></li>';
+	html += '<li ><a href="gerenxinxi.html" >个人信息</a></li>';
 	if(user != undefined && user != null) {
 		if(user.type == 1) {
 			$('#js-user-span').html(user.user + '&nbsp;');
