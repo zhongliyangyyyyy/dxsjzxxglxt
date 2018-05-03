@@ -75,9 +75,9 @@ var youdao_conv_id = 271546;
 	            		<h1 title="">{{jianli.c_jlmc}}</h1>
 	            		<span class="rename">重命名</span> | <a target="_blank" href="preview.html">预览</a>
             		</div>
-            		<form class="fl dn" id="resumeNameForm" @submit.prevent="submit">
-            			<input type="text" placeholder="姓名" name="resumeName" class="nameEdit c9">	
-            			<input type="submit" value="保存"> | <a target="_blank" href="preview.html">预览</a>
+            		<form class="fl dn" id="resumeNameForm" >
+            			<input type="text" placeholder="简历名称" name="resumeName" class="nameEdit c9" ref="jlmc">	
+            			<input type="submit" value="保存" v-on:click="bc1"> | <a target="_blank" href="preview.html">预览</a>
             		</form>
             	</div><!--end #resume_name-->
             	<div id="resumeScore">
@@ -109,18 +109,18 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td>
-						        <input type="text" placeholder="姓名"  name="name" id="name">
+						        <input type="text" placeholder="姓名"  name="name" id="name" ref="name">
 						      </td>
 						      <td valign="top"></td> 
 						      <td>
-						          <ul class="profile_radio clearfix reset">
+						          <ul class="profile_radio clearfix reset" ref="xb">
 						            <li class="current">
 						           	  	 男<em></em>
-						              	<input type="radio" checked="checked" name="gender" value="男"> 
+						              	<input type="radio" checked="checked" name="gender" value="1" > 
 						            </li>
 						            <li>
 						            	  女<em></em>
-						              	<input type="radio" name="gender" value="女"> 
+						              	<input type="radio" name="gender" value="2"> 
 						            </li>
 						          </ul>  
 						      </td>
@@ -149,7 +149,7 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td colspan="3">
-						          <input type="text" placeholder="手机号码"  name="tel" id="tel">
+						          <input type="text" placeholder="手机号码"  name="tel" id="tel" ref="sjhm">
 						      </td>
 						   	</tr>
 						   	<tr>
@@ -157,7 +157,7 @@ var youdao_conv_id = 271546;
 						        <span class="redstar">*</span>
 						      </td> 
 						      <td colspan="3">
-						          <input type="text" placeholder="接收面试通知的邮箱"  name="email" id="email">
+						          <input type="text" placeholder="接收面试通知的邮箱"  name="email" id="email" ref="yx">
 						      </td>
 						    </tr>
 						    <tr>
@@ -167,7 +167,7 @@ var youdao_conv_id = 271546;
 						    <tr>
 						      <td></td> 
 						      <td colspan="3">
-						          <input type="submit" value="保 存" class="btn_profile_save">
+						          <input type="submit" value="保 存" class="btn_profile_save" v-on:click="bc2">
 						          <a class="btn_profile_cancel" href="javascript:;">取 消</a>
 						      </td>
 						    </tr>
@@ -216,30 +216,30 @@ var youdao_conv_id = 271546;
 				
 	            					</td>
 	            					<td>
-	            						<ul class="profile_radio clearfix reset">
+	            						<ul class="profile_radio clearfix reset" ref="gzxz">
 									            <li>
 									              	兼职<em></em>
-									              	<input type="radio" name="type" value="兼职"> 
+									              	<input type="radio" name="type" value="1" > 
 									            </li>
 									            <li>
 									            	  实习<em></em>
-									              	<input type="radio" name="type" value="实习"> 
+									              	<input type="radio" name="type" value="2" > 
 									            </li>
 								            								        </ul> 
 	            					</td>
 	            				</tr>
 	            				<tr>
 	            					<td>
-							        	<input type="text" placeholder="期望职位" value="" name="expectPosition" id="expectPosition">
+							        	<input type="text" placeholder="期望职位" value="" name="expectPosition" id="expectPosition" ref="qwzw">
 									</td>
 	            					<td>
 	            						<input type="hidden" id="expectSalary" value="" name="expectSalary">
-	            							            						<input type="text" placeholder="期望月薪" id="select_expectSalary" >
+	            							            						<input type="text" placeholder="期望月薪" id="select_expectSalary" ref="qwyx">
 	            					</td>
 	            				</tr>
 	            				<tr>
 	            					<td colspan="2">
-										<input type="submit" value="保 存" class="btn_profile_save">
+										<input type="submit" value="保 存" class="btn_profile_save" v-on:click="bc3">
 						          		<a class="btn_profile_cancel" href="javascript:;">取 消</a>
 	            					</td>
 	            				</tr>
@@ -270,7 +270,7 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							        	<input type="text" placeholder="公司名称" name="companyName" class="companyName">
+							        	<input type="text" placeholder="公司名称" name="companyName" class="companyName" >
 							      	</td>
 							      	<td valign="top">
 							        	<span class="redstar">*</span>
@@ -300,13 +300,13 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							        	<input type="text" placeholder="公司名称" name="companyName" class="companyName">
+							        	<input type="text" placeholder="公司名称" name="companyName" class="companyName" ref="gsmc">
 							      	</td>
 							      	<td valign="top">
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							          	<input type="text" placeholder="职位名称" name="positionName" class="positionName">
+							          	<input type="text" placeholder="职位名称" name="positionName" class="positionName" ref="zwmc">
 							      	</td>
 							    </tr>
 	            				
@@ -315,7 +315,7 @@ var youdao_conv_id = 271546;
 	            				<tr>
 	            					<td></td>
 	            					<td colspan="3">
-										<input type="submit" value="保 存" class="btn_profile_save">
+										<input type="submit" value="保 存" class="btn_profile_save" v-on:click="bc4">
 						          		<a class="btn_profile_cancel" href="javascript:;">取 消</a>
 	            					</td>
 	            				</tr>
@@ -435,7 +435,7 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 							      	<td>
-							        	<input type="text" placeholder="学校名称" name="schoolName" class="schoolName">
+							        	<input type="text" placeholder="学校名称" name="schoolName" class="schoolName" ref="xxmc">
 							      	</td>
 							      	<td valign="top">
 							        	<span class="redstar">*</span>
@@ -458,7 +458,7 @@ var youdao_conv_id = 271546;
 							        	<span class="redstar">*</span>
 							      	</td> 
 	            					<td>
-	            						<input type="text" placeholder="专业名称" name="professionalName" class="professionalName">
+	            						<input type="text" placeholder="专业名称" name="professionalName" class="professionalName" ref="zymc">
 	            					</td>
 	            					<td valign="top">
 							        	<span class="redstar">*</span>
@@ -508,7 +508,7 @@ var youdao_conv_id = 271546;
 	            				<tr>
 	            					<td></td>
 	            					<td colspan="3">
-										<input type="submit" value="保 存" class="btn_profile_save">
+										<input type="submit" value="保 存" class="btn_profile_save" v-on:click="bc5">
 						          		<a class="btn_profile_cancel" href="javascript:;">取 消</a>
 	            					</td>
 	            				</tr>
@@ -534,13 +534,13 @@ var youdao_conv_id = 271546;
 	            			<table>
 	            				<tbody><tr>
 									<td colspan="2">
-										<textarea class="selfDescription s_textarea" name="selfDescription" placeholder=""></textarea>
+										<textarea class="selfDescription s_textarea" name="selfDescription" placeholder="" ref="zwms"></textarea>
 										<div class="word_count">你还可以输入 <span>500</span> 字</div>
 									</td>
 	            				</tr>
 	            				<tr>
 	            					<td colspan="2">
-										<input type="submit" value="保 存" class="btn_profile_save">
+										<input type="submit" value="保 存" class="btn_profile_save" v-on:click="bc6">
 						          		<a class="btn_profile_cancel" href="javascript:;">取 消</a>
 	            					</td>
 	            				</tr>
@@ -669,7 +669,25 @@ CallCenter.init(url);
 			data:{
 				jianli:{},
 				 inputtext:{},
-				 zp:""
+				 zp:"",
+				 jlcm:"",
+				 name:"",
+				 xb:1,
+				 sjhm:"",
+				 yx:"",
+				 qwgzdz:"",
+				 gzxz:1,
+				 qwzw:"",
+				 qwyx:0,
+				 gsmc:"",
+				 zwmc:"",
+				 xxmc:"",
+				 gzjy:1,
+				 xl:1,
+				 zymc:"",
+				 kssj:"",
+				 jssj:"",
+				 zwms:""
 			},
 			filters:{
 				formatJblx:function(value){
@@ -694,6 +712,24 @@ CallCenter.init(url);
 					success:function(result){
 						_this.jianli=result.result.result;
 						_this.zp=decodeURIComponent(result.result.result.c_zp);
+						_this.jlmc=result.result.result.c_jlmc;
+						_this.name=result.result.result.c_name;
+						_this.xb=result.result.result.n_xb;
+						_this.sjhm=result.result.result.c_sjhm;
+						_this.yx=result.result.result.c_yx;
+						_this.qwgzdz=result.result.result.c_qwgzdz;
+						_this.gzxz=result.result.result.n_gzxz;
+						_this.qwzw=result.result.result.c_qwzw;
+						_this.qwyx=result.result.result.n_qwyx;
+						_this.gsmc=result.result.result.c_gsmc;
+						_this.zwmc=result.result.result.c_zwmc;
+						_this.xxmc=result.result.result.xxmc;
+						_this.gzjy=result.result.result.n_gzjy;
+						_this.xl =result.result.result.n_xl;
+						_this.zymc =result.result.result.c_zymc;
+						_this.kssj =result.result.result.c_kssj;
+						_this.jssj =result.result.result.c_jssj;
+						_this.zwms =result.result.result.c_zwms;
 						console.log(_this.jianli);
 					},
 					error:function(result){
@@ -702,12 +738,142 @@ CallCenter.init(url);
 				})
 			},
 			methods:{
-				submit:function(item){
+				bc1:function(){
+				var _this=this;
+				_this.jlmc=_this.$refs.jlmc.value;
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/admin/hfyh',
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
-					data:JSON.stringify(item),
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			bc2:function(){
+				var _this=this;
+				_this.name=_this.$refs.name.value;
+				_this.xb=_this.$refs.xb.value;
+				_this.sjhm=_this.$refs.sjhm.value;
+				_this.yx=_this.$refs.name.yx;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			bc3:function(){
+				var _this=this;
+				_this.qwgzdz=_this.$refs.qwgzdz.value;
+				_this.qwzw=_this.$refs.qwzw.value;
+				_this.qwyx=_this.$refs.qwyx.value;
+				_this.gzxz=_this.$refs.gzxz.value;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			bc4:function(){
+				var _this=this;
+				_this.gsmc=_this.$refs.gsmc.value;
+				_this.zwmc=_this.$refs.zwmc.value;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			bc5:function(){
+				var _this=this;
+				_this.xxmc=_this.$refs.xxmc.value;
+				_this.zymc=_this.$refs.zymc.value;
+				_this.name=_this.$refs.name.value;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			bc6:function(){
+				var _this=this;
+				_this.zwms=_this.$refs.zwms.value;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"jlmc":_this.jlmc,"name":_this.name,"xb":_this.xb,"sjhm":_this.sjhm,"zp":_this.zp,
+					"yx":_this.yx,"qwgzdz":_this.qwgzdz,"gzxz":_this.gzxz,"qwzw":_this.qwzw,"qwyx":_this.qwyx,"gsmc":_this.gsmc,
+					"zwmc":_this.zwmc,"xxmc":_this.xxmc,"gzjy":_this.gzjy,"xl":_this.xl,"zymc":_this.zymc,"kssj":_this.kssj,
+					"jssj":_this.jssj,"zwms":_this.zwms
+					}),
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){

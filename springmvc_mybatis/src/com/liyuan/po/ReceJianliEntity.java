@@ -55,7 +55,27 @@ public class ReceJianliEntity {
 	String c_jlid;
 	
 	String jobid;
+	
+	String gzdz;
+	
+	int zt;
 		
+	public String getGzdz() {
+		return gzdz;
+	}
+
+	public void setGzdz(String gzdz) {
+		this.gzdz = gzdz;
+	}
+
+	public int getZt() {
+		return zt;
+	}
+
+	public void setZt(int zt) {
+		this.zt = zt;
+	}
+
 	public String getJobid() {
 		return jobid;
 	}

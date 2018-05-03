@@ -71,11 +71,11 @@ var youdao_conv_id = 271546;
           <a class="inline jd_collection" href="#" title="" v-on:click="scjob(jobdetial.c_id)"></a>
          </dt>
         <dd class="job_request">
-        <span class="red">{{jobdetial.n_yx}}</span>
+        <span class="red">{{jobdetial.n_yx | formatYx}}</span>
         <span>{{jobdetial.c_gzdz}}</span> 
-        <span>{{jobdetial.n_gzjy}}</span>
-        <span> {{jobdetial.n_xlyq}}</span> 
-        <span>{{jobdetial.n_gzxz}}</span><br />
+        <span>{{jobdetial.n_gzjy | formatGzjy}}</span>
+        <span> {{jobdetial.n_xlyq | formatXl}}</span> 
+        <span>{{jobdetial.n_gzxz | formatGzxz}}</span><br />
         <div>发布时间：{{jobdetial.dt_fbsj}}</div>
         </dd>
         <dd class="job_bt">
@@ -125,16 +125,37 @@ var youdao_conv_id = 271546;
 				jobdetial:{}
 			},
 			filters:{
-				formatJblx:function(value){
+				formatXl:function(value){
 					if(value==1){
-						return "发布虚假信息";
+						return "学历要求：无限制";
 					}else if(value==2){
-						return "收取费用";
+						return "学历要求：大专";
 					}else if(value==3){
-						return "不发放工资";
-					}else {
-						return "其他";
+						return "学历要求：本科";
+					}else if(value==4){
+						return "学历要求：硕士";
+					}else{
+						return "学历要求：博士"
 					}
+				},
+				formatGzjy:function(value){
+					if(value==1){
+						return "工作经验：不要求";
+					}else if(value==2){
+						return "有工作经验";
+					}else{
+						return "工作经验：不要求";
+					}
+				},
+				formatGzxz:function(value){
+					if(value==1){
+						return "工作性质：兼职";
+					}else if(value==2){
+						return "工作性质：全职";
+					}
+				},
+				formatYx:function(value){
+					return "月薪"+value+"元";
 				}
 			},
 			mounted:function(){

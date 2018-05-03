@@ -37,6 +37,8 @@
 		<result column="dt_tdsj" jdbcType="TIMESTAMP" property="dt_tdsj"/>
 		<result column="c_jlid" jdbcType="VARCHAR" property="c_jlid"/>
 		<result column="c_jobid" jdbcType="VARCHAR" property="jobid"/>
+		<result column="c_gzdz" jdbcType="VARCHAR" property="gzdz"/>
+		<result column="n_zt" jdbcType="INTEGER" property="zt"/>
 	</resultMap>
 	
 	<select id="selectPersonJianli" resultMap="jianliinfo">
@@ -57,7 +59,7 @@
 		c_gsmc=#{c_gsmc},c_zwmc=#{c_zwmc},c_xxmc=#{c_xxmc},n_gzjy=#{n_gzjy},n_xl=#{n_xl},
 		c_zymc=#{c_zymc},dt_kssj=#{dt_kssj},dt_jssj=#{dt_jssj},c_zwms=#{c_zwms},c_jlmc=#{c_jlmc},
 		c_zp=#{c_zp}
-		where c_id=#{c_id}
+		where c_syzid=#{c_id}
 	</update>
 	
 	<insert id="insertJianli">
@@ -176,14 +178,14 @@
 	
 	<select id="selectYtdJianli" resultMap="receJianli">
 		select rece.c_id,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,rece.c_jobid
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,rece.c_jobid,job.c_gzdz,rece.n_zt
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
 				rece.c_jlid=#{c_jlid}
 			<if test="n_zt!=0">
-				and job.n_zt=#{n_zt}
+				and rece.n_zt=#{n_zt}
 			</if>
 			<if test="n_zt==2">
 				and rece.dt_cksj is not null

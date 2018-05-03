@@ -41,12 +41,13 @@ public class UpfileController {
     public JSONObject upload(MultipartFile file,HttpServletRequest request) throws IOException{ 
     	HttpSession session=request.getSession(true);
     	String id=(String)session.getAttribute("id");
-    	String path="E:\\dxsjzxxglxt\\file\\"+id;
+    	String path="E:\\dxsjzxxglxt\\file\\";
         //String path = request.getSession().getServletContext().getRealPath("upload");  
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String uuid=GyUtils.getUUid();
         String uploadfilename=uuid+"."+suffix;
+        String path1="http:\\\\localhost:8080\\file\\"+uploadfilename;
         File dir = new File(path,uploadfilename);          
         if(!dir.exists()){  
             dir.mkdirs();  
@@ -56,7 +57,7 @@ public class UpfileController {
         JSONObject result=new JSONObject();
         result.put("success", true);
         result.put("message", "上传文件成功");
-        result.put("url", path+uploadfilename);
+        result.put("url", URLEncoder.encode(path1, "UTF-8"));
         return GyUtils.returnResult(true, "成功", result);  
     }  
       

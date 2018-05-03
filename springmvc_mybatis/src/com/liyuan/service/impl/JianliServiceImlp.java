@@ -2,6 +2,7 @@ package com.liyuan.service.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +82,8 @@ public class JianliServiceImlp implements JianliService{
 	public JSONObject bcJianli(String param, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession(true);
-		
+		String yhid=(String)session.getAttribute("id");
+		JianliEntity jianliEntity=jianliMapper.selectPersonJianli(yhid);
 		JSONObject jsonObject=JSONObject.fromObject(param);
 		
 		String c_id=jsonObject.optString("id");
@@ -99,23 +101,27 @@ public class JianliServiceImlp implements JianliService{
 		int n_gzjy=jsonObject.optInt("gzjy");
 		int n_xl=jsonObject.optInt("xl");
 		String c_zymc=jsonObject.optString("zymc");
-		Date dt_kssj=GyUtils.stringTodate(jsonObject.getString("kssj"));
-		Date dt_jssj=GyUtils.stringTodate(jsonObject.getString("jssj"));
+		Date dt_kssj=GyUtils.stringTodate(jsonObject.optString("kssj"));
+		Date dt_jssj=GyUtils.stringTodate(jsonObject.optString("jssj"));
 		String c_zwms=jsonObject.optString("zwms");
 		String c_jlmc=jsonObject.optString("jlmc");
-		String c_zp=jsonObject.optString("zp");
-		String c_syzid=jsonObject.optString("syzid");
+		String c_zp=new String();
+		try {
+			c_zp = URLEncoder.encode(jsonObject.optString("zp"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		
 		int flag=0;
 		
-		if(StringUtils.isBlank(c_id)){
+		if(jianliEntity==null){
 			c_id=GyUtils.getUUid();
-			c_syzid=(String)session.getAttribute("id");
 			flag=jianliMapper.insertJianli(c_id, c_name, n_xb, c_sjhm, c_yx,
 					c_qwgzdz, n_gzxz, c_qwzw, n_qwyx, c_gsmc, c_zwmc, c_xxmc,
-					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp, c_syzid);
+					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp, yhid);
 		}else{
-			flag=jianliMapper.updateJianli(c_id, c_name, n_xb, c_sjhm, c_yx, 
+			flag=jianliMapper.updateJianli(yhid, c_name, n_xb, c_sjhm, c_yx, 
 					c_qwgzdz, n_gzxz, c_qwzw, n_qwyx, c_gsmc, c_zwmc, c_xxmc,
 					n_gzjy, n_xl, c_zymc, dt_kssj, dt_jssj, c_zwms, c_jlmc, c_zp);
 		}
@@ -411,6 +417,8 @@ public class JianliServiceImlp implements JianliService{
 			data.put("ypzw", jianli.getC_ypzw());
 			data.put("jobid", jianli.getJobid());
 			data.put("tdsj", GyUtils.dateTostring(jianli.getDt_tdsj()));
+			data.put("gzdz", jianli.getGzdz())	;
+			data.put("zt", jianli.getZt());
 			jsonArray.add(data);
 		}
 		result.put("success", true);

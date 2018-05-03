@@ -105,18 +105,18 @@ var youdao_conv_id = 271546;
                              <h2 title="">
 	                             <a target="_blank"  :href="'jobdetail.html?id=' + item.jobid ">
 	                              <em>{{item.jlmc}}</em> 
-	                              <span>{{item.name}}</span>
+	                              <span>姓名：{{item.name}}</span>
 	                            </a>
 	                         </h2>
 	                         <div class="clear"></div>
-	                         <a title="" class="d_jobname" target="_blank" :href="'jobdetail.html?id=' + item.jobid ">工作地址 <span>[{{item.gzdz}}]</span></a>
+	                         <a title="" class="d_jobname" target="_blank" :href="'jobdetail.html?id=' + item.jobid ">工作地址: <span>[{{item.gzdz}}]</span></a>
 	                               <span class="d_time">{{item.tdsj}}</span>
 	                               <div class="clear"></div>
 	                               <div class="d_resume">
 	                                    	应聘职位：
 	                                    	<span>{{item.ypzw}}</span>
 	                                    </div>
-	                         <a class="btn_showprogress" href="javascript:;">{{item.zt}}<i></i></a>
+	                         <a class="btn_showprogress" href="javascript:;">{{item.zt | formatZt}}<i></i></a>
                           </div>
                           </li>
                          </ul>
@@ -164,15 +164,17 @@ $(function(){
 				jobs:[{"jlcm":"简历名称"}]
 			},
 			filters:{
-				formatJblx:function(value){
+				formatZt:function(value){
 					if(value==1){
-						return "发布虚假信息";
+						return "待处理";
 					}else if(value==2){
-						return "收取费用";
+						return "被查看";
 					}else if(value==3){
-						return "不发放工资";
-					}else {
-						return "其他";
+						return "通知面试";
+					}else if(value==4){
+						return "不合适";
+					}else{
+						return "通过面试";
 					}
 				}
 			},
@@ -186,6 +188,7 @@ $(function(){
 					data:JSON.stringify({"n_zt":id}),
 					success:function(result){
 						_this.jobs=result.result.result;
+						console.log(_this.jobs);
 					},
 					error:function(result){
 					console.log('error');
