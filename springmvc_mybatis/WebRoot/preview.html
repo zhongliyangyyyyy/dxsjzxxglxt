@@ -37,10 +37,11 @@ $(function(){
 
 
 <body>
+<div id="app">
   	<div id="previewWrapper" >
         <div class="preview_header" >
             <h1 title="">{{jianli.c_jlmc}}</h1>
-                        	<a title="下载简历" class="inline cboxElement" href="#downloadOnlineResume">下载该简历</a>
+                        	
         </div><!--end .preview_header-->
 
         <div class="preview_content" >
@@ -48,14 +49,14 @@ $(function(){
                 <h2>基本信息</h2>
                 <div class="basicShow">
                    <span>{{jianli.c_name}} | 
-                    {{jianli.n_xb}} |                     {{jianli.n_xl}} |{{jianli.n_gzjy}}
+                    {{jianli.c_xb}} |                     {{jianli.c_xl}} |{{jianli.c_gzjy}}
             		            			| {{jianli.c_qwgzdz}}<br>{{jianli.c_xxmc}}| {{jianli.c_zwmc}}<br>
             			            			{{jianli.c_sjhm}} | {{jianli.c_yx}}<br>
             			
             		</span>
            			<div class="m_portrait">
                     	<div></div>
-                    	<img width="120" height="120" alt="jason" src="style/images/default_headpic.png">
+                    	<img width="120" height="120" alt="jason" :src="zp">
                     </div>
                 </div><!--end .basicShow-->
             </div><!--end #basicInfo-->
@@ -63,7 +64,7 @@ $(function(){
 				            <div class="profile_box" id="expectJob">
 	                <h2>期望工作</h2>
 	                <div class="expectShow">
-	                	{{jianli.c_qwgzdz}}，{{jianli.n_gzxz}}，期望月薪{{jianli.n_qwyx}}，{{jianli.c_qwzw}}
+	                	{{jianli.c_qwgzdz}}，{{jianli.n_gzxz}}，期望月薪{{jianli.c_qwyx}}，{{jianli.c_qwzw}}
 	                </div><!--end .expectShow-->
 	            </div><!--end #expectJob-->
 						
@@ -91,7 +92,7 @@ $(function(){
             				            					<span class="c9">{{jianli.dt_kssj}}-{{jianli.dt_jssj}}</span>
             					<div>
             						<h3>{{jianli.c_xxmc}}</h3>
-            						<h4>{{jinali.c_zymc}}</h4>
+            						<h4>{{jianli.c_zymc}}</h4>
             					</div>
             				</li>
             				           					                  </ul>
@@ -105,6 +106,7 @@ $(function(){
 	                </div><!--end .descriptionShow-->
 	            </div><!--end #selfDescription-->
   	</div><!--end #previewWrapper-->
+</div>
 </div>
 <!-------------------------------------弹窗lightbox ----------------------------------------->
 <div style="display:none;">
@@ -135,7 +137,8 @@ $(function(){
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				jianli:{}
+				jianli:[],
+				zp:""
 			},
 			filters:{
 				formatJblx:function(value){
@@ -160,7 +163,7 @@ $(function(){
 					data:JSON.stringify({"pagesize":_this.pagesize,"page":1}),
 					success:function(result){
 						_this.jianli=result.result.result;
-						console.log(_this.jianli);
+						_this.zp=decodeURIComponent(result.result.result.c_zp);
 					},
 					error:function(result){
 					console.log('error');

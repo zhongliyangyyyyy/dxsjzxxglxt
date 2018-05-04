@@ -341,7 +341,8 @@ public class JobServiceImpl implements JobService{
 		
 		Integer totalPageNumber=(int)Math.ceil((double)jobmapper.
 				selectSearchJobNumber(fbsj,c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj)/pagesize);
-		
+		System.out.println(jobmapper.
+				selectSearchJobNumber(fbsj,c_nr, n_yxstart, n_yxend, n_gzjy, n_xlyq, n_gzxz, dt_fbsj));
 		JSONArray jsonArray=new JSONArray();
 		JSONObject result=new JSONObject();
 		

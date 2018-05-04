@@ -39,6 +39,9 @@
 		<result column="c_jobid" jdbcType="VARCHAR" property="jobid"/>
 		<result column="c_gzdz" jdbcType="VARCHAR" property="gzdz"/>
 		<result column="n_zt" jdbcType="INTEGER" property="zt"/>
+		<result column="c_qwgzdz" jdbcType="VARCHAR" property="qwgzdz"/>
+		<result column="c_zp" jdbcType="VARCHAR" property="zp"/>
+		<result column="n_gzjy" jdbcType="INTEGER" property="gzjy"/>
 	</resultMap>
 	
 	<select id="selectPersonJianli" resultMap="jianliinfo">
@@ -73,12 +76,12 @@
 	
 	<select id="selectDclJianli" resultMap="receJianli">
 		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
-		job.n_zt=1
+		rece.n_zt=1
 		and job.c_fbzid=#{c_fbzid}
 		<if test="n_zdxl!=0">
 			and jianli.n_xl &gt; #{n_zdxl}
@@ -91,12 +94,12 @@
 	
 	<select id="selectDdJianli" resultMap="receJianli">
 		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
-		job.n_zt=2
+		rece.n_zt=2
 		and job.c_fbzid=#{c_fbzid}
 		<if test="n_zdxl!=0">
 			and jianli.n_xl &gt; #{n_zdxl}
@@ -109,12 +112,12 @@
 	
 	<select id="selectYtzmsJianli" resultMap="receJianli">
 		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
-		job.n_zt=3
+		rece.n_zt=3
 		and job.c_fbzid=#{c_fbzid}
 		<if test="n_zdxl!=0">
 			and jianli.n_xl &gt; #{n_zdxl}
@@ -127,12 +130,12 @@
 	
 	<select id="selectBhsJianli" resultMap="receJianli">
 		select rece.c_id,rece.c_jlid,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
-		job.n_zt=4
+		rece.n_zt=4
 		and job.c_fbzid=#{c_fbzid}
 		<if test="n_zdxl!=0">
 			and jianli.n_xl &gt; #{n_zdxl}
@@ -145,12 +148,12 @@
 	
 	<select id="selectTgmsJianli" resultMap="receJianli">
 		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
-		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj
+		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
 		join db_test.t_jianliinfo jianli on rece.c_jlid=jianli.c_id
 		<where>
-		job.n_zt=5
+		rece.n_zt=5
 		and job.c_fbzid=#{c_fbzid}
 		<if test="n_zdxl!=0">
 			and jianli.n_xl &gt; #{n_zdxl}

@@ -42,6 +42,9 @@ public class GyUtils {
 	 * @return
 	 */
 	public static Date stringTodate(String date){
+		if(date==null){
+			return null;
+		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		try {
 			return simpleDateFormat.parse(date);
@@ -58,7 +61,18 @@ public class GyUtils {
 	 * @return
 	 */
 	public static String dateTostring(Date date){
+		if(date==null){
+			return null;
+		}
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return simpleDateFormat.format(date);
+	}
+	
+	public static String dateTostring2(Date date){
+		if(date==null){
+			return null;
+		}
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
 		return simpleDateFormat.format(date);
 	}
 	

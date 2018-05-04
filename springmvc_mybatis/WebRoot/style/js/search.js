@@ -81,7 +81,7 @@ $(function() {
 				yxend = 20000;
 			}
 			var gzjyInput = $("#gjInput").val();
-			var gzjy = 1;
+			var gzjy = 0;
 			if(gzjyInput == '无限制') {
 				gzjy = 1;
 			} else if (gzjyInput == '有经验') {
@@ -106,7 +106,7 @@ $(function() {
 				fbsj = 7;
 			}
 			var xlInput = $("#xlInput").val();
-			var zdxl = 1;
+			var zdxl = 0;
 			if(xlInput == '不限') {
 				zdxl = 1;
 			} else if (xlInput == '大专'){

@@ -92,7 +92,7 @@ var youdao_conv_id = 271546;
             		<h2>基本信息</h2>
             		<span class="c_edit"></span>
             		<div class="basicShow">
-            			            			<span>{{jianli.c_name}} |  {{jianli.n_xb}} |    {{jianli.n_xl}} |  {{jianli.n_gzjy}}<br>
+            			            			<span>{{jianli.c_name}} |  {{jianli.c_xb}} |    {{jianli.c_xl}} |  {{jianli.c_gzjy}}<br>
             			            			{{jianli.c_sjhm}} | {{jianli.c_yx}}<br>
             			</span>
             			<div class="m_portrait">
@@ -116,11 +116,11 @@ var youdao_conv_id = 271546;
 						          <ul class="profile_radio clearfix reset" ref="xb">
 						            <li class="current">
 						           	  	 男<em></em>
-						              	<input type="radio" checked="checked" name="gender" value="1" > 
+						              	<input type="radio" checked="checked" v-model="xb" value="1" > 
 						            </li>
 						            <li>
 						            	  女<em></em>
-						              	<input type="radio" name="gender" value="2"> 
+						              	<input type="radio" v-model="xb" value="2"> 
 						            </li>
 						          </ul>  
 						      </td>
@@ -131,7 +131,7 @@ var youdao_conv_id = 271546;
 						      </td> 
 						      <td>
 						      	<input type="hidden" id="topDegree" value="大专" name="topDegree">
-						        <input type="button" value="大专" id="select_topDegree" class="profile_select_190 profile_select_normal">
+						        <input type="button" value="" id="select_topDegree" class="profile_select_190 profile_select_normal" ref="xl">
 								<div class="boxUpDown boxUpDown_190 dn" id="box_topDegree" style="display: none;">
 						        	<ul>
 						        								        			<li>大专</li>
@@ -212,18 +212,18 @@ var youdao_conv_id = 271546;
 	            				<tbody><tr>
 	            					<td>
 	            						<input type="hidden" id="expectCity" value="" name="expectCity">
-	            													        	<input type="text" placeholder="期望工作地址" >
+	            													        	<input type="text" placeholder="期望工作地址" ref="qwgzdz">
 				
 	            					</td>
 	            					<td>
-	            						<ul class="profile_radio clearfix reset" ref="gzxz">
+	            						<ul class="profile_radio clearfix reset" >
 									            <li>
 									              	兼职<em></em>
-									              	<input type="radio" name="type" value="1" > 
+									              	<input type="radio" v-model="gzxz" value="1" > 
 									            </li>
 									            <li>
 									            	  实习<em></em>
-									              	<input type="radio" name="type" value="2" > 
+									              	<input type="radio" v-model="gzxz" value="2" > 
 									            </li>
 								            								        </ul> 
 	            					</td>
@@ -442,7 +442,7 @@ var youdao_conv_id = 271546;
 							      	</td> 
 							      	<td>
 							      		<input type="hidden" class="degree" value="" name="degree">
-							        	<input type="button" value="学历" class="profile_select_287 profile_select_normal select_degree">
+							        	<input type="button" value="" class="profile_select_287 profile_select_normal select_degree" ref="xl2">
 										<div class="box_degree boxUpDown boxUpDown_287 dn" style="display: none;">
 								            <ul>
 								        										        			<li>大专</li>
@@ -466,7 +466,7 @@ var youdao_conv_id = 271546;
 	            					<td>
 		            					<div class="fl">
 		            						<input type="hidden" class="schoolYearStart" value="" name="schoolYearStart">
-								        	<input type="button" value="开始年份" class="profile_select_139 profile_select_normal select_schoolYearStart">
+								        	<input type="button" value="开始年份" class="profile_select_139 profile_select_normal select_schoolYearStart" ref="kssj">
 											<div class="box_schoolYearStart boxUpDown boxUpDown_139 dn" style="display: none;">
 									            <ul>
 									        											        			<li>2018</li>
@@ -483,7 +483,7 @@ var youdao_conv_id = 271546;
 										</div>
 										<div class="fl">
 		            						<input type="hidden" class="schoolYearEnd" value="" name="schoolYearEnd">
-								        	<input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_schoolYearEnd">
+								        	<input type="button" value="结束年份" class="profile_select_139 profile_select_normal select_schoolYearEnd" ref="jssj">
 											<div class="box_schoolYearEnd  boxUpDown boxUpDown_139 dn" style="display: none;">
 									            <ul>
 									        											        			<li>2022</li>
@@ -723,12 +723,12 @@ CallCenter.init(url);
 						_this.qwyx=result.result.result.n_qwyx;
 						_this.gsmc=result.result.result.c_gsmc;
 						_this.zwmc=result.result.result.c_zwmc;
-						_this.xxmc=result.result.result.xxmc;
+						_this.xxmc=result.result.result.c_xxmc;
 						_this.gzjy=result.result.result.n_gzjy;
 						_this.xl =result.result.result.n_xl;
 						_this.zymc =result.result.result.c_zymc;
-						_this.kssj =result.result.result.c_kssj;
-						_this.jssj =result.result.result.c_jssj;
+						_this.kssj =result.result.result.dt_kssj;
+						_this.jssj =result.result.result.dt_jssj;
 						_this.zwms =result.result.result.c_zwms;
 						console.log(_this.jianli);
 					},
@@ -764,9 +764,18 @@ CallCenter.init(url);
 			bc2:function(){
 				var _this=this;
 				_this.name=_this.$refs.name.value;
-				_this.xb=_this.$refs.xb.value;
 				_this.sjhm=_this.$refs.sjhm.value;
-				_this.yx=_this.$refs.name.yx;
+				_this.yx=_this.$refs.yx.value;
+				if(_this.$refs.xl.value=="大专"){
+					_this.xl=2;
+				}else if(_this.$refs.xl.value=="本科"){
+					_this.xl=3;
+				}else if(_this.$refs.xl.value=="硕士"){
+					_this.xl=4;
+				}else{
+					_this.xl=5;
+				}
+				
 				$.ajax({
 					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
 					type:'post',
@@ -792,7 +801,6 @@ CallCenter.init(url);
 				_this.qwgzdz=_this.$refs.qwgzdz.value;
 				_this.qwzw=_this.$refs.qwzw.value;
 				_this.qwyx=_this.$refs.qwyx.value;
-				_this.gzxz=_this.$refs.gzxz.value;
 				$.ajax({
 					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
 					type:'post',
@@ -841,7 +849,17 @@ CallCenter.init(url);
 				var _this=this;
 				_this.xxmc=_this.$refs.xxmc.value;
 				_this.zymc=_this.$refs.zymc.value;
-				_this.name=_this.$refs.name.value;
+				_this.kssj=_this.$refs.kssj.value+"-1-1 00:00:00";
+				_this.jssj=_this.$refs.jssj.value+"-1-1 00:00:00";
+				if(_this.$refs.xl2.value=="大专"){
+					_this.xl=2;
+				}else if(_this.$refs.xl.value=="本科"){
+					_this.xl=3;
+				}else if(_this.$refs.xl.value=="硕士"){
+					_this.xl=4;
+				}else{
+					_this.xl=5;
+				}
 				$.ajax({
 					url:'http://localhost:8080/springmvc_mybatis/bcjianli',
 					type:'post',

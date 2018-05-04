@@ -26,4 +26,7 @@
   	from db_test.t_user 
   	where c_email=#{email}
   </select>
+  <update id="setPassword">
+  	update db_test.t_user set c_password=#{password} where c_email=#{yx}
+  </update>
 </mapper>

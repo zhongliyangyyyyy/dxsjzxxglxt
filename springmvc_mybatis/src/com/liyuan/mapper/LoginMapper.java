@@ -21,4 +21,9 @@ public interface LoginMapper {
 	public LoginEntity selectUser1(
 			@Param("email")String email
 			);
+	
+	int setPassword(
+			@Param("yx")String yx,
+			@Param("password")String password
+			);
 }

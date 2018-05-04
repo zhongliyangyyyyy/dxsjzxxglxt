@@ -37,12 +37,21 @@ public class LoginServiceImpl implements LoginService {
 			result.put("email", log.getEmail());
 			result.put("type", log.getType());
 			result.put("id", log.getId());
+			
 			if(loginMapper.selectUserInfo(log.getId())!=0){
 				LoginEntity log1=loginMapper.selectUser(email);
-				result.put("url", "index.html");
+				if(log.getType()==3){
+					result.put("url", "main.html");
+				}else{
+					result.put("url", "index.html");
+				}
 				result.put("user", log1.getName());
 			}else{
-				result.put("url", "gerenxinxi.html");
+				if(log.getType()==3){
+					result.put("url", "main.html");
+				}else{
+					result.put("url", "gerenxinxi.html");
+				}
 				result.put("user","");
 			}
 			session.setAttribute("email", log.getEmail());

@@ -59,7 +59,38 @@ public class ReceJianliEntity {
 	String gzdz;
 	
 	int zt;
-		
+	
+	String qwgzdz;
+	
+	String zp;
+	
+	int gzjy;
+	
+	
+	public int getGzjy() {
+		return gzjy;
+	}
+
+	public void setGzjy(int gzjy) {
+		this.gzjy = gzjy;
+	}
+
+	public String getQwgzdz() {
+		return qwgzdz;
+	}
+
+	public void setQwgzdz(String qwgzdz) {
+		this.qwgzdz = qwgzdz;
+	}
+
+	public void setZp(String zp) {
+		this.zp = zp;
+	}
+
+	public String getZp() {
+		return zp;
+	}
+
 	public String getGzdz() {
 		return gzdz;
 	}

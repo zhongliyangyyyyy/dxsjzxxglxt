@@ -5,10 +5,10 @@
 <link  media="handheld" rel="alternate">
 <!-- end 云适配 -->
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title></title>
+<title>不合适简历</title>
 <meta content="23635710066417756375" property="qc:admins">
 <meta name="description" content="">
-<meta name="keywords" content=">
+<meta name="keywords" content="">
 <meta content="QIQ6KC1oZ6" name="baidu-site-verification">
 
 <!-- <div class="web_root"  style="display:none">http://www.lagou.com</div> -->
@@ -25,6 +25,8 @@ console.log(1);
 <script type="text/javascript" src="style/js/ajaxfileupload.js"></script>
 <script src="style/js/additional-methods.js" type="text/javascript"></script>
 <script type="text/javascript" src="style/js/menu.js"></script>
+<script src="./js/lib/vue.min.js"></script>
+<script src="./js/lib/vue-resource.min.js"></script>
 <!--[if lte IE 8]>
     <script type="text/javascript" src="style/js/excanvas.js"></script>
 <![endif]-->
@@ -34,7 +36,7 @@ var youdao_conv_id = 271546;
 <script src="style/js/conv.js" type="text/javascript"></script>
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script></head>
 <body>
-<div id="body">
+<div id="app">
 	<div id="header">
     	<div class="wrapper">
     		<a class="logo" href="index.html">
@@ -43,9 +45,9 @@ var youdao_conv_id = 271546;
     		<ul id="navheader" class="reset">
     			<li><a href="index.html">首页</a></li>
     			<li><a href="myhome.html">本机构信息</a></li>
-    				    			<li><a rel="nofollow" href="jianli.html">我的简历</a></li>
-	    						    		</ul>
-        	        	<dl class="collapsible_menu none" id="js-userDl">
+    			<li><a rel="nofollow" href="jianli.html">我的简历</a></li>
+	    	</ul>
+        	        	        	        	        	        	<dl class="collapsible_menu none" id="js-userDl">
 	            	<dt style='min-width: auto'>
 	           			<span id='js-user-span'>jason&nbsp;</span> 
 	            		<span class="red dn" id="noticeDot-1"></span>
@@ -54,149 +56,82 @@ var youdao_conv_id = 271546;
                     <dd><a href="updatePwd.html">帐号设置</a></dd>
                     <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
             	</dl>
-
                     </div>
     </div><!-- end #header -->
     <div id="container">
                 	<div class="sidebar">
-        		            	<!-- <a class="btn_create" href="create.html">发布新职位</a> -->
+        		            	
             	                <dl class="company_center_aside">
 		<dt>我收到的简历</dt>
 		<dd class="current">
 		<a href="daichulijianli.html">待处理简历</a> 
+		<span>{{total}}</span>
 			</dd>
 	<dd >
 		<a href="canInterviewResumes.html">待定简历</a>
+		
 	</dd>
 	<dd>
 		<a href="yitongzhimianshijianli.html">已通知面试简历</a>
 	</dd>
-	<dd>
+	<dd >
 		<a href="haveRefuseResumes.html">不合适简历</a>
+		
 	</dd>
 	<dd class="btm">
 		<a href="autoFilterResumes.html">通过面试的简历</a> 
 			</dd>
 </dl>
-<!-- <dl class="company_center_aside">
-		<dt>我发布的职位</dt>
-			<dd>
-		<a href="positions.html">有效职位</a>
-	</dd>
-	<dd>
-		<a href="positions.html">已下线职位</a>
-	</dd>
-	</dl> -->
+
             </div><!-- end .sidebar -->
             <div class="content">
             	<dl class="company_center_content">
                     <dt>
                         <h1>
                             <em></em>
-                            	待处理简历  <span>（共1份）</span>                        </h1>
+                           	 待处理简历 <span>（共1份）</span>                        </h1>
                     </dt>
                     <dd>
-                    	<form action="canInterviewResumes.html" method="get" id="filterForm">
-	                    			                    	<div class="filter_actions">
-		                        	<label class="checkbox">
-		                        		<input type="checkbox">
-		                                <i></i>
-		                        	</label>
-		                            <span>全选</span>
-		                        	<a id="resumeRefuseAll" href="javascript:;">不合适</a>
-		                            <div id="filter_btn" class="">筛选简历 <em class=""></em></div>
-		                        </div><!-- end .filter_actions -->
-		                        <div class="filter_options  dn " style="display: none;">
- 	<dl>
-     	<dt>简历状态：</dt>
-         <dd>
-         	         	<a rel="-1" class="current" href="javascript:;">不限</a>
-         	         	<a rel="1" href="javascript:;">未阅读</a>
-         	         	<a rel="2" href="javascript:;">已阅读</a>
-         	         	<a rel="3" href="javascript:;">已转发</a>
-         	         	<input type="hidden" value="-1" name="resumeStatus">
-         </dd>
-     </dl>
- 	<dl>
-     	<dt>简历形式：</dt>
-         <dd>
-         	         	<a rel="-1" class="current" href="javascript:;">不限</a>
-         	         	<a rel="0" href="javascript:;">附件简历</a>
-         	         	<a rel="1" href="javascript:;">在线简历</a>
-         	         	<input type="hidden" value="-1" name="resumeType">
-         </dd>
-     </dl>
-     <dl>
-     	<dt>工作经验：</dt>
-         <dd>
-         	         	<a rel="-1" class="current" href="javascript:;">不限</a>
-         	         	<a rel="1" href="javascript:;">应届毕业生</a>
-         	         	<a rel="2" href="javascript:;">一年以下</a>
-         	         	<a rel="3" href="javascript:;">1-3年</a>
-         	         	<a rel="4" href="javascript:;">3-5年</a>
-         	         	<a rel="5" href="javascript:;">5-10年</a>
-         	         	<a rel="6" href="javascript:;">10年以上</a>
-         	         	<input type="hidden" value="-1" name="workExp">
-         </dd>
-     </dl>
-     <dl>
-     	<dt>最低学历：</dt>
-         <dd>
-         	         	<a rel="-1" class="current" href="javascript:;">不限</a>
-         	         	<a rel="1" href="javascript:;">大专及以上</a>
-         	         	<a rel="2" href="javascript:;">本科及以上</a>
-         	         	<a rel="3" href="javascript:;">硕士及以上</a>
-         	         	<a rel="4" href="javascript:;">博士及以上</a>
-         	         	<input type="hidden" value="-1" name="eduExp">
-         </dd>
-     </dl>
-          <input type="hidden" value="0" name="filterStatus" id="filterStatus">
-     <input type="hidden" value="" name="positionId" id="positionId">
- </div><!-- end .filter_options -->	                        	                        		                        <ul class="reset resumeLists">
-		                        				                            <li data-id="1686182" class="onlineResume">
-			                                <label class="checkbox">
-			                                    <input type="checkbox">
-			                                    <i></i>
-			                                </label>
+                    	<form action="haveRefuseResumes.html" method="get" id="filterForm" v-for="(item,index) in jianli">
+	                    			                    	
+		                                           	                        		                        <ul class="reset resumeLists">
+		                            			                            <li data-id="1686182" class="onlineResume">
+			                
 			                                <div class="resumeShow">
-			                                				                                    <a title="预览在线简历" target="_blank" class="resumeImg" href="resumeView.html?deliverId=1686182">
-			                                    	<img src="style/images/default_headpic.png">
+			                                				                                   <a title="预览在线简历" target="_blank" class="resumeImg" href="resumeView.html?deliverId=1686182">
+			                                    	<img :src=zp[index]>
 			                                    </a>
 			                                    			                                    <div class="resumeIntro">
 			                                        <h3 class="unread">
-																	                                        	<a target="_blank" title="预览jason的简历" href="preview.html">
-			                                        				                                            jason的简历
-			                                        	</a>
-			                                        					                           	 			<em></em>
-			                                        </h3> 
-			                                        <span class="fr">投递时间：2014-07-01 17:08</span>
+			                                        				                                        	<a target="_blank" title="" href="preview.html">
+			                                        			                                            		{{item.jlmc}}
+		                                        		</a>
+				                           	 							                           	 			<em></em>
+			                                        </h3>
+			                                        <span class="fr">投递时间：{{item.tdsj}}</span>
 			                                        <div> 
-			                                        	jason  			                                        	 / 男 			                                        	/ 大专 			                                        	/ 3年  			                                        	/ 广州 			                                            			                                        		<br>
-			                                            	高级产品经理 · 上海辉硕科技有限公司 | 本科 · 北京大学
-			                                            			                                        </div>
+			                                        	{{item.name}}/ {{item.xb}}/ {{item.xl}}/ 工作经验：{{item.gzjy}}/ 期望工作地址：{{item.qwgzdz}} <br>
+			                                            	{{item.zy}}| {{item.byxx}}
+			                                       </div>
 			                                        <div class="jdpublisher">
 				                                        <span>
-				                                        	应聘职位：<a title="随便写" target="_blank" href="http://www.lagou.com/jobs/149594.html">随便写</a>
+				                                        	应聘职位：<a title="随便写" target="_blank" href="">{{item.ypzw}}</a>
 				                                       						                                        </span>
 			                                        </div>
 			                                    </div>
 			                                    <div class="links">
-			                                        <a data-deliverid="1686182" data-name="jason" data-positionid="149594" data-email="888888888@qq.com" class="resume_notice" href="javascript:void(0)">通知面试</a>
-			                                        <a data-deliverid="1686182" class="resume_refuse" href="javascript:void(0)">不合适</a>
-			                                   		<a data-resumename="jason的简历" data-positionname="随便写" data-deliverid="1686182" data-positionid="149594" data-resumekey="1ccca806e13637f7b1a4560f80f08057" data-forwardcount="1" class="resume_forward" href="javascript:void(0)">待定</a>
+ 													<a data-deliverid="1686182" class="resume_refuse" href="javascript:void(0)" v-on:click="setButton(item.id,2)">待定</a>
+													<a data-deliverid="1686182" class="resume_refuse" href="javascript:void(0)" v-on:click="setButton(item.id,3)">通知面试</a>
+													<a data-deliverid="1686182" class="resume_refuse" href="javascript:void(0)" v-on:click="setButton(item.id,1)">不合适</a>
 			                                    </div>
 			                                </div>
-			                                <div class="contactInfo">
-			                                	<span class="c9">电话：</span>18650216666   &nbsp;&nbsp;&nbsp;   
-			                                    <span class="c9">邮箱：</span><a href="mailto:888888888@qq.com">888888888@qq.com</a>
-			                                </div>
 			                            </li>
-		                            		                    	</ul><!-- end .resumeLists -->
-		                    		                                               	</form>
+		                            		                    	</ul>
+		                    		                                                </form>
                     </dd>
                 </dl><!-- end .company_center_content -->
             </div><!-- end .content -->
- 
+            
 <!------------------------------------- 弹窗lightbox ----------------------------------------->
 <div style="display:none;">
 	<!--通知面试弹窗-->	
@@ -389,11 +324,11 @@ var youdao_conv_id = 271546;
     </div><!--/#refuseMailSuccess-->
 </div>
 <!------------------------------------- end -----------------------------------------> <script src="style/js/jquery.ui.datetimepicker.min.js" type="text/javascript"></script>
-<script src="style/js/received_resumes.min.js" type="text/javascript"></script> 
+<script src="style/js/received_resumes.min.js" type="text/javascript"></script>
 <script>
-</script>  
+</script> 
 			<div class="clear"></div>
-			<input type="hidden" value="b4bc225f0d084ee5b8d045f9c98a49ff" id="resubmitToken">
+			<input type="hidden" value="9421e33d3091428796fec127b07b6c5b" id="resubmitToken">
 	    	<a rel="nofollow" title="回到顶部" id="backtop"></a>
 	    </div><!-- end #container -->
 	</div><!-- end #body -->
@@ -449,5 +384,67 @@ var CallCenter = {
 };
 CallCenter.init(url);
 </script>
+ <script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				jianli:{},
+				total:0,
+				zp:[]
+			},
+			filters:{
+				formatJblx:function(value){
+					if(value==1){
+						return "发布虚假信息";
+					}else if(value==2){
+						return "收取费用";
+					}else if(value==3){
+						return "不发放工资";
+					}else {
+						return "其他";
+					}
+				}
+			},
+			mounted:function(){
+				
+				var _this=this;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/dclJianli',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"pagesize":_this.pagesize,"page":1}),
+					success:function(result){
+						_this.jianli=result.result.result;
+						_this.total=result.result.total;
+						for(var i=0;i<_this.jianli.length;i++){
+							_this.zp[i]=decodeURIComponent(_this.jianli[i].zp);
+						}
+						console.log(_this.jianli);
+					},
+					error:function(result){
+					console.log('error');
+					}
+				})
+			},
+			methods:{
+				setButton:function(id,type){
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/setbutton',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"id":id,"type":type}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							location.reload();
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			}
+		}});
+	</script>
 
 <div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" id="ui-datepicker-div"></div></body></html>

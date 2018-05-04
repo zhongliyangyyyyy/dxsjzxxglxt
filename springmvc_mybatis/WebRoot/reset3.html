@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 <head>
 <script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
@@ -43,39 +43,17 @@ var youdao_conv_id = 271546;
         
     	<input type="hidden" id="resubmitToken" value="" />
      	<div class="find_psw">
-        	<img src="style/images/psw_step1.png" width="369" height="56" alt="找回密码第一步" />
+        	<img src="style/images/psw_step3.png" width="369" height="56" alt="找回密码第一步" />
             <form id="pswForm" action="http://localhost:8080/springmvc_mybatis/forget" method="post" >
-           		<input type="text" name="email" id="email" tabindex="1" value="" placeholder="请输入注册时使用的邮箱地址" ref="yx" />
+           		<input type="password" name="email" id="email" tabindex="1" value="" placeholder="请输入新密码" ref="password"/>
 				<span class="error" style="display:none;" id="beError"></span>
-                                <input type="button" id="submitLogin" value="找回密码" v-on:click="sendYx()" />
+                                <input type="button" id="submitLogin" value="确认"  v-on:click="sendYx()"/>
             </form>
         </div>
     </div>
     
-<script type="text/javascript">
-    $(document).ready(function() {
-    	$('#pswForm input[type="text"]').focus(function(){
-    		$(this).siblings('.error').hide();
-    	});
-    	//验证表单
-
-	    	 $("#pswForm").validate({
-	    	        rules: {
-			    	   	email: {
-			    	    	required: true,
-			    	    	email: true
-			    	   	}
-			    	},
-			    	messages: {
-			    	   	email: {
-			    	    	required: "请输入注册时使用的邮箱地址",
-			    	    	email: "请输入有效的邮箱地址，如：vivi@lagou.com"
-			    	   	}
-			    	}
-	    	});
-    	});
-    </script>
-		<script>
+   
+<script>
 		var vm=new Vue({
 			el:"#app",
 			data:{
@@ -107,14 +85,14 @@ var youdao_conv_id = 271546;
 				sendYx:function(){
 				var _this=this;
 				$.ajax({
-					url:'http://localhost:8080/springmvc_mybatis/forget',
+					url:'http://localhost:8080/springmvc_mybatis/setpassword',
 					type:'post',
 					contentType:'application/json;charset=UTF-8',
-					data:JSON.stringify({"yx":_this.$refs.yx.value}),
+					data:JSON.stringify({"password":_this.$refs.password.value}),
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							window.location.href="http://localhost:8080/springmvc_mybatis/reset2.html"; 
+							window.location.href="http://localhost:8080/springmvc_mybatis/login.html"; 
 						}else{
 							$('#beError').text(result.result.message).show();
 						}
