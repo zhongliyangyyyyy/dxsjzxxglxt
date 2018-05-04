@@ -109,7 +109,7 @@ var youdao_conv_id = 271546;
 			                                        </h3>
 			                                        <span class="fr">投递时间：{{item.tdsj}}</span>
 			                                        <div> 
-			                                        	{{item.name}}/ {{item.xb}}/ {{item.xl}}/ 工作经验：{{item.gzjy}}/ 期望工作地址：{{item.qwgzdz}} <br>
+			                                        	{{item.name}}/ {{item.xb | formatXb}}/ {{item.xl | formatXl}}/ 工作经验：{{item.gzjy | formatGzjy}}/ 期望工作地址：{{item.qwgzdz}} <br>
 			                                            	{{item.zy}}| {{item.byxx}}
 			                                       </div>
 			                                        <div class="jdpublisher">
@@ -202,15 +202,31 @@ CallCenter.init(url);
 				zp:[]
 			},
 			filters:{
-				formatJblx:function(value){
+				formatXb:function(value){
 					if(value==1){
-						return "发布虚假信息";
+						return "男";
 					}else if(value==2){
-						return "收取费用";
-					}else if(value==3){
-						return "不发放工资";
+						return "女";
 					}else {
-						return "其他";
+						return "男";
+					}
+				},
+				formatXl:function(value){
+					if(value==2){
+						return "大专";
+					}else if(value==3){
+						return "本科";
+					}else if(value==4){
+						return "硕士";
+					}else if(value==5){
+						return "博士";
+					}
+				},
+				formatGzjy:function(value){
+					if(value==1){
+						return "有经验";
+					}else {
+						return "无经验";
 					}
 				}
 			},

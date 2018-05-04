@@ -179,4 +179,12 @@ public interface JobMapper {
 			@Param("c_userid")String c_userid,
 			@Param("c_jobid")String c_jobid
 			);
+	
+	int insertShenhe(
+			@Param("uuid")String uuud,
+			@Param("shlx")int shlx,
+			@Param("fqsj")Date fasj,
+			@Param("zt")int zt,
+			@Param("jlid")String jlid
+			);
 }

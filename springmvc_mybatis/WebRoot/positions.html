@@ -92,7 +92,7 @@ var youdao_conv_id = 271546;
 		                                    		                                  		<!-- <span class="receivedResumeNo"><a href="preview.html">应聘简历（1）</a></span> -->
 		                                  			                                    <div>{{item.n_gzxz}} / {{item.n_yx}}/每月 / {{item.n_gzjy}} / 学历要求：{{item.n_xlyq}}</div>
 		                                    		                                    				                                    <div class="c9">发布时间：{{item.dt_fbsj}}</div>
-			                                    		                                    		                                    		                                    <div class="links">
+			                                    		                                    		                                    		                                    <div class="links">状态：[{{item.n_zt | formatZt}}]
 		                                       	<a class="job_offline" href="javascript:void(0)" v-on:click="xxzw(item.c_id)">下线</a>                      
 		                                        <a class="job_del" href="javascript:void(0)" v-on:click="shanchu(item.c_id)">删除</a>
 		                                    </div>
@@ -169,15 +169,13 @@ CallCenter.init(url);
 				total:0
 			},
 			filters:{
-				formatJblx:function(value){
+				formatZt:function(value){
 					if(value==1){
-						return "发布虚假信息";
+						return "审核中";
 					}else if(value==2){
-						return "收取费用";
+						return "审核通过";
 					}else if(value==3){
-						return "不发放工资";
-					}else {
-						return "其他";
+						return "审核不同过";
 					}
 				}
 			},

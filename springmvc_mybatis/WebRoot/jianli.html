@@ -181,7 +181,8 @@ var youdao_conv_id = 271546;
 						    <img width="120" height="120" src="">
 						    <span>更换头像</span>
 						  </div>
-						  <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="img_check(this,'h/resume/uploadPhoto.json','jianli.c_zp');" name="headPic" id="headPic" class="myfiles">
+						  
+						  <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="img_check(this,'http://localhost:8080/springmvc_mybatis/upload','jianli.c_zp');" name="headPic" id="headPic" class="myfiles" ref="file">
 							<!-- <input type="hidden" id="headPicHidden" /> -->
 						  	<em>
 						                  尺寸：120*120px <br>   
@@ -902,6 +903,9 @@ CallCenter.init(url);
 						console.log('error');
 					}
 				})
+			},
+			 getFile() {
+				console.log(this.$refs.file.files)
 			}
 		}});
 	</script>

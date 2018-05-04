@@ -74,7 +74,7 @@
   		<if test="c_nr!='' ">
   			AND	c_zwmc like '%${c_nr}%'
   		</if>
-  		<if test="n_gzjy!=1">
+  		<if test="n_gzjy!=0">
   			AND	n_gzjy=#{n_gzjy}
   		</if>
   		<if test="n_xlyq!=0">
@@ -96,11 +96,11 @@
   
    <select id="selectSearchJobNumber" resultType="long">
   	select count(*) from db_test.t_jobinfo 
-  	<where>
+  	  	<where>
   		n_yxzt=1
   		and n_zt=2
   		<if test="fbsj!=0">
-  			AND dt_fbsj &gt; #{dt_fbsj}
+  		AND dt_fbsj &gt; #{dt_fbsj}
   		</if>
   		<if test="c_nr!='' ">
   			AND	c_zwmc like '%${c_nr}%'
@@ -109,7 +109,7 @@
   			AND	n_gzjy=#{n_gzjy}
   		</if>
   		<if test="n_xlyq!=0">
-  			AND n_xlyq=#{n_xlyq}
+  			AND n_xlyq &gt;=#{n_xlyq}
   		</if>
   		<if test="n_gzxz!=0">
   			AND n_gzxz=#{n_gzxz}
@@ -161,4 +161,11 @@
   	<delete id="deleteWscJob">
   		delete from db_test.t_wscjob where c_userid=#{c_userid} and c_jobid=#{c_jobid}
   	</delete>
+  	
+  	<insert id="insertShenhe">
+  		insert into db_test.t_shenhelist 
+  		(c_id,n_shlx,dt_fqsj,n_zt,c_jlid)
+  		values
+  		(#{uuid},#{shlx},#{fqsj},#{zt},#{jlid})
+  	</insert>
 </mapper>

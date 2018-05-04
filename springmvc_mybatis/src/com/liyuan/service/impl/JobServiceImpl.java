@@ -129,7 +129,13 @@ public class JobServiceImpl implements JobService{
 		
 		JSONObject result=new JSONObject();
 		
-		if(flag==1){
+		String c_uuid=GyUtils.getUUid();
+		
+		int n_shlx=2;//职位信息审核
+		
+		int flag2=jobmapper.insertShenhe(c_uuid, n_shlx, dt_fbsj, 1, c_id);
+		
+		if(flag==1 && flag2==1){
 			result.put("success", true);
 			result.put("message", "发布成功，等待管理员审核！");
 			return GyUtils.returnResult(true, "成功", result);
@@ -413,13 +419,14 @@ public class JobServiceImpl implements JobService{
 			
 			data.put("c_zwmc", job.getC_zwmc());
 			
-			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_gzxz",   job.getN_gzxz()==1?"兼职":"全职");
 			
 			data.put("n_yx", job.getN_yx());
 			
-			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_gzjy", job.getN_gzjy()==1?"无限制":(job.getN_gzjy()==2?"有经验":"无经验"));
 			
-			data.put("n_xlyq", job.getN_xlyq());
+			data.put("n_xlyq", job.getN_xlyq()==1?"无要求":(job.getN_xlyq()==2?"大专":
+				(job.getN_xlyq()==3?"本科":(job.getN_xlyq()==4?"硕士":"博士"))));
 			
 			data.put("c_zwms", job.getC_zwms());
 			
@@ -467,13 +474,14 @@ public class JobServiceImpl implements JobService{
 			
 			data.put("c_zwmc", job.getC_zwmc());
 			
-			data.put("n_gzxz", job.getN_gzxz());
+			data.put("n_gzxz",   job.getN_gzxz()==1?"兼职":"全职");
 			
 			data.put("n_yx", job.getN_yx());
 			
-			data.put("n_gzjy", job.getN_gzjy());
+			data.put("n_gzjy", job.getN_gzjy()==1?"无限制":(job.getN_gzjy()==2?"有经验":"无经验"));
 			
-			data.put("n_xlyq", job.getN_xlyq());
+			data.put("n_xlyq", job.getN_xlyq()==1?"无要求":(job.getN_xlyq()==2?"大专":
+				(job.getN_xlyq()==3?"本科":(job.getN_xlyq()==4?"硕士":"博士"))));
 			
 			data.put("c_zwms", job.getC_zwms());
 			
