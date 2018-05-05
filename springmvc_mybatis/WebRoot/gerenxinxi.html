@@ -180,17 +180,17 @@ input[type="text"], input[type="password"] {
 					if(userData.type == 1) {
 						$("#xxmc").val(userData.xxmc);
 						$("#zymc").val(userData.zymc);
-						$("#studentImg").attr('src', userData.tplj);
+						$("#studentImg").attr('src', decodeURIComponent(userData.tplj));
 						$("#studentImg").attr('data-src', userData.tplj);
 					} else {
-						$("#zpz-identityImg").attr('src', userData.tplj);
+						$("#zpz-identityImg").attr('src', decodeURIComponent(userData.tplj));
 						$("#zpz-identityImg").attr('data-src', userData.tplj);
 					}
 					$("#js-hidden-id").val(userData.id);
 					$("#sjhm").val(userData.sjhm);
 					$("#xm").val(userData.xm);
 					$("#sfzhm").val(userData.sfzhm);
-					$("#headImg").attr('src', userData.txzp);
+					$("#headImg").attr('src', decodeURIComponent(userData.txzp));
 					$("#headImg").attr('data-src', userData.txzp);
 				}
 			});

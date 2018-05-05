@@ -155,7 +155,7 @@ $(function() {
 						}
 						var id=hotJobData[i].c_id;
 						html += '<div class="hot_pos_l"><div class="mb10"><a href="jobdetail.html?id='+id+'" target="_blank">'+hotJobData[i].c_zwmc+'</a>&nbsp;';
-						html += '</div><span><em class="c7">月薪： </em>'+hotJobData[i].n_yx+'/小时</span><br />';
+						html += '</div><span><em class="c7">月薪： </em>'+hotJobData[i].n_yx+'</span><br />';
 						html += '<span><em class="c7">经验：</em> '+hotJobData[i].n_gzjy+'</span><br />';
 						html += '<span><em class="c7">最低学历： </em>'+hotJobData[i].n_xlyq+'</span><br />';
 						html += '<span><em class="c7">工作地址： </em>'+hotJobData[i].c_gzdz+'</span><br />';

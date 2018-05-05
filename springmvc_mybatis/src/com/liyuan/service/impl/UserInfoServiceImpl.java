@@ -36,12 +36,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 		String xxmc=params.getString("xxmc");
 		String zymc=params.getString("zymc");
 		
+		
 		int flag=0;
 		
 		if(StringUtils.isBlank(params.optString("id"))){
 			flag=userInfoMapper.insertUserinfo(id, sfzhm, sjhm, tplj, txzp, type, xm, xxmc, zymc,bh);
+			int flag1=userInfoMapper.updateType(type, bh);
+			int flag2=userInfoMapper.updateZp(bh, txzp);
 		}else{
 			flag=userInfoMapper.updateUserinfo(id, sfzhm, sjhm, tplj, txzp, type, xm, xxmc, zymc);
+			int flag1=userInfoMapper.updateType(type, bh);
+			int flag2=userInfoMapper.updateZp(bh, txzp);
 		}
 		
 		JSONObject result=new JSONObject();
@@ -80,6 +85,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		data.put("xxmc", user.getXxmc());
 		data.put("zt", user.getZt());
 		data.put("zymc", user.getZymc());
+		data.put("email", user.getEmail());
 
 		result.put("data", data);
 		result.put("message","成功");

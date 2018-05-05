@@ -33,4 +33,14 @@ public interface UserInfoMapper {
 	UserInfoEntity selectUserinfo(
 			@Param ("bh")String bh
 			);
+	
+	int updateType(
+			@Param("type")int type,
+			@Param("id")String id
+			);
+	
+	int updateZp(
+			@Param("id")String id,
+			@Param("zp")String zp
+			);
 }

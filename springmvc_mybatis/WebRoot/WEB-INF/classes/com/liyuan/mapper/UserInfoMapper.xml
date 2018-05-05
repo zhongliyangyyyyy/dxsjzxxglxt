@@ -13,13 +13,15 @@
 		<result column="n_zt" jdbcType="INTEGER" property="zt" />
 		<result column="c_bh" jdbcType="VARCHAR" property="bh" />
 		<result column="n_type" jdbcType="INTEGER" property="type" />
+		<result column="c_email" jdbcType="VARCHAR" property="email" />
 		
 	</resultMap>
 	
 	<select id="selectUserinfo" resultMap="userinfo">
-		select c_id,c_xm,c_sjhm,c_txzp,c_xxmc,c_zymc,c_sfzhm,c_tplj,n_zt,n_type
-		from db_test.t_userinfo 
-		where c_bh=#{bh}
+		select info.c_id, info.c_xm, info.c_sjhm, info.c_txzp, info.c_xxmc, info.c_zymc,
+		 info.c_sfzhm, info.c_tplj, info.n_zt, info.n_type,user.c_email 
+		from db_test.t_userinfo info join db_test.t_user user
+		where info.c_bh=#{bh}
 	</select>
 	
 	<update id="updateUserinfo">
@@ -35,4 +37,12 @@
 		value 
 		(#{id},#{xm},#{sjhm},#{txzp},#{xxmc},#{zymc},#{sfzhm},#{tplj},#{bh},#{type})
 	</insert>
+	
+	<update id="updateType">
+		update db_test.t_user set n_type=#{type} where c_id=#{id}
+	</update>
+	
+	<update id="updateZp">
+		update db_test.t_jianliinfo set c_zp=#{zp} where c_syzid=#{id}
+	</update>
 </mapper>

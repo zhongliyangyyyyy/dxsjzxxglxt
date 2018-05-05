@@ -4,9 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="css/style2.css" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="h/images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="style/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="style/css/external.min.css"/>
+<link rel="stylesheet" type="text/css" href="style/css/popup.css"/>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="./js/lib/vue.min.js"></script>
 <script src="./js/lib/vue-resource.min.js"></script>
+  <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $(".click").click(function(){
@@ -27,7 +32,20 @@ $(document).ready(function(){
 
 });
 </script>
-
+ <style>
+		*{padding:0px;margin:0px;}
+        .pop {  display: none;  width: 700px; min-height: 470px;  max-height: 750px;  height:470px;  position: absolute;  top: 0;  left: 0;  bottom: 0;  right: 0;  margin: auto;  padding: 25px;  z-index: 130;  border-radius: 8px;  background-color: #fff;  box-shadow: 0 3px 18px rgba(100, 0, 0, .5);  }
+        .pop-top{  height:40px;  width:100%;  border-bottom: 1px #E5E5E5 solid;  }
+        .pop-top h2{  float: left;  display:black}
+        .pop-top span{  float: right;  cursor: pointer;  font-weight: bold; display:black}
+        .pop-foot{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
+        .pop-cancel, .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #337AB7;  color: #fff;  cursor:pointer;  }
+        .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
+        .pop-content{  height: 380px;  }
+        .pop-content-left{  float: left;  }
+        .pop-content-right{  width:310px;  float: left;  padding-top:20px;  padding-left:20px;  font-size: 16px;  line-height:35px;  }
+        .bgPop{  display: none;  position: absolute;  z-index: 129;  left: 0;  top: 0;  width: 100%;  height: 100%;  background: rgba(0,0,0,.2);  }
+    </style>
 
 </head>
 
@@ -66,7 +84,7 @@ $(document).ready(function(){
         <td>{{item.shsj}}</td>
         <td>{{item.zt | formatZt}}</td>
         <td>
-        	<a href="#" class="tablelink">查看</a>  
+        	<a href="#" class="tablelink" v-on:click="ck(item.jlid,true)">查看</a>
         	&nbsp;   
         	<a href="#" class="tablelink" v-on:click="tongGuo(item)">通过</a>
         	&nbsp; 
@@ -76,6 +94,22 @@ $(document).ready(function(){
 
         </tbody>
     </table>
+	<div class="bgPop" ></div>
+	<!--弹出框-->
+	<div class="pop" >
+		<div class="pop-top">
+			<h2>职位信息</h2>
+			<span class="pop-close" v-on:click="ck(0,false)">Ｘ</span>
+		</div>
+		<div class="pop-content">
+			 <iframe :src="openurl"  id="ckzwxx" height="100%" width="100%">
+			 </iframe>
+		</div>
+		<div class="pop-foot">
+			<input type="button" value="关闭" class="pop-cancel pop-close" v-on:click="ck(0,false)"/>
+		</div>
+	</div>
+
     
    
     <div class="pagin" >
@@ -107,8 +141,12 @@ $(document).ready(function(){
         </div>
     
     </div>
-    
+ 
     </div>
+	
+	<!--遮罩层-->
+	
+	
     
     <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
@@ -123,7 +161,8 @@ $(document).ready(function(){
 				currentpage:1,
 				isTrue:false,
 				isFalse:true,
-				pagesize:10
+				pagesize:10,
+				openurl:""
 			},
 			filters:{
 				formatShlx:function(value){
@@ -137,6 +176,38 @@ $(document).ready(function(){
 					}else{
 						return "审核不通过";
 					}
+				},
+				formatXl:function(value){
+					if(value==1){
+						return "学历要求：无限制";
+					}else if(value==2){
+						return "学历要求：大专";
+					}else if(value==3){
+						return "学历要求：本科";
+					}else if(value==4){
+						return "学历要求：硕士";
+					}else{
+						return "学历要求：博士"
+					}
+				},
+				formatGzjy:function(value){
+					if(value==1){
+						return "工作经验：不要求";
+					}else if(value==2){
+						return "有工作经验";
+					}else{
+						return "工作经验：不要求";
+					}
+				},
+				formatGzxz:function(value){
+					if(value==1){
+						return "工作性质：兼职";
+					}else if(value==2){
+						return "工作性质：全职";
+					}
+				},
+				formatYx:function(value){
+					return "月薪"+value+"元";
 				}
 			},
 			mounted:function(){
@@ -210,11 +281,20 @@ $(document).ready(function(){
 					console.log('error');
 					}
 				})
+			},
+			ck:function(value,ifshow){
+				var _this=this;
+				if(ifshow){
+					_this.openurl="ckakan.html?="+value;
+					$('.bgPop,.pop').show();
+				}else{
+					$('.bgPop,.pop').hide();
+				}
+				
 			}
 				
 			}
 		});
 	</script>
 </body>
-
 </html>

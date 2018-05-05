@@ -158,6 +158,8 @@ $(function(){
 							
 							ZENG.msgbox.show(result.result.message, 4, 2000);
 							setTimeout(function(){location.reload();},2000);
+						}else{
+							ZENG.msgbox.show(result.result.message, 5, 2000);
 						}
 					},
 					error:function(result){

@@ -56,6 +56,18 @@ public class UserInfoEntity {
 	 * 所有者id
 	 */
 	String bh;
+	
+	String email;
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getBh() {
 		return bh;

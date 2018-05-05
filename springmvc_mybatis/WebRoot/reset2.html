@@ -26,7 +26,8 @@ console.log(1);
 <script type="text/javascript" src="style/js/analytics.js"></script>
 <script src="./js/lib/vue.min.js"></script>
 <script src="./js/lib/vue-resource.min.js"></script>
-
+<link type="text/css" href="msgbox.css" rel="stylesheet"  />
+<script type="text/javascript" src="msgbox.js"></script>
 <script type="text/javascript">
 var youdao_conv_id = 271546; 
 </script> 
@@ -91,7 +92,9 @@ var youdao_conv_id = 271546;
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							window.location.href="http://localhost:8080/springmvc_mybatis/reset3.html"; 
+							ZENG.msgbox.show(data.result.message, 4, 2000);
+							setTimeout(function(){window.location.href="http://localhost:8080/springmvc_mybatis/reset3.html"; },2000);
+							
 						}else{
 							$('#beError').text(result.result.message).show();
 						}
