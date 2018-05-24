@@ -64,32 +64,7 @@ $(function(){
 			}
 		}, "请输入有效的范围");
 	
-	/*** check salary  最大值不超过等于最小值2倍***********************/ 	
-		jQuery.validator.addMethod("salaryRange", function(value, element,param) {
-			if(($('#salaryMin').val() != '' && $('#salaryMin').val() != $('#salaryMin').attr('placeholder')) && ($('#salaryMax').val() != '' && $('#salaryMax').val() != $('#salaryMax').attr('placeholder'))){
-				if(parseInt($.trim($('#salaryMax').val()))/parseInt($.trim($('#salaryMin').val())) > 2){
-					return false;
-				}else{
-					return true;
-				}
-			}else{
-				return true;
-			}
-		}, "请输入有效的月薪范围");
-	
-	/*** check salary 最大值大于最小值***********************/ 	
-		jQuery.validator.addMethod("Dvalue", function(value, element,param) {
-			if(($('#salaryMin').val() != '' && $('#salaryMin').val() != $('#salaryMin').attr('placeholder')) && ($('#salaryMax').val() != '' && $('#salaryMax').val() != $('#salaryMax').attr('placeholder'))){
-				if(parseInt($.trim($('#salaryMax').val())) > parseInt($.trim($('#salaryMin').val()))){
-					return true;
-				}else{
-					return false;
-				}
-			}else{
-				return true;
-			}
-		}, "请输入有效的月薪范围");
-		
+
 		/*** check tel***********************/ 	
 		jQuery.validator.addMethod("isTel", function(value, element,param) {
 			var valArray = value.split(',');

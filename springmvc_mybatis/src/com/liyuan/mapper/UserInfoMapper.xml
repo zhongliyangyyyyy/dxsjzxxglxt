@@ -14,13 +14,23 @@
 		<result column="c_bh" jdbcType="VARCHAR" property="bh" />
 		<result column="n_type" jdbcType="INTEGER" property="type" />
 		<result column="c_email" jdbcType="VARCHAR" property="email" />
-		
+	</resultMap>
+	
+	<resultMap type="com.liyuan.po.CommentEntity" id="comment">
+		<result column="c_id" jdbcType="VARCHAR" property="id" />
+		<result column="c_pjrid" jdbcType="VARCHAR" property="pjrid" />
+		<result column="c_bpjrid" jdbcType="VARCHAR" property="bpjrid" />
+		<result column="c_bq" jdbcType="VARCHAR" property="bq" />
+		<result column="c_pjnr" jdbcType="VARCHAR" property="pjnr" />
+		<result column="dt_pjsj" jdbcType="TIMESTAMP" property="pjsj" />
+		<result column="c_jobid" jdbcType="VARCHAR" property="jobid" />
+		<result column="c_grade" jdbcType="VARCHAR" property="grade" />
 	</resultMap>
 	
 	<select id="selectUserinfo" resultMap="userinfo">
 		select info.c_id, info.c_xm, info.c_sjhm, info.c_txzp, info.c_xxmc, info.c_zymc,
 		 info.c_sfzhm, info.c_tplj, info.n_zt, info.n_type,user.c_email 
-		from db_test.t_userinfo info join db_test.t_user user
+		from db_test.t_userinfo info join db_test.t_user user on info.c_bh=user.c_id
 		where info.c_bh=#{bh}
 	</select>
 	
@@ -45,4 +55,30 @@
 	<update id="updateZp">
 		update db_test.t_jianliinfo set c_zp=#{zp} where c_syzid=#{id}
 	</update>
+	
+	<insert id="insertComment">
+		insert into db_test.t_commentinfo 
+		(c_id,c_pjrid,c_bpjrid,c_bq,c_pjnr,dt_pjsj,c_jobid,c_grade)
+		values
+		(#{uuid},#{pjrid},#{bpjrid},#{bq},#{pjnr},#{pjsj},#{jobid},#{grade})
+	</insert>
+	
+	<select id="selectComment" resultMap="comment">
+		select c_id,c_pjrid,c_bpjrid,c_bq,c_pjnr,dt_pjsj,c_jobid,c_grade
+		from db_test.t_commentinfo 
+		where c_pjrid=#{pjrid} and c_bpjrid=#{bpjrid} and c_jobid=#{jobid}
+	</select>
+	
+	<select id="selectMyComment" resultMap="comment">
+		select c_id,c_pjrid,c_bpjrid,c_bq,c_pjnr,dt_pjsj,c_jobid,c_grade
+		from db_test.t_commentinfo
+		where c_bpjrid=#{bpjrid}
+	</select>
+	
+	<select id="selectByJobid" resultMap="comment">
+		select c_id,c_pjrid,c_bpjrid,c_bq,c_pjnr,dt_pjsj,c_jobid,c_grade
+		from db_test.t_commentinfo
+		where c_jobid=#{jobid}
+	</select>
+	
 </mapper>

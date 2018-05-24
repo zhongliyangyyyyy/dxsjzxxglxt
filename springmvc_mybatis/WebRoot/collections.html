@@ -24,7 +24,6 @@ console.log(1);
 <script src="style/js/jquery.lib.min.js" type="text/javascript"></script>
 <script src="style/js/util.js" type="text/javascript"></script>
 <script type="text/javascript" src="style/js/menu.js"></script>
-<script src="style/js/getCollectJobData.js" type="text/javascript"></script>
 <script type="text/javascript" src="style/js/ajaxfileupload.js"></script>
 <script src="style/js/additional-methods.js" type="text/javascript"></script>
 <script src="./js/lib/vue.min.js"></script>
@@ -81,8 +80,27 @@ var youdao_conv_id = 271546;
                     <dd>
                     	                        <form id="collectionsForm">
                             <ul class="reset my_collections" id="js-myCollect">
-
-</ul>
+                              	  <li data-id="" v-for="item in jobdetial">
+                             		
+                             		<div class="co_item">
+                             			<h2 title="{{item.c_zwmc}}">
+	                                        <a target="_blank" :href="'jobdetail.html?id=' + item.c_id ">
+	                                        	<em>{{item.c_zwmc}}</em> 
+	                                        	<span>月薪：{{item.n_yx}}</span>
+	                                    	</a>
+	                                    </h2>
+	                                    <span class="co_time">发布时间：{{item.dt_fbsj}}</span>
+	                                    <div class="co_cate">{{item.c_gzdz}} / {{item.n_gzjy | formatGzjy}} / {{item.n_xlyq | formatXl}} / {{item.n_gzxz | formatGzxz}}</div>
+	                                    <span class="co_youhuo c7">{{item.c_zwms}}</span>
+                                       	        <a class="collection_link collected"  href="javascript:;" v-on:click="tgjl(item.c_id)">投个简历</a>
+                                       			                                       												                                        <i></i>
+                                        <a class=" collection_link collected" href="javascript:;" v-on:click="shanchu(item.c_id)">
+                                        	取消收藏
+                                        	
+                                        </a>
+                               		</div>
+                            	</li>
+							</ul>
                                                     </form>
                                             </dd>
                 </dl>
@@ -98,17 +116,7 @@ var youdao_conv_id = 271546;
             </div> -->
        	</div>
 <script src="style/js/collections.min.js"></script>
-<script>
-$(function(){
-	$('.Pagination').pager({
-	      currPage: 1,
-	      pageNOName: "pageNo",
-	      form: "collectionsForm",
-	      pageCount: 1,
-	      pageSize:  5
-	});
-});
-</script>
+
 			<div class="clear"></div>
 			<input type="hidden" value="4c6ae41d8c254f91becdb5f9ef2d4394" id="resubmitToken">
 	    	<a rel="nofollow" title="回到顶部" id="backtop"></a>
@@ -121,29 +129,66 @@ $(function(){
 <script src="style/js/core.min.js" type="text/javascript"></script>
 <script src="style/js/popup.min.js" type="text/javascript"></script>
 
-<!--  -->
-
 <script>
 		var vm=new Vue({
 			el:"#app",
 			data:{
-				jobdetial:{}
+				jobdetial:[]
 			},
 			filters:{
-				formatJblx:function(value){
+				formatXl:function(value){
 					if(value==1){
-						return "发布虚假信息";
+						return "学历要求：无限制";
 					}else if(value==2){
-						return "收取费用";
+						return "学历要求：大专";
 					}else if(value==3){
-						return "不发放工资";
-					}else {
-						return "其他";
+						return "学历要求：本科";
+					}else if(value==4){
+						return "学历要求：硕士";
+					}else{
+						return "学历要求：博士"
 					}
+				},
+				formatGzjy:function(value){
+					if(value==1){
+						return "工作经验：不要求";
+					}else if(value==2){
+						return "有工作经验";
+					}else{
+						return "工作经验：不要求";
+					}
+				},
+				formatGzxz:function(value){
+					if(value==1){
+						return "工作性质：兼职";
+					}else if(value==2){
+						return "工作性质：全职";
+					}
+				},
+				formatYx:function(value){
+					return "月薪"+value+"元";
 				}
 			},
 			mounted:function(){
-			
+				var _this=this;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/wscjob',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							_this.jobdetial=result.result.result;
+							console.log(_this.jobdetial);
+						}else{
+							ZENG.msgbox.show(result.result.message, 5, 2000);
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
 			},
 			methods:{
 				shanchu:function(id){
@@ -155,7 +200,26 @@ $(function(){
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							
+							ZENG.msgbox.show(result.result.message, 4, 2000);
+							setTimeout(function(){location.reload();},2000);
+						}else{
+							ZENG.msgbox.show(result.result.message, 5, 2000);
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				})
+			},
+			tgjl:function(id){
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/tgjl',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"id":id}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
 							ZENG.msgbox.show(result.result.message, 4, 2000);
 							setTimeout(function(){location.reload();},2000);
 						}else{

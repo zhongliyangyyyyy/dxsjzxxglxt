@@ -27,6 +27,8 @@ console.log(1);
 <script type="text/javascript" src="style/js/menu.js"></script>
 <script src="./js/lib/vue.min.js"></script>
 <script src="./js/lib/vue-resource.min.js"></script>
+<link type="text/css" href="msgbox.css" rel="stylesheet"  />
+<script type="text/javascript" src="msgbox.js"></script>
 <!--[if lte IE 8]>
     <script type="text/javascript" src="style/js/excanvas.js"></script>
 <![endif]-->
@@ -88,7 +90,7 @@ var youdao_conv_id = 271546;
                     <dt>
                         <h1>
                             <em></em>
-                           	 已通知面试简历 <span>（共1份）</span>                        </h1>
+                           	 已通知面试简历 <span>（共{{total}}份）</span>                        </h1>
                     </dt>
                     <dd>
                     	<form action="haveRefuseResumes.html" method="get" id="filterForm" v-for="(item,index) in jianli">
@@ -102,7 +104,7 @@ var youdao_conv_id = 271546;
 			                                    </a>
 			                                    			                                    <div class="resumeIntro">
 			                                        <h3 class="unread">
-			                                        				                                        	<a target="_blank" title="" href="preview.html">
+			                                        				                                        	<a target="_blank" title="" :href="'preview1.html?id=' + item.jlid ">
 			                                        			                                            		{{item.jlmc}}
 		                                        		</a>
 				                           	 							                           	 			<em></em>
@@ -261,11 +263,12 @@ CallCenter.init(url);
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							location.reload();
+							ZENG.msgbox.show(result.result.message, 4, 2000);
+							setTimeout(function(){location.reload();},2000);
 						}
 					},
 					error:function(result){
-						console.log('error');
+						ZENG.msgbox.show(result.result.message, 5, 2000);
 					}
 				})
 			}

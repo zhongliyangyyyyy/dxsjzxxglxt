@@ -8,6 +8,10 @@
 		<result column="c_jobtype3" jdbcType="VARCHAR" property="c_type3"/>
 		<result column="n_code" jdbcType="INTEGER" property="n_code"/>
 	</resultMap>
+	<resultMap id="wscjob" type="com.liyuan.po.WscjobEntity">
+		<result column="c_id" jdbcType="VARCHAR" property="id"/>
+		<result column="c_yx" jdbcType="VARCHAR" property="email"/>
+	</resultMap>
 	
 	<resultMap id="jobinfo" type="com.liyuan.po.JobInfoEntity">
 		<result column="c_id" jdbcType="VARCHAR" property="c_id"/>
@@ -23,7 +27,9 @@
 		<result column="n_llcs" jdbcType="INTEGER" property="n_llcs"/>
 		<result column="n_zt" jdbcType="INTEGER" property="n_zt"/>
 		<result column="dt_fbsj" jdbcType="TIMESTAMP" property="dt_fbsj"/>
-		<result column="dt_fbsj" jdbcType="VARCHAR" property="c_fbzid"/>
+		<result column="c_fbzid" jdbcType="VARCHAR" property="c_fbzid"/>
+		<result column="c_jobtype3" jdbcType="VARCHAR" property="c_jobtype3"/>
+		<result column="c_jobtype1" jdbcType="VARCHAR" property="c_jobtype1"/>
 	</resultMap>
   <select id="selectJobtype" resultMap="jobtype">
   	select * from db_test.t_jobtype
@@ -38,10 +44,11 @@
   </insert>
   
   <select id="selectJob" resultMap="jobinfo">
-  	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,
-  	n_xlyq,c_zwms,c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,c_fbzid
-  	from db_test.t_jobinfo
-  	where c_id=#{c_id}
+  	select info.c_id,info.n_code,info.c_zwmc,info.n_gzxz,info.n_yx,info.n_gzjy,
+  	info.n_xlyq,info.c_zwms,info.c_gzdz,info.c_jsjlyx,info.n_llcs,info.n_zt,
+  	info.dt_fbsj,info.c_fbzid,type.c_jobtype3,type.c_jobtype1
+  	from db_test.t_jobinfo info join db_test.t_jobtype type on info.n_code=type.n_code 
+  	where info.c_id=#{c_id}
   </select>
   
   <select id="selectHotJob" resultMap="jobinfo">
@@ -164,8 +171,63 @@
   	
   	<insert id="insertShenhe">
   		insert into db_test.t_shenhelist 
-  		(c_id,n_shlx,dt_fqsj,n_zt,c_jlid)
+  		(c_id,n_shlx,dt_fqsj,n_zt,c_jlid,c_zh)
   		values
-  		(#{uuid},#{shlx},#{fqsj},#{zt},#{jlid})
+  		(#{uuid},#{shlx},#{fqsj},#{zt},#{jlid},#{zh})
   	</insert>
+  	
+  	<select id="selectWsc" resultMap="wscjob">
+  		select c_id from db_test.t_wscjob 
+  		where c_userid=#{userid} and c_jobid=#{jobid}
+  	</select>
+  	
+  	 <select id="selectWtd" resultMap="wscjob">
+  		select c_id from db_test.t_receivejianliinfo 
+  		where c_jlid=#{jlid} and c_jobid=#{jobid}
+  	</select>
+  	
+  	<select id="selectyx" resultMap="wscjob">
+  		select jianli.c_yx
+  		from db_test.t_jianliinfo jianli join db_test.t_receivejianliinfo rec
+  		on jianli.c_id=rec.c_jlid
+  		where rec.c_id=#{id}
+  	</select>
+  	
+  	<insert id="insertReport">
+  		insert into db_test.t_reportinfo 
+  		(c_id,n_jblx,c_jbrid,c_bjbrid,c_jbrxm,c_bjbrxm,dt_jbsj,c_jbnr)
+  		values
+  		(#{uuid},#{jblx},#{jbrid},#{bjbrid},#{jbrxm},#{bjbrxm},#{jbsj},#{nr})
+  	</insert>
+  	
+  	<update id="updateZt">
+  		update db_test.t_jobinfo set n_zt=#{zt}
+  		where c_id=#{jlid}
+  	</update>
+  	
+  	<select id="selectTjzw" resultMap="jobinfo">
+  	select c_id,n_code,c_zwmc,n_gzxz,n_yx,n_gzjy,n_xlyq,c_zwms,
+  	c_gzdz,c_jsjlyx,n_llcs,n_zt,dt_fbsj,dt_fbsj from db_test.t_jobinfo 
+  	where
+  		n_yxzt=1
+  		and n_zt=2
+		and c_zwmc like '%${qwzw}%'
+		or c_zwms like '%${qwzw}%'
+  </select>
+  
+  <select id="selectFbzwtj" resultMap="jobinfo">
+  	select info.c_id,info.n_code,info.c_zwmc,info.n_gzxz,info.n_yx,info.n_gzjy,
+  	info.n_xlyq,info.c_zwms,info.c_gzdz,info.c_jsjlyx,info.n_llcs,info.n_zt,
+  	info.dt_fbsj,info.c_fbzid,type.c_jobtype3,type.c_jobtype1
+  	from db_test.t_jobinfo info join db_test.t_jobtype type on info.n_code=type.n_code
+  	where info.n_zt=2
+  </select>
+  
+   <select id="selectFbzwtj2" resultMap="jobinfo">
+  	select info.c_id,info.n_code,info.c_zwmc,info.n_gzxz,info.n_yx,info.n_gzjy,
+  	info.n_xlyq,info.c_zwms,info.c_gzdz,info.c_jsjlyx,info.n_llcs,info.n_zt,
+  	info.dt_fbsj,info.c_fbzid,type.c_jobtype3,type.c_jobtype1
+  	from db_test.t_jobinfo info join db_test.t_jobtype type on info.n_code=type.n_code
+  	where info.dt_fbsj &gt; #{kssj} and info.dt_fbsj &lt; #{jssj} and info.n_zt=2
+  </select>
 </mapper>

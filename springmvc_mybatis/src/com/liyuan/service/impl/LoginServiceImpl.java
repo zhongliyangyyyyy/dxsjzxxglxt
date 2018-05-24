@@ -31,6 +31,13 @@ public class LoginServiceImpl implements LoginService {
 			result.put("message", "用户名不存在");
 			return GyUtils.returnResult(true, "成功", result);
 		}
+		
+		if(loginMapper.selectBlacklist(log.getId())!=0){
+			result.put("success", false);
+			result.put("message", "您已被拉黑，请联系管理员755093231@qq.com！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+		
 		if(StringUtils.equals(email, log.getEmail())&&StringUtils.equals(password, log.getPassword())){
 			result.put("success", true);
 			result.put("message", "登入成功");
@@ -43,9 +50,14 @@ public class LoginServiceImpl implements LoginService {
 				if(log.getType()==3){
 					result.put("url", "main.html");
 				}else{
-					result.put("url", "index.html");
+					if(log.getType()==2){
+						result.put("url", "create.html");
+					}else{
+						result.put("url", "index.html");
+					}
 				}
 				result.put("user", log1.getName());
+				session.setAttribute("name", log1.getName());
 			}else{
 				if(log.getType()==3){
 					result.put("url", "main.html");
@@ -55,6 +67,7 @@ public class LoginServiceImpl implements LoginService {
 				result.put("user","");
 			}
 			session.setAttribute("email", log.getEmail());
+			
 			session.setAttribute("logined", true);
 			session.setAttribute("type", log.getType());
 			session.setAttribute("id", log.getId());

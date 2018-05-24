@@ -9,4 +9,10 @@ public interface UserInfoService {
 	public JSONObject bcGrxx(String param,HttpServletRequest request);
 	
 	public  JSONObject bjGrxx(String param,HttpServletRequest request);
+	
+	public  JSONObject pl(String param,HttpServletRequest request);
+	
+	public JSONObject sdpl(String param,HttpServletRequest request);
+	
+	public JSONObject tjzw(String param,HttpServletRequest request);
 }

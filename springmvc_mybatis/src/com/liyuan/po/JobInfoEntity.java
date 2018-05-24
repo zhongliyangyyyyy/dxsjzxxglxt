@@ -59,7 +59,24 @@ public class JobInfoEntity {
 	 * 发布者id
 	 */
 	String c_fbzid;
+	
+	String c_jobtype3;
+	
+	String c_jobtype1;
+	
 
+	public String getC_jobtype1() {
+		return c_jobtype1;
+	}
+	public void setC_jobtype1(String c_jobtype1) {
+		this.c_jobtype1 = c_jobtype1;
+	}
+	public String getC_jobtype3() {
+		return c_jobtype3;
+	}
+	public void setC_jobtype3(String c_jobtype3) {
+		this.c_jobtype3 = c_jobtype3;
+	}
 	public String getC_fbzid() {
 		return c_fbzid;
 	}

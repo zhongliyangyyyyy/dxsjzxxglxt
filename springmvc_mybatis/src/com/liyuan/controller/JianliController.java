@@ -159,4 +159,16 @@ public class JianliController {
 	public JSONObject ckJianli(@RequestBody String param,HttpServletRequest request){
 		return jianliService.ckJianli(param,request);
 	}
+	
+	/**
+	 * 投递简历统计
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tdjltj",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tdjltj(@RequestBody String param,HttpServletRequest request){
+		return jianliService.tdjltj(param, request);
+	}
 }	 

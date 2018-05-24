@@ -8,6 +8,8 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script src="./js/lib/vue.min.js"></script>
 <script src="./js/lib/vue-resource.min.js"></script>
+<link type="text/css" href="msgbox.css" rel="stylesheet"  />
+<script type="text/javascript" src="msgbox.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $(".click").click(function(){
@@ -142,11 +144,12 @@ $(document).ready(function(){
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							location.reload();
+							ZENG.msgbox.show(result.result.message, 4, 2000);
+							setTimeout(function(){location.reload();},2000);
 						}
 					},
 					error:function(result){
-						console.log('error');
+						ZENG.msgbox.show(result.result.message, 5, 2000);
 					}
 				})
 			},

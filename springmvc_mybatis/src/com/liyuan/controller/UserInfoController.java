@@ -42,4 +42,40 @@ public class UserInfoController {
 	public JSONObject bjGrxx(@RequestBody String param,HttpServletRequest request){
 		return userService.bjGrxx(param, request);
 	}
+	
+	/**
+	 * 评论
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/pl", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject pl(@RequestBody String param,HttpServletRequest request){
+		return userService.pl(param, request);
+	}
+	
+	/**
+	 * 评论列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/pllb", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject pllb(@RequestBody String param,HttpServletRequest request){
+		return userService.sdpl(param, request);
+	}
+	
+	/**
+	 * 推荐职位列表
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tjzw", method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject tjzw(@RequestBody String param,HttpServletRequest request){
+		return userService.tjzw(param, request);
+	}
 }

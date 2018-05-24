@@ -29,4 +29,8 @@
   <update id="setPassword">
   	update db_test.t_user set c_password=#{password} where c_email=#{yx}
   </update>
+  
+  <select id="selectBlacklist" resultType="long">
+  	 select count(*) from db_test.t_blacklist where c_yhid=#{id}
+  </select>
 </mapper>

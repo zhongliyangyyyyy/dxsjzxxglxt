@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.liyuan.po.JianliEntity;
+import com.liyuan.po.JobTypeEntity;
 import com.liyuan.po.ReceJianliEntity;
 
 public interface JianliMapper {
@@ -125,5 +126,12 @@ public interface JianliMapper {
 	List<ReceJianliEntity> selectYtdJianli(
 			@Param("c_jlid")String c_jlid,
 			@Param("n_zt")int n_zt
+			);
+	
+	List<JobTypeEntity> selectTdjl();
+	
+	List<JobTypeEntity> selectTdjl2(
+			@Param("kssj")Date kssj,
+			@Param("jssj")Date jssj
 			);
 }

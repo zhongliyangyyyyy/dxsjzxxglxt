@@ -208,4 +208,28 @@ public class JobController {
 	public JSONObject tgjl(@RequestBody String param,HttpServletRequest request){
 		return jobservice.tgjl(param, request);
 	}
+	
+	/**
+	 * 举报
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/jubao",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject jubao(@RequestBody String param,HttpServletRequest request){
+		return jobservice.jubao(param, request);
+	}
+	
+	/**
+	 * 发布职位统计
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/fbzwtj",method=RequestMethod.POST)
+	@ResponseBody
+	public JSONObject fbzwtj(@RequestBody String param,HttpServletRequest request){
+		return jobservice.fbzwtj(param, request);
+	}
 }

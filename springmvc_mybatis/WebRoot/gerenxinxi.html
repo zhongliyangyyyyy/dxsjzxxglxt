@@ -228,7 +228,7 @@ input[type="text"], input[type="password"] {
 					success: function(data) {
 						console.log(data);
 						if(data.result.success == true) {
-							layer.msg('保存成功');
+							layer.msg('保存成功，如改变身份请重新登入');
 						} else {
 							layer.msg('保存失败');
 						}

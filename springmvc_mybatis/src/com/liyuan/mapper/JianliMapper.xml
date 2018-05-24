@@ -44,6 +44,10 @@
 		<result column="n_gzjy" jdbcType="INTEGER" property="gzjy"/>
 	</resultMap>
 	
+	<resultMap type="com.liyuan.po.JobTypeEntity" id="jobtype">
+		<result column="c_jobtype1" jdbcType="VARCHAR" property="c_type1"/>
+	</resultMap>
+	
 	<select id="selectPersonJianli" resultMap="jianliinfo">
 		select c_id,c_name,n_xb,c_sjhm,c_yx,c_qwgzdz,n_gzxz,c_qwzw,n_qwyx,c_gsmc,
 		c_zwmc,c_xxmc,n_gzjy,n_xl,c_zymc,dt_kssj,dt_jssj,c_zwms,c_jlmc,c_zp,c_syzid
@@ -75,7 +79,7 @@
 	</insert>
 	
 	<select id="selectDclJianli" resultMap="receJianli">
-		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		select rece.c_jobid,rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
@@ -93,7 +97,7 @@
 	</select>
 	
 	<select id="selectDdJianli" resultMap="receJianli">
-		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		select rece.c_jobid,rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
@@ -111,7 +115,7 @@
 	</select>
 	
 	<select id="selectYtzmsJianli" resultMap="receJianli">
-		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		select rece.c_jobid,rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
@@ -129,7 +133,7 @@
 	</select>
 	
 	<select id="selectBhsJianli" resultMap="receJianli">
-		select rece.c_id,rece.c_jlid,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		select rece.c_jobid,rece.c_id,rece.c_jlid,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
@@ -147,7 +151,7 @@
 	</select>
 	
 	<select id="selectTgmsJianli" resultMap="receJianli">
-		select rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
+		select rece.c_jobid,rece.c_id,rece.c_jlid,jianli.c_jlmc,jianli.c_name,jianli.n_xb,jianli.n_xl,jianli.c_xxmc,
 		jianli.c_zymc,job.c_zwmc,rece.dt_tdsj,jianli.c_qwgzdz,jianli.c_zp,jianli.n_gzjy
 		from 
 		db_test.t_jobinfo job join db_test.t_receivejianliinfo rece on job.c_id=rece.c_jobid 
@@ -194,5 +198,18 @@
 				and rece.dt_cksj is not null
 			</if>
 		</where>
+	</select>
+	<select id="selectTdjl" resultMap="jobtype">
+		select type.c_jobtype1 
+		from db_test.t_receivejianliinfo rec 
+		join db_test.t_jobinfo info on rec.c_jobid=info.c_id 
+		join db_test.t_jobtype type on info.n_code=type.n_code
+	</select>
+	<select id="selectTdjl2" resultMap="jobtype">
+		select type.c_jobtype1 
+		from db_test.t_receivejianliinfo rec 
+		join db_test.t_jobinfo info on rec.c_jobid=info.c_id 
+		join db_test.t_jobtype type on info.n_code=type.n_code
+		where rec.dt_tdsj &gt; #{kssj} and rec.dt_tdsj &lt; #{jssj}
 	</select>
 </mapper>

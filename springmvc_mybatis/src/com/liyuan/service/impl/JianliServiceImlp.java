@@ -3,6 +3,7 @@ package com.liyuan.service.impl;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,15 +19,25 @@ import org.springframework.stereotype.Service;
 
 import com.liyuan.constant.ReceiveJianliConstant;
 import com.liyuan.mapper.JianliMapper;
+import com.liyuan.mapper.JobMapper;
 import com.liyuan.po.JianliEntity;
+import com.liyuan.po.JobInfoEntity;
+import com.liyuan.po.JobTypeEntity;
+import com.liyuan.po.LoginEntity;
 import com.liyuan.po.ReceJianliEntity;
+import com.liyuan.po.WscjobEntity;
 import com.liyuan.service.JianliService;
 import com.liyuan.utils.GyUtils;
+import com.liyuan.utils.MailOperation;
 
 @Service
 public class JianliServiceImlp implements JianliService{
 	
-	@Autowired JianliMapper jianliMapper;
+	@Autowired 
+	JianliMapper jianliMapper;
+	
+	@Autowired 
+	JobMapper jobMapper;
 
 	/**
 	 * 编辑
@@ -171,6 +182,7 @@ public class JianliServiceImlp implements JianliService{
 			data.put("zp", jianli.getZp());
 			data.put("qwgzdz", jianli.getQwgzdz());
 			data.put("gzjy", jianli.getGzjy());
+			data.put("jobid", jianli.getJobid());
 			total++;
 			jsonArray.add(data);
 		}
@@ -208,6 +220,7 @@ public class JianliServiceImlp implements JianliService{
 			data.put("zp", jianli.getZp());
 			data.put("qwgzdz", jianli.getQwgzdz());
 			data.put("gzjy", jianli.getGzjy());
+			data.put("jobid", jianli.getJobid());
 			total++;
 			jsonArray.add(data);
 		}
@@ -245,6 +258,7 @@ public class JianliServiceImlp implements JianliService{
 			data.put("zp", jianli.getZp());
 			data.put("qwgzdz", jianli.getQwgzdz());
 			data.put("gzjy", jianli.getGzjy());
+			data.put("jobid", jianli.getJobid());
 			total++;
 			jsonArray.add(data);
 		}
@@ -282,6 +296,7 @@ public class JianliServiceImlp implements JianliService{
 			data.put("zp", jianli.getZp());
 			data.put("qwgzdz", jianli.getQwgzdz());
 			data.put("gzjy", jianli.getGzjy());
+			data.put("jobid", jianli.getJobid());
 			total++;
 			jsonArray.add(data);
 		}
@@ -319,6 +334,7 @@ public class JianliServiceImlp implements JianliService{
 			data.put("zp", jianli.getZp());
 			data.put("qwgzdz", jianli.getQwgzdz());
 			data.put("gzjy", jianli.getGzjy());
+			data.put("jobid", jianli.getJobid());
 			total++;
 			jsonArray.add(data);
 		}
@@ -387,12 +403,42 @@ public class JianliServiceImlp implements JianliService{
 	@Override
 	public JSONObject setTzms(String param, HttpServletRequest request) {
 		JSONObject params=JSONObject.fromObject(param);
-		String c_id=params.getString("id");
-		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.YTZMSJL);
 		JSONObject result=new JSONObject();
+		String c_id=params.getString("id");
+		WscjobEntity wsc=jobMapper.selectyx(c_id);
+		MailOperation operation = new MailOperation();
+        String user = "zly75509@163.com";
+        String password = "sbsb75509";
+        String host = "smtp.163.com";
+        String from = "zly75509@163.com";
+        String to = wsc.getEmail();// 收件人
+        String subject = "收到面试通知";
+        //邮箱内容
+        StringBuffer sb = new StringBuffer();
+        sb.append("<!DOCTYPE>"+"<div bgcolor='#f1fcfa'   style='border:1px solid #d9f4ee; font-size:14px; line-height:22px; color:#005aa0;padding-left:1px;padding-top:5px;   padding-bottom:5px;'><span style='font-weight:bold;'>温馨提示：</span>"
+                          + "<div style='width:950px;font-family:arial;'>您好：<br/><h2 style='color:green'>"+"您刚刚收到了一个面试通知，赶紧去查看吧！"+"</h2><br/>本邮件由系统自动发出，请勿回复。<br/>感谢您的使用。<br/>钟黎阳的大学生兼职信息管理系统</div>"
+                         +"</div>");
+        try {
+            boolean res = operation.sendMail(user, password, host, from, to,
+                    subject, sb.toString());
+            
+            if(res==false){
+            	result.put("success", false);
+                result.put("message", "发送通知邮件失败");
+                return GyUtils.returnResult(true, "成功", result);  
+            }
+        } catch (Exception e) {
+        	
+        	result.put("success", false);
+            result.put("message", "发送通知邮件失败");
+            e.printStackTrace();
+            return GyUtils.returnResult(true, "成功", result);  
+        }
+
+		int flag=jianliMapper.updateReceJianli(c_id, ReceiveJianliConstant.YTZMSJL);
 		if(flag==1){
 			result.put("success", true);
-			result.put("message", "设置为通知成功");
+			result.put("message", "已成功发送邮件，通知成功！");
 			return GyUtils.returnResult(true, "成功", result);
 		}else{
 			result.put("success", false);
@@ -464,15 +510,26 @@ public class JianliServiceImlp implements JianliService{
 	public JSONObject tdJianli(String param, HttpServletRequest request) {
 		
 		JSONObject params=JSONObject.fromObject(param);
+		JSONObject result=new JSONObject();
 		HttpSession session=request.getSession(true);
 		String c_userid=(String)session.getAttribute("id");
 		String c_uuid=GyUtils.getUUid();
 		String c_jobid=params.getString("id");
 		JianliEntity personJianli=jianliMapper.selectPersonJianli(c_userid);
+		if(personJianli==null){
+			result.put("success", false);
+			result.put("message", "请先填写简历！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 		String c_jlid=personJianli.getC_id();
+		if(jobMapper.selectWtd(c_jlid, c_jobid)!=null){
+			result.put("success", false);
+			result.put("message", "已投递简历请勿重复投递！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 		int n_zt=ReceiveJianliConstant.DCLJL;
 		int flag=jianliMapper.insertReceJianli(c_uuid, c_jlid, c_jobid, n_zt, new Date());
-		JSONObject result=new JSONObject();
+		
 		if(flag==1){
 			result.put("success", true);
 			result.put("message", "投递简历成功");
@@ -499,30 +556,86 @@ public class JianliServiceImlp implements JianliService{
 		JSONObject result=new JSONObject();
 		data.put("id",jianliEntity.getC_id());
 		data.put("c_name", jianliEntity.getC_name());
+		data.put("c_xb", jianliEntity.getN_xb()==1?"男":"女");
 		data.put("n_xb", jianliEntity.getN_xb());
 		data.put("c_sjhm", jianliEntity.getC_sjhm());
 		data.put("c_yx", jianliEntity.getC_yx());
 		data.put("c_qwgzdz", jianliEntity.getC_qwgzdz());
-		data.put("n_gzxz", jianliEntity.getN_gzxz());
+		data.put("c_gzxz",jianliEntity.getN_gzxz()==1?"兼职":"全职" );
+		data.put("n_gzxz",jianliEntity.getN_gzxz());
 		data.put("c_qwzw", jianliEntity.getC_qwzw());
 		data.put("n_qwyx", jianliEntity.getN_qwyx());
 		data.put("c_gsmc", jianliEntity.getC_gsmc());
 		data.put("c_zwmc", jianliEntity.getC_zwmc());
 		data.put("c_xxmc", jianliEntity.getC_xxmc());
-		data.put("n_gzjy", jianliEntity.getN_gzjy());
+		data.put("c_gzjy",jianliEntity.getN_gzjy()==1?"无工作经验":(jianliEntity.getN_gzjy()==2?"有工作经验":"无工作经验") );
+		data.put("n_gzjy",jianliEntity.getN_gzjy());
+		data.put("c_xl", jianliEntity.getN_xl()==1?"无要求":(jianliEntity.getN_xl()==2?"大专":
+			(jianliEntity.getN_xl()==3?"本科":(jianliEntity.getN_xl()==4?"硕士":"博士"))));
 		data.put("n_xl", jianliEntity.getN_xl());
 		data.put("c_zymc", jianliEntity.getC_zymc());
-		data.put("dt_kssj", jianliEntity.getDt_kssj());
-		data.put("dt_jssj", jianliEntity.getDt_jssj());
+		data.put("dt_kssj", GyUtils.dateTostring2(jianliEntity.getDt_kssj()));
+		data.put("dt_jssj", GyUtils.dateTostring2(jianliEntity.getDt_jssj()));
 		data.put("c_zwms",jianliEntity.getC_zwms());
 		data.put("c_jlmc", jianliEntity.getC_jlmc());
-		data.put("c_zp", jianliEntity.getC_zp());
+	
+			data.put("c_zp",jianliEntity.getC_zp());
+
 		data.put("c_syzid", jianliEntity.getC_syzid());
-		
 		result.put("result", data);
 		result.put("success", true);
 		result.put("message", "成功");
 		
+		return GyUtils.returnResult(true, "成功", result);
+	}
+
+
+	@Override
+	public JSONObject tdjltj(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String time=params.optString("time");
+		List<JobTypeEntity> jobs=new ArrayList<>();
+		if(StringUtils.isBlank(time)){
+			 jobs=jianliMapper.selectTdjl();
+		}else{
+			String kssj=time.substring(0, 7);
+			String jssj=time.substring(9,17);
+			Date starttime=GyUtils.stringTodate(kssj+"-01 00:00");
+			Date endtime=GyUtils.stringTodate(jssj+"-30 23:59");
+			jobs=jianliMapper.selectTdjl2(starttime,endtime);
+		}
+		
+		List<String> jobtype1=new ArrayList<String>();
+		for(JobTypeEntity job:jobs){
+			if(jobtype1.contains(job.getC_type1())){
+				continue;
+			}else{
+				jobtype1.add(job.getC_type1());
+			}
+		}
+		
+		JSONArray jsonArray=new JSONArray();
+		List<String> name=new ArrayList<>();
+		for(String type1:jobtype1){
+			int sum=0;
+			JSONObject data=new JSONObject();
+			for(JobTypeEntity job:jobs){
+				if(job.getC_type1().equals(type1)){
+					sum++;
+				}
+			}
+			data.put("value", sum);
+			data.put("name", type1);
+			jsonArray.add(data);
+			name.add(type1);
+		}
+		
+		JSONObject result=new JSONObject();
+		
+		result.put("result", jsonArray);
+		result.put("success", true);
+		result.put("message", "获取投递简历统计成功!");
+		result.put("name", name);
 		return GyUtils.returnResult(true, "成功", result);
 	}
 

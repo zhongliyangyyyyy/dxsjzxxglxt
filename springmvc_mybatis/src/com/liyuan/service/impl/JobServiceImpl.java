@@ -19,9 +19,11 @@ import com.liyuan.constant.JobConstant;
 import com.liyuan.constant.ReceiveJianliConstant;
 import com.liyuan.mapper.JianliMapper;
 import com.liyuan.mapper.JobMapper;
+import com.liyuan.mapper.UserInfoMapper;
 import com.liyuan.po.JianliEntity;
 import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
+import com.liyuan.po.UserInfoEntity;
 import com.liyuan.service.JobService;
 import com.liyuan.utils.GyUtils;
 
@@ -34,13 +36,18 @@ public class JobServiceImpl implements JobService{
 	@Autowired
 	JianliMapper jianliMapper;
 	
+	@Autowired
+	UserInfoMapper userInfoMapper;
+	
 	
 	/**
 	 * 获取工作种类列表
 	 */
 	@Override
 	public JSONObject getJobtype() {
+		//获得职位类别信息
 		List<JobTypeEntity> jobtypelist=jobmapper.selectJobtype();
+		//将 大类先放入一个数组存储
 		List<String> jobtype1=new ArrayList<String>();
 		List<String> jobtype3=new ArrayList<String>();
 		for(JobTypeEntity job:jobtypelist){
@@ -78,6 +85,7 @@ public class JobServiceImpl implements JobService{
 				} 
 				data1.put("name", type2);
 				data1.put("type",jsonarray2);
+				jsonarray2=new JSONArray();
 				jsonarray.add(data1);
 			}
 			result.put("type",jsonarray);
@@ -119,6 +127,8 @@ public class JobServiceImpl implements JobService{
 		
 		String c_fbzid=(String)session.getAttribute("id");
 		
+		String name=(String)session.getAttribute("name");
+		
 		int n_zt=JobConstant.SHZ;
 		
 		Date dt_fbsj=new Date();
@@ -133,7 +143,7 @@ public class JobServiceImpl implements JobService{
 		
 		int n_shlx=2;//职位信息审核
 		
-		int flag2=jobmapper.insertShenhe(c_uuid, n_shlx, dt_fbsj, 1, c_id);
+		int flag2=jobmapper.insertShenhe(c_uuid, n_shlx, dt_fbsj, 1, c_id,name);
 		
 		if(flag==1 && flag2==1){
 			result.put("success", true);
@@ -186,6 +196,8 @@ public class JobServiceImpl implements JobService{
 			data.put("dt_fbsj", GyUtils.dateTostring(job.getDt_fbsj()));
 			
 			data.put("c_fbzid", job.getC_fbzid());
+			
+			data.put("zwlb", job.getC_jobtype3());
 			
 			result.put("data", data);
 			result.put("success", true);
@@ -643,12 +655,18 @@ public class JobServiceImpl implements JobService{
 		String c_userid=(String)session.getAttribute("id");
 		
 		String c_jobid=params.getString("id");
+		JSONObject result=new JSONObject();
+		if(jobmapper.selectWsc(c_userid, c_jobid)!=null){
+			result.put("success", false);
+			result.put("message", "已收藏职位，请勿重复收藏");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 		
 		String c_id=GyUtils.getUUid();
 		
 		int flag=jobmapper.insertWscJob(c_id, c_userid, c_jobid);
 		
-		JSONObject result=new JSONObject();
+		
 		if (flag==1) {
 			result.put("success", true);
 			result.put("message", "收藏职位成功！");
@@ -695,16 +713,26 @@ public class JobServiceImpl implements JobService{
 		
 		JSONObject params=JSONObject.fromObject(param);
 		HttpSession session=request.getSession(true);
-		
+		JSONObject result=new JSONObject();
 		String c_userid=(String)session.getAttribute("id");
 		
 		String c_jobid=params.getString("id");
-		int flag=jobmapper.deleteWscJob(c_userid, c_jobid);//从收藏职位列表删除
 		String c_id=GyUtils.getUUid();
 		JianliEntity jianliEntity=jianliMapper.selectPersonJianli(c_userid);
+		if(jianliEntity==null){
+			result.put("success", false);
+			result.put("message", "请先填写简历！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
 		String c_jlid=jianliEntity.getC_id();
+		if(jobmapper.selectWtd(c_jlid, c_jobid)!=null){
+			result.put("success", false);
+			result.put("message", "已投递简历，请勿重复投递！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+		int flag=jobmapper.deleteWscJob(c_userid, c_jobid);//从收藏职位列表删除
 		int flag1=jianliMapper.insertReceJianli(c_id, c_jlid, c_jobid, ReceiveJianliConstant.DCLJL, new Date());
-		JSONObject result=new JSONObject();
+		
 		if(flag==1&&flag1==1){
 			result.put("success", true);
 			result.put("message", "投递简历成功！");
@@ -714,5 +742,81 @@ public class JobServiceImpl implements JobService{
 			result.put("message", "投递简历失败！");
 			return GyUtils.returnResult(true, "成功", result);
 		}
+	}
+
+	@Override
+	public JSONObject jubao(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		JSONObject result=new JSONObject();
+		String nr=params.optString("nr");
+		String jobid=params.optString("jobid");
+		int jblx=params.optInt("jblx");
+		HttpSession session=request.getSession(true);
+		String jbrid=(String)session.getAttribute("id");
+		String jbrxm=(String)session.getAttribute("name");
+		JobInfoEntity job=jobmapper.selectJob(jobid);
+		String bjbrid=job.getC_fbzid();
+		Date jbsj=new Date();
+		UserInfoEntity user=userInfoMapper.selectUserinfo(bjbrid);
+		String bjbrxm=user.getXm();
+		String uuid=GyUtils.getUUid();
+		int flag=jobmapper.insertReport(uuid, jblx, jbrid, jbrxm, bjbrid, bjbrxm, jbsj, nr);
+		if(flag==0){
+			result.put("success", false);
+			result.put("message", "举报失败！");
+			return GyUtils.returnResult(true, "成功", result);
+		}else{
+			result.put("success", true);
+			result.put("message", "举报成功！");
+			return GyUtils.returnResult(true, "成功", result);
+		}
+	}
+
+	@Override
+	public JSONObject fbzwtj(String param, HttpServletRequest request) {
+		JSONObject params=JSONObject.fromObject(param);
+		String time=params.optString("time");
+		List<JobInfoEntity> jobs=new ArrayList<>();
+		if(StringUtils.isBlank(time)){
+			 jobs=jobmapper.selectFbzwtj();
+		}else{
+			String kssj=time.substring(0, 7);
+			String jssj=time.substring(9,17);
+			Date starttime=GyUtils.stringTodate(kssj+"-01 00:00");
+			Date endtime=GyUtils.stringTodate(jssj+"-30 23:59");
+			jobs=jobmapper.selectFbzwtj2(starttime,endtime);
+		}
+		
+		List<String> jobtype1=new ArrayList<String>();
+		for(JobInfoEntity job:jobs){
+			if(jobtype1.contains(job.getC_jobtype1())){
+				continue;
+			}else{
+				jobtype1.add(job.getC_jobtype1());
+			}
+		}
+		
+		JSONArray jsonArray=new JSONArray();
+		List<String> name=new ArrayList<>();
+		for(String type1:jobtype1){
+			int sum=0;
+			JSONObject data=new JSONObject();
+			for(JobInfoEntity job:jobs){
+				if(job.getC_jobtype1().equals(type1)){
+					sum++;
+				}
+			}
+			data.put("value", sum);
+			data.put("name", type1);
+			jsonArray.add(data);
+			name.add(type1);
+		}
+		JSONObject result=new JSONObject();
+		
+		result.put("result", jsonArray);
+		result.put("success", true);
+		result.put("message", "获取发布职位统计成功!");
+		result.put("name", name);
+		return GyUtils.returnResult(true, "成功", result);
 	}
 }

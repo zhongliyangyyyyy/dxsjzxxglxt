@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.liyuan.po.JobInfoEntity;
 import com.liyuan.po.JobTypeEntity;
+import com.liyuan.po.WscjobEntity;
 
 public interface JobMapper {
 	
@@ -185,6 +186,46 @@ public interface JobMapper {
 			@Param("shlx")int shlx,
 			@Param("fqsj")Date fasj,
 			@Param("zt")int zt,
-			@Param("jlid")String jlid
+			@Param("jlid")String jlid,
+			@Param("zh")String zh
+			);
+	
+	WscjobEntity selectWsc(
+			@Param("userid")String userid,
+			@Param("jobid")String jobid
+			);
+	
+	WscjobEntity selectWtd(
+			@Param("jlid")String jlid,
+			@Param("jobid")String jobid
+			);
+	WscjobEntity selectyx(
+			@Param("id")String id
+			);
+	int insertReport(
+			@Param("uuid")String uuid,
+			@Param("jblx")int jblx,
+			@Param("jbrid")String jbrid,
+			@Param("jbrxm")String jbrxm,
+			@Param("bjbrid")String bjbrid,
+			@Param("bjbrxm")String bjbrxm,
+			@Param("jbsj")Date jbsj,
+			@Param("nr")String nr
+			);
+	
+	int updateZt(
+			@Param("jlid")String jlid,
+			@Param("zt")int zt
+			);
+	
+	List<JobInfoEntity> selectTjzw(
+			@Param("qwzw")String qwzw
+			);
+	
+	List<JobInfoEntity> selectFbzwtj();
+	
+	List<JobInfoEntity> selectFbzwtj2(
+			@Param("kssj")Date kssj,
+			@Param("jssj")Date jssj
 			);
 }

@@ -94,7 +94,7 @@ var youdao_conv_id = 271546;
 					dataType:'json',
 					success:function(result){
 						if(result.result.success){
-							ZENG.msgbox.show(data.result.message, 4, 2000);
+							ZENG.msgbox.show(result.result.message, 4, 2000);
 							setTimeout(function(){window.location.href="http://localhost:8080/springmvc_mybatis/login.html"; },2000);
 							 
 						}else{

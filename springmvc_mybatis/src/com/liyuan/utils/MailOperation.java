@@ -33,8 +33,11 @@ public class MailOperation {
             String from, String to, String subject, String content)
             throws Exception {
         if (to != null){
+        	//得到系统的属性
             Properties props = System.getProperties();
+            //设置主机名
             props.put("mail.smtp.host", host);
+            //需要验证
             props.put("mail.smtp.auth", "true");
             MailAuthenticator auth = new MailAuthenticator();
             MailAuthenticator.USERNAME = user;
@@ -43,17 +46,20 @@ public class MailOperation {
             session.setDebug(true);
             try {
                 MimeMessage message = new MimeMessage(session);
+                //设置发件人邮箱
                 message.setFrom(new InternetAddress(from));
                 if (!to.trim().equals(""))
+                	//设置收件人邮箱
                     message.addRecipient(Message.RecipientType.TO,
                             new InternetAddress(to.trim()));
+                //设置邮件主题
                 message.setSubject(subject);
                 MimeBodyPart mbp1 = new MimeBodyPart(); // 正文
                 mbp1.setContent(content, "text/html;charset=utf-8");
                 Multipart mp = new MimeMultipart(); // 整个邮件：正文+附件
                 mp.addBodyPart(mbp1);
-                // mp.addBodyPart(mbp2);
                 message.setContent(mp);
+                //设置发送日期
                 message.setSentDate(new Date());
                 message.saveChanges();
                 Transport trans = session.getTransport("smtp");

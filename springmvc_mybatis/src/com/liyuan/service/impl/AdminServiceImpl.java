@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liyuan.mapper.AdminMapper;
+import com.liyuan.mapper.JobMapper;
 import com.liyuan.po.BlackListEntity;
 import com.liyuan.po.JubaoEntity;
 import com.liyuan.po.ShenheEntity;
@@ -24,7 +25,9 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Autowired
 	AdminMapper adminMapper;
-
+	@Autowired
+	JobMapper jobMapper;
+	
 	@Override
 	public JSONObject dshlbService(String param, HttpServletRequest request) {
 		JSONObject params=JSONObject.fromObject(param);
@@ -61,9 +64,11 @@ public class AdminServiceImpl implements AdminService{
 	public JSONObject shtgService(String param, HttpServletRequest request) {
 		JSONObject params=JSONObject.fromObject(param);
 		String id=params.getString("id");
+		String jobid=params.getString("jlid");
 		Date shsj=new Date();
 		int zt=2;
 		int flag=adminMapper.updataTgsh(id, shsj,zt);
+		int flag1=jobMapper.updateZt(jobid, zt);
 		
 		JSONObject result=new JSONObject();
 		if(flag==1){
@@ -82,10 +87,11 @@ public class AdminServiceImpl implements AdminService{
 	public JSONObject shbtgService(String param, HttpServletRequest request) {
 		JSONObject params=JSONObject.fromObject(param);
 		String id=params.getString("id");
+		String jobid=params.getString("jlid");
 		Date shsj=new Date();
 		int zt=3;
 		int flag=adminMapper.updataTgsh(id, shsj,zt);
-		
+		int flag1=jobMapper.updateZt(jobid, zt);
 		JSONObject result=new JSONObject();
 		if(flag==1){
 			result.put("success", true);

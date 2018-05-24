@@ -121,5 +121,21 @@ public interface JobService {
 	 * @param request
 	 * @return
 	 */
-	public JSONObject tgjl(String param,HttpServletRequest request);
+	public JSONObject tgjl(String param,HttpServletRequest request);	
+	
+	/**
+	 * 举报
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject jubao(String param,HttpServletRequest request);
+	
+	/**
+	 * 发布职位统计
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject fbzwtj(String param,HttpServletRequest request);
 }

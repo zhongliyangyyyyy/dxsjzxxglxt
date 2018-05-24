@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style4.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="./js/lib/vue.min.js"></script>
+<script src="./js/lib/vue-resource.min.js"></script>
+<link type="text/css" href="msgbox.css" rel="stylesheet"  />
+<script type="text/javascript" src="msgbox.js"></script>
+<script src="1-6-10.esl.js"></script>
+<link rel="stylesheet" type="text/css" href="css/dateyearmonth.css">
+
+<script src="js/dateyearmonth.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">统计</a></li>
+    <li><a href="#">投递简历统计</a></li>
+    </ul>
+    </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	<center >
+		<div style="padding-right:50px; margin-top: 50px; padding-left: 50px" >
+			<input type="text" id="txt_calendar" placeholder="设置查询时间" value="" data-format="yyyy-mm - yyyy-mm" data-max-year="2018" data-min-year="2017" readonly="readonly" v-model="time" ref="gettime">
+		</div>
+
+
+	</center>
+	 <div id="main" style="height:400px; width:1000px;margin:0 auto;"></div> 
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+	<script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				jubaolist:[],
+				name:[],
+				time:""
+			},
+			filters:{
+				
+			},
+			mounted:function(){
+				var _this=this;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/tdjltj',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({}),
+					dataType:'json',
+					success:function(result){
+						if(result.result.success){
+							_this.jubaolist=result.result.result;
+							_this.name=result.result.name;
+							console.log(_this.jubaolist);
+							console.log(_this.name);
+							vm.settable();
+						}else{
+							ZENG.msgbox.show(result.result.message, 5, 2000);
+						}
+					},
+					error:function(result){
+						console.log('error');
+					}
+				});
+				var myDate1 = new dateyearmonth({id:'txt_calendar'});
+				console.log(myDate1);
+				
+			},
+			methods:{
+				gettime:function(value){
+					var _this=this;
+					$.ajax({
+						url:'http://localhost:8080/springmvc_mybatis/tdjltj',
+						type:'post',
+						contentType:'application/json;charset=UTF-8',
+						data:JSON.stringify({"time":value}),
+						dataType:'json',
+						success:function(result){
+							if(result.result.success){
+								_this.jubaolist=result.result.result;
+								_this.name=result.result.name;
+								vm.settable();
+							}else{
+								ZENG.msgbox.show(result.result.message, 5, 2000);
+							}
+						},
+						error:function(result){
+							console.log('error');
+						}
+					});
+					
+				},
+				settable:function(){
+					var _this=this;
+										// 路径配置
+					require.config({
+						paths:{ 
+							'echarts' : 'echarts',
+							'echarts/chart/pie' : 'echarts'
+						}
+					});
+					
+					// 使用
+					require(
+						[
+							'echarts',
+							'echarts/chart/pie' // 使用柱状图就加载bar模块，按需加载
+						],
+						function (ec) {
+							// 基于准备好的dom，初始化echarts图表
+							var myChart = ec.init(document.getElementById('main')); 
+							var option = {
+						title : {
+							text: '投递简历统计',
+							subtext: '',
+							x:'center'
+						},
+						tooltip : {
+							trigger: 'item',
+							formatter: "{a} <br/>{b} : {c} ({d}%)"
+						},
+						legend: {
+							orient : 'vertical',
+							x : 'left',
+							data:_this.name
+						},
+						toolbox: {
+							show : true,
+							feature : {
+								mark : {show: true},
+								dataView : {show: true, readOnly: false},
+								restore : {show: true},
+								saveAsImage : {show: true}
+							}
+						},
+						calculable : true,
+						
+						series : [
+							{
+								name:'投递简历统计',
+								type:'pie',
+								radius : '55%',
+								center: ['50%', '60%'],
+								data:_this.jubaolist
+							}
+						]
+					};      
+							console.log(_this.jubaolist+_this.name);
+							myChart.setOption(option); 
+						}
+					);
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

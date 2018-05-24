@@ -125,4 +125,12 @@ public interface JianliService {
 	 * @return
 	 */
 	public JSONObject ckJianli(String param,HttpServletRequest request);
+	
+	/**
+	 * 投递简历统计
+	 * @param param
+	 * @param request
+	 * @return
+	 */
+	public JSONObject tdjltj(String param,HttpServletRequest request);
 }

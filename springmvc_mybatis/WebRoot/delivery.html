@@ -34,7 +34,25 @@ console.log(1);
 var youdao_conv_id = 271546; 
 </script> 
 <script src="style/js/conv.js" type="text/javascript"></script>
-
+<style>
+		*{padding:0px;margin:0px;}
+        .pop {  display: none;  width: 900px; min-height: 470px;  max-height: 750px;  height:570px;  position: absolute;  top: 0;  left: 0;  bottom: 0;  right: 0;  margin: auto;  padding: 25px;  z-index: 130;  border-radius: 8px;  background-color: #fff;  box-shadow: 0 3px 18px rgba(100, 0, 0, .5);  }
+        .pop-top{  height:40px;  width:100%;  border-bottom: 1px #E5E5E5 solid;  }
+        .pop-top h2{  float: left;  display:black}
+        .pop-top span{  float: right;  cursor: pointer;  font-weight: bold; display:black}
+        .pop-foot{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
+        .pop-cancel, .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #337AB7;  color: #fff;  cursor:pointer;  }
+        .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
+        .pop-content{  height: 480px;  }
+        .pop-content-left{  float: left;  }
+        .pop-content-right{  width:310px;  float: left;  padding-top:20px;  padding-left:20px;  font-size: 16px;  line-height:35px;  }
+        .bgPop{  display: none;  position: absolute;  z-index: 129;  left: 0;  top: 0;  width: 100%;  height: 100%;  background: rgba(0,0,0,.2);  }
+		.area{  width: 500px; height :300px; left:10px; position:absolute;left:110px;top:100px;}
+		.area1{position:absolute;left:110px;top:100px;}
+		.area2{position:absolute;left:110px;top:70px; }
+		.area3{position:absolute;left:200px;top:70px;}
+		#pjbutton{display: none;}
+</style>
 <body>
 <div id="body">
 			<div id="header">
@@ -66,11 +84,11 @@ var youdao_conv_id = 271546;
             	</dl>
 			</div>
 		</div><!-- end #header -->
-    <div id="container" style="width: 744px">
+    <div id="container" >
         	  	
         <div class="clearfix">
             <div class="content_l">
-            	<dl class="c_delivery" id="app">
+            	<dl class="c_delivery" >
                     <dt>
                         <h1><em></em>已投递简历状态</h1>
                        <!--  <a class="d_refresh" href="javascript:;">刷新</a> -->
@@ -116,6 +134,7 @@ var youdao_conv_id = 271546;
 	                                    	应聘职位：
 	                                    	<span>{{item.ypzw}}</span>
 	                                    </div>
+							<a class="btn_showprogress" v-on:click="choose(true,item)" v-bind:class="{display:sfpj}">进行评价</a>
 	                         <a class="btn_showprogress" href="javascript:;">{{item.zt | formatZt}}<i></i></a>
                           </div>
                           </li>
@@ -124,8 +143,37 @@ var youdao_conv_id = 271546;
                                             </dd>
                 </dl>
             </div>	
+			<div class="content_r">
+            					<div class="mycenterR" id="myRecommend">
+            		<h2>可能适合你的职位 <i></i></h2>
+            		<ul class="reset">
+            			            			<li v-for="item in tjzw"> 
+            				<a target="_blank" :href="'jobdetail.html?id=' + item.jobid ">
+								<span class="f16">{{item.zwmc}}</span>
+								<span class="c7">工作地址:{{item.gzdz}}</span>
+								<em></em>
+							</a>
+            			</li>
+            			            		</ul>
+            		            	</div><!--end #myRecommend-->
+            </div>
        	</div>
       <input type="hidden" id="userid" name="userid" value="314873">
+	   <div class="bgPop" ></div>
+						<!--弹出框-->
+						<div class="pop" >
+							<div class="pop-top">
+								<h2>对该招聘者进行评价</h2>
+								<span class="pop-close" v-on:click="choose(false,0)">Ｘ</span>
+							</div>
+							<div class="pop-content">
+										 <iframe :src="openurl"  id="ckzwxx" height="100%" width="100%">
+										</iframe>
+							</div>
+							<div class="pop-foot">
+								<input type="button" value="关闭" class="pop-cancel pop-close" v-on:click="choose(false,0)"/>
+							</div>
+						</div>
 
 <script src="style/js/delivery.js"></script>
 <script>
@@ -159,9 +207,12 @@ $(function(){
 
 <script>
 		var vm=new Vue({
-			el:"#app",
+			el:"#container",
 			data:{
-				jobs:[{"jlcm":"简历名称"}]
+				jobs:[{"jlcm":"简历名称"}],
+				openurl:"",
+				sfpj:"none",
+				tjzw:[]
 			},
 			filters:{
 				formatZt:function(value){
@@ -181,6 +232,11 @@ $(function(){
 			mounted:function(){
 				var _this=this;
 				var id=window.document.URL.split("=")[1];
+				if(id==4){
+					_this.sfpj="inline";
+				}else if(id==5){
+					_this.sfpj="inline";
+				}
 				$.ajax({
 					url:'http://localhost:8080/springmvc_mybatis/ytdJianli',
 					type:'post',
@@ -189,6 +245,19 @@ $(function(){
 					success:function(result){
 						_this.jobs=result.result.result;
 						console.log(_this.jobs);
+					},
+					error:function(result){
+					console.log('error');
+					}
+				});
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/tjzw',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({}),
+					success:function(result){
+						_this.tjzw=result.result.result;
+						console.log(_this.tjzw);
 					},
 					error:function(result){
 					console.log('error');
@@ -212,6 +281,17 @@ $(function(){
 						console.log('error');
 					}
 				})
+			},
+			choose:function(ifshow,item){
+				var _this=this;
+				
+				if(ifshow){
+				_this.openurl="tag1.html?="+item.jobid+"="+item.jlid;
+					$('.bgPop,.pop').show();
+				}else{
+					$('.bgPop,.pop').hide();
+				}
+				
 			}
 		}});
 	</script>

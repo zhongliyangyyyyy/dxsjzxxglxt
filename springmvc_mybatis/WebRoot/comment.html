@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>详情页面</title>
+<link href="style/shopdetail.css" rel="stylesheet" type="text/css">
+
+<script src="js/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style/css/style.css"/>
+<link rel="stylesheet" media="screen" href="css/style3.css" />
+<link rel="stylesheet" href="layui/css/layui.css" media="all">
+<script src="style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="style/js/util.js"></script>
+<script type="text/javascript" src="style/js/menu.js"></script>
+<script src="js/common.js"></script>
+<script src="./js/lib/vue.min.js"></script>
+<script src="./js/lib/vue-resource.min.js"></script>
+<style>
+.set_image_all {
+	cursor: pointer;
+	position: relative;
+}
+
+.set_image_all .set_image_item {
+	position: relative;
+	display: inline-block;
+	z-index: 11;
+	visibility: visible;
+}
+
+.set_image_all .set_image_top {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+}
+
+.set_image_all .set_image_top>div {
+	display: inline-block;
+	overflow: hidden;
+}
+
+.set_image_all .set_image_top>div>img {
+	height: 100%;
+}
+
+.grade {
+	vertical-align: top;
+}
+</style>
+</head>
+
+<body>
+
+<!-----header部分------->
+<!-----header部分------->
+<div id="header">
+			<div class="wrapper">
+				<a href="index.html" class="logo">
+					<img src="style/images/schoolLogo.png" width="229" height="43" alt="此处放logo" />
+				</a>
+				<ul class="reset" id="navheader">
+					<li class="current"><a href="index.html">首页</a></li>
+					<li ><a href="myhome.html" >本机构信息</a></li>
+					<!-- <li ><a href="h/toForum.html" target="_blank">论坛</a></li> -->
+					<li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
+					<li ><a href="create.html" rel="nofollow">发布职位</a></li>
+					<li ><a href="collections.html" rel="nofollow">我收藏的职位</a></li>
+				</ul>
+				<ul class="loginTop none" id="js-loginAndReg">
+					<li><a href="login.html" rel="nofollow">登录</a></li> 
+					<li>|</li>
+					<li><a href="register.html" rel="nofollow">注册</a></li>
+				</ul>
+				<dl class="collapsible_menu none" id="js-userDl">
+	            	<dt style='min-width: auto'>
+	           			<span id='js-user-span'>jason&nbsp;</span> 
+	            		<span class="red dn" id="noticeDot-1"></span>
+	            		<i></i>
+	            	</dt>
+                    <dd><a href="updatePwd.html">帐号设置</a></dd>
+                    <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+            	</dl>
+			</div>
+		</div><!-- end #header -->
+<!-----header结束------->
+<!-----商品详情部分------->
+
+<!-----商品详情部分结束------->
+<!-----商品详情评价部分-------> 
+<div class="evaluate" id="app">
+
+	
+    
+    
+    <div class="tabbedPanels">
+
+        
+     <div class="panelContainer">
+
+      
+        <div class="panel" id="panel02">
+        	<p class="sell">收到的评价</p>
+        	 <div id="star_grade"><h1>总评分：</h1></div>
+            <p class="judge">全部评价({{zs}})</p>
+            <p class="which">标签统计：
+			<div>
+				<ul>
+					<li v-for="item in five">
+						<a  class="tag">
+							<span class="tag_name">{{item.key}}</span>
+							<span class="tag_count">{{item.value}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			</p>
+			<br>
+			<hr />
+            <div class="judge01"  v-for="(item,index) in sdpl">
+            <div class="idimg"><img :src=zp[index] height="49" width="49"></div>
+            <div class="write">
+            <p class="idname">评价人：{{item.pjrxm}}</p>
+            <p>评价内容：{{item.nr}}</p>
+            <p class="which">标签:
+			<div class="panel">
+				<ul>
+					<li v-for="item2 in item.bq">
+						<a  class="tag">
+							<span class="tag_name">{{item2}}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			</p> 
+            </div>
+            </div>
+            
+            
+            
+              <div class="clear"></div>
+        </div>
+            
+
+            
+            
+         </div>
+    
+    </div>
+
+</div>
+<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+    
+    $('.tag').each(function(i) {
+    	setTimeout(function() {
+    		$('.tag:eq('+i+')').css({ display: 'block', opacity: 0 }).stop().animate({ opacity: 1 }, 'easeInOutExpo'); 
+    	}, 250 * (i + 1))
+    });
+
+	$('.tag').hover(function() {
+		$(this).stop().animate({ paddingRight: ($('.tag_count', this).outerWidth() - 5) }, 'easeInOutExpo');
+	}, function() {
+		$(this).stop().animate({ paddingRight: 5 }, 'easeInOutExpo');
+	});
+
+});
+</script>
+<script type="text/javascript" src="js/markingSystem.js"></script>
+	<script>
+$("#star_grade").markingSystem({
+					num: 5,
+					havePoint: true,
+					haveGrade: true,
+					unit: '星',
+					grade: localStorage.getItem("pf"),
+					height: 40,
+					width: 40,
+				});
+</script>
+<script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				zs:0,
+				five:{},
+				sdpl:{},
+				zp:[]
+			},
+			filters:{
+				
+			},
+			mounted:function(){
+				var _this=this;
+				$.ajax({
+					url:'http://localhost:8080/springmvc_mybatis/pllb',
+					type:'post',
+					contentType:'application/json;charset=UTF-8',
+					data:JSON.stringify({"zt":1}),
+					success:function(result){
+						if(result.result.success){
+							_this.zs=result.result.pjrs;
+							_this.five=result.result.five;
+							_this.sdpl=result.result.result;
+							localStorage.setItem("pf",result.result.pf);
+							for(var i=0;i<_this.sdpl.length;i++){
+								_this.zp[i]=decodeURIComponent(_this.sdpl[i].zp);
+							}
+							
+						}
+					},
+					error:function(result){
+					console.log('error');
+					}
+				})
+				
+			},
+			methods:{
+
+		}});
+		
+	</script>
+
+	
+
+<!-----商品详情评价部结束分-------> 
+
+<!----bottom_页脚部分----->
+
+
+</body>
+</html>

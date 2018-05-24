@@ -26,4 +26,8 @@ public interface LoginMapper {
 			@Param("yx")String yx,
 			@Param("password")String password
 			);
+	
+	long selectBlacklist(
+			@Param("id")String id
+			);
 }
